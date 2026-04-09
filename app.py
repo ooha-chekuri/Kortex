@@ -1,13 +1,4 @@
 import streamlit as st
-
-# MUST BE THE FIRST STREAMLIT COMMAND
-st.set_page_config(
-    page_title="KORTEX OS",
-    layout="wide",
-    page_icon="B",
-    initial_sidebar_state="collapsed"
-)
-
 import time
 import os
 from pathlib import Path
@@ -17,10 +8,18 @@ import json
 from src.agents.orchestrator import run_kortex_agent
 from src.data.ingest import build_indices
 
-# Custom CSS for Light Theme + Departure Mono Aesthetic
+# MUST BE THE FIRST STREAMLIT COMMAND
+st.set_page_config(
+    page_title="Kortex | Enterprise Knowledge Copilot",
+    layout="wide",
+    page_icon="🔷",
+    initial_sidebar_state="expanded"
+)
+
+# Custom CSS for Clean Light Theme + Departure Mono Aesthetic
 st.markdown("""
     <style>
-    /* Load Departure Mono from GitHub via JSDelivr */
+    /* Load Departure Mono via CDN */
     @font-face {
         font-family: 'Departure Mono';
         src: url('https://cdn.jsdelivr.net/gh/lucas-dlevy/departure-mono@main/fonts/DepartureMono-Regular.woff2') format('woff2');
@@ -28,12 +27,13 @@ st.markdown("""
         font-style: normal;
     }
 
-    /* Force Light Theme */
+    /* Force Light Theme Base */
     :root {
         --primary-color: #4b49ff;
         --bg-color: #ffffff;
-        --text-color: #000000;
-        --border-color: #000000;
+        --text-color: #1a1a1a;
+        --accent-bg: #f8f9fa;
+        --border-color: #e0e0e0;
     }
 
     .stApp {
@@ -41,193 +41,206 @@ st.markdown("""
         color: var(--text-color);
     }
 
+    /* Global Font Override */
     * {
         font-family: 'Departure Mono', monospace !important;
-        text-transform: uppercase;
     }
 
-    /* Container Styling (Thin Black Borders) */
-    .kortex-box {
+    /* Remove heavy black OS borders, use clean cards */
+    .result-card {
         border: 1px solid var(--border-color);
+        padding: 20px;
+        background-color: var(--bg-color);
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        margin-bottom: 20px;
+    }
+
+    .thinking-trace {
+        background-color: var(--accent-bg);
+        border-left: 3px solid var(--primary-color);
         padding: 15px;
-        background-color: #ffffff;
-        margin-bottom: 10px;
-    }
-
-    .kortex-sidebar-item {
-        border: 1px solid var(--border-color);
-        padding: 10px;
-        margin-bottom: 10px;
-        background-color: #ffffff;
-        font-size: 0.8rem;
-    }
-
-    .kortex-label {
-        font-size: 0.7rem;
-        color: #555;
-        margin-bottom: 3px;
-    }
-
-    .kortex-value {
-        font-size: 1.8rem;
-        font-weight: 700;
-    }
-
-    /* Header Styling */
-    .kortex-header {
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 5px;
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
     }
 
     /* Button Styling */
     .stButton>button {
-        border-radius: 0px !important;
-        border: 1px solid var(--border-color) !important;
-        background-color: #fff !important;
-        color: #000 !important;
-        font-weight: 700 !important;
+        border-radius: 4px !important;
+        border: 1px solid var(--primary-color) !important;
+        background-color: var(--bg-color) !important;
+        color: var(--primary-color) !important;
+        font-weight: bold !important;
         width: 100% !important;
+        transition: all 0.2s;
     }
     .stButton>button:hover {
-        background-color: #000 !important;
-        color: #fff !important;
+        background-color: var(--primary-color) !important;
+        color: #ffffff !important;
     }
     .stButton>button[kind="primary"] {
         background-color: var(--primary-color) !important;
-        color: #fff !important;
-        border: 1px solid var(--border-color) !important;
+        color: #ffffff !important;
     }
 
-    /* Hide default elements */
-    #MainMenu, footer, header {visibility: hidden;}
-    
+    /* Headings */
+    h1, h2, h3 {
+        color: #000000;
+        margin-top: 0;
+    }
+
+    /* Custom Badges */
+    .badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .badge-doc { background-color: #e3f2fd; color: #0d47a1; }
+    .badge-ticket { background-color: #f1f8e9; color: #33691e; }
+
     /* Escalation Banner */
-    .escalation-box {
-        border: 2px dashed #ff0000;
-        background-color: #fff0f0;
-        color: #ff0000;
+    .escalation-banner {
+        border: 1px solid #ff5252;
+        background-color: #ffebee;
+        color: #b71c1c;
         padding: 15px;
         margin-top: 20px;
+        border-radius: 8px;
         text-align: center;
         font-weight: bold;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# Session State
+# Session State Initialization
 if 'agent_output' not in st.session_state: st.session_state.agent_output = None
 if 'trace_logs' not in st.session_state: st.session_state.trace_logs = []
 if 'query' not in st.session_state: st.session_state.query = ""
 
-# Layout: 3 Columns
-l_col, m_col, r_col = st.columns([1, 4, 1.5])
-
-# --- LEFT SIDEBAR (TRIAGE.ENV) ---
-with l_col:
-    st.markdown("### B TRIAGE.ENV")
-    st.markdown("<p class='kortex-label'>SELECT_TASK</p>", unsafe_allow_html=True)
-    tasks = ["TASK 1: BEST EXP", "TASK 2: OVERFIT", "TASK 3: NEXT EXP", "TASK 4: EXPERIMENTS", "TASK 5: FAILED RUN"]
-    for task in tasks:
-        st.markdown(f"<div class='kortex-sidebar-item'>{task}</div>", unsafe_allow_html=True)
+# --- SIDEBAR (ADMIN & CONFIG) ---
+with st.sidebar:
+    st.markdown("### ⚙️ SYSTEM ADMIN")
+    st.info("Upload technical docs or support tickets to build the enterprise knowledge base.")
     
-    st.markdown("<p class='kortex-label'>SUPPORT</p>", unsafe_allow_html=True)
-    st.markdown("<div class='kortex-sidebar-item'>HOW TO USE / GUIDE</div>", unsafe_allow_html=True)
-    
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    st.markdown("<div style='border: 1px dashed #000; padding: 10px; font-size: 0.6rem;'>ENGINE_VERSION: QWEN_2.5_72B</div>", unsafe_allow_html=True)
-
-# --- MAIN CONTENT (REASONING ACTIVE) ---
-with m_col:
-    # Header
-    st.markdown(f"""
-        <div class='kortex-header'>
-            <div>
-                <h2 style='margin:0;'>KORTEX_OS: REASONING_ACTIVE</h2>
-                <p style='margin:0; font-size:0.7rem; color:#666;'>GROUNDED_RETRIEVAL_MODE</p>
-            </div>
-            <div style='color:green; font-size:0.7rem;'>STATE: STATUS_OK_ACTIVE</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # Stats Row
-    s1, s2, s3 = st.columns(3)
-    with s1: st.markdown("<div class='kortex-box'><p class='kortex-label'>RETRIEVAL_COUNT</p><div class='kortex-value'>5.00</div></div>", unsafe_allow_html=True)
-    with s2: st.markdown("<div class='kortex-box'><p class='kortex-label'>STEP_COUNTER</p><div class='kortex-value'>0 // 10</div></div>", unsafe_allow_html=True)
-    with s3:
-        conf = st.session_state.agent_output.get("confidence", 0.0) if st.session_state.agent_output else 0.0
-        st.markdown(f"<div class='kortex-box'><p class='kortex-label'>AI_CONFIDENCE</p><div class='kortex-value'>{conf*100:.0f}%</div></div>", unsafe_allow_html=True)
-
-    # Input Bar
-    query_input = st.text_input("INPUT", value=st.session_state.query, placeholder="ENTER COMMAND OR QUERY...", label_visibility="collapsed")
-    if query_input != st.session_state.query: st.session_state.query = query_input
-
-    # Reasoning Ledger
-    st.markdown("<div class='kortex-box' style='min-height: 400px;'>", unsafe_allow_html=True)
-    if st.session_state.agent_output:
-        out = st.session_state.agent_output
-        if out.get("status") == "escalated":
-            st.error(f"TASK_ESCALATED: {out.get('reason', 'CONFIDENCE_LOW')}")
-        else:
-            st.markdown("### RESPONSE_SYNTHESIS")
-            st.write(out.get("answer", ""))
-            
-            st.markdown("<br><p class='kortex-label'>SOURCES_MAPPING</p>", unsafe_allow_html=True)
-            if out.get("context"):
-                for ctx in list({(c['source'], c['type']) for c in out['context']}):
-                    st.markdown(f"<div style='font-size:0.7rem; border-bottom:1px solid #eee; padding:2px 0;'>ID: {ctx[0]} // TYPE: {ctx[1]}</div>", unsafe_allow_html=True)
-    else:
-        st.markdown("<div style='text-align:center; padding:50px; opacity:0.3;'>WAITING_FOR_SYSTEM_INPUT...</div>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# --- RIGHT SIDEBAR (ACTIONS / UPLOAD / INGEST) ---
-with r_col:
-    st.markdown("<p class='kortex-label'>ACTIONS</p>", unsafe_allow_html=True)
-    with st.container():
-        st.markdown("<div class='kortex-box'>", unsafe_allow_html=True)
-        if st.button("INVESTIGATE", type="primary"):
-            if st.session_state.query:
-                st.session_state.trace_logs = []
-                with st.status("EXECUTING_PIPELINE...", expanded=True) as status:
-                    final = {}
-                    for step in run_kortex_agent(st.session_state.query):
-                        node = list(step.keys())[0]
-                        status.write(f"AGENT_{node.upper()}: PROCESSING...")
-                        for k, v in step[node].items():
-                            if k != "trace": final[k] = v
-                        time.sleep(0.1)
-                    status.update(label="PIPELINE_COMPLETE", state="complete")
-                st.session_state.agent_output = final
-                st.rerun()
-        if st.button("DISCARD"):
-            st.session_state.clear()
-            st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown("<p class='kortex-label'>UPLOAD_KNOWLEDGE</p>", unsafe_allow_html=True)
-    with st.container():
-        st.markdown("<div class='kortex-box'>", unsafe_allow_html=True)
-        uploaded_files = st.file_uploader("FILES", type=["pdf", "txt", "md"], accept_multiple_files=True, label_visibility="collapsed")
+    with st.expander("📁 UPLOAD KNOWLEDGE", expanded=False):
+        uploaded_files = st.file_uploader("Upload PDF, TXT, or MD", type=["pdf", "txt", "md"], accept_multiple_files=True)
         if uploaded_files:
             docs_path = Path("docs")
             docs_path.mkdir(exist_ok=True)
             for uploaded_file in uploaded_files:
                 with open(docs_path / uploaded_file.name, "wb") as f:
                     f.write(uploaded_file.getbuffer())
-            st.success(f"SAVED_{len(uploaded_files)}_FILES")
-        st.markdown("</div>", unsafe_allow_html=True)
+            st.success(f"Saved {len(uploaded_files)} files to /docs")
 
-    st.markdown("<p class='kortex-label'>INGESTION_CONTROLS</p>", unsafe_allow_html=True)
-    with st.container():
-        st.markdown("<div class='kortex-box'>", unsafe_allow_html=True)
-        if st.button("SYNC_KNOWLEDGE"):
-            with st.spinner("SYNCING..."):
-                stats = build_indices()
-                st.success(f"OK: {stats['docs']} DOCS / {stats['tickets']} TIX")
-        st.markdown("</div>", unsafe_allow_html=True)
+    if st.button("🔄 SYNC KNOWLEDGE BASE"):
+        with st.spinner("Analyzing and indexing documents..."):
+            stats = build_indices()
+            st.success(f"Indexed: {stats['docs']} Documents | {stats['tickets']} Tickets")
 
-    st.markdown("<p class='kortex-label'>SYSTEM_INFO</p>", unsafe_allow_html=True)
-    st.markdown("<div class='kortex-box' style='font-size:0.6rem;'>CLUSTER_ID: K-880<br>LATENCY: 42MS<br>UPTIME: 99.9%</div>", unsafe_allow_html=True)
+    st.divider()
+    st.markdown("### ℹ️ ABOUT")
+    st.caption("Kortex leverages a multi-agent orchestration framework to provide validated answers from fragmented documentation.")
+    if st.button("🗑️ CLEAR SESSION"):
+        st.session_state.clear()
+        st.rerun()
+
+# --- MAIN INTERFACE ---
+st.markdown("# 🔷 KORTEX")
+st.markdown("### ENTERPRISE KNOWLEDGE COPILOT")
+st.write("Search across PDFs, SOPs, and historical support tickets with agentic reasoning.")
+
+# Query Input
+query_input = st.text_input("Ask a question:", placeholder="e.g., 'How do I resolve Kafka consumer lag?'", label_visibility="collapsed")
+if query_input:
+    st.session_state.query = query_input
+
+if st.button("ASK KORTEX", type="primary"):
+    if st.session_state.query:
+        st.session_state.trace_logs = []
+        st.session_state.agent_output = None
+        
+        # Display thinking status
+        with st.status("🧠 Agents collaborating...", expanded=True) as status:
+            final_result = {}
+            for step in run_kortex_agent(st.session_state.query):
+                node_name = list(step.keys())[0]
+                node_data = step[node_name]
+                
+                # Format node name for display
+                display_name = node_name.replace("_", " ").title()
+                status.write(f"**{display_name}**: Working...")
+                
+                if "trace" in node_data:
+                    st.session_state.trace_logs.extend(node_data["trace"])
+                
+                # Save state
+                for k, v in node_data.items():
+                    if k != "trace":
+                        final_result[k] = v
+                
+                time.sleep(0.2)
+            
+            status.update(label="✅ Reasoning Complete", state="complete")
+        
+        st.session_state.agent_output = final_result
+        st.rerun()
+    else:
+        st.warning("Please enter a query first.")
+
+# --- RESULTS AREA ---
+if st.session_state.agent_output:
+    st.divider()
+    col_trace, col_ans = st.columns([1, 2])
+    
+    with col_trace:
+        st.markdown("### 🧠 AGENT ACTIVITY")
+        trace_box = ""
+        for log in st.session_state.trace_logs:
+            trace_box += f"- {log}\n"
+        st.markdown(f"<div class='thinking-trace'>{trace_box}</div>", unsafe_allow_html=True)
+
+    with col_ans:
+        st.markdown("### 📄 GROUNDED RESPONSE")
+        res = st.session_state.agent_output
+        
+        if res.get("status") == "escalated":
+            st.error(f"**Escalation Triggered**: {res.get('reason', 'Confidence score below threshold.')}")
+            st.markdown("<div class='escalation-banner'>⚠️ System uncertain. Redirecting to human engineer.</div>", unsafe_allow_html=True)
+        else:
+            # Answer Card
+            st.markdown(f"<div class='result-card'>{res.get('answer', 'No response generated.')}</div>", unsafe_allow_html=True)
+            
+            # Sources & Confidence Row
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown("#### 📚 SOURCES")
+                if res.get("context"):
+                    # Deduplicate and display sources
+                    seen_sources = set()
+                    for ctx in res["context"]:
+                        src_id = ctx.get("source", "Unknown")
+                        src_type = ctx.get("type", "doc")
+                        if src_id not in seen_sources:
+                            badge_class = "badge-doc" if src_type == "doc" else "badge-ticket"
+                            st.markdown(f"<span class='badge {badge_class}'>{src_type}</span> **{src_id}**", unsafe_allow_html=True)
+                            seen_sources.add(src_id)
+                else:
+                    st.caption("No direct documents cited.")
+
+            with c2:
+                st.markdown("#### ⚖️ VALIDATION")
+                conf = res.get("confidence", 0.0)
+                conf_pct = int(conf * 100)
+                st.metric("Confidence Score", f"{conf_pct}%")
+                
+                if conf < 0.5:
+                    st.markdown("<div class='escalation-banner'>⚠️ Low confidence detected. Escalating.</div>", unsafe_allow_html=True)
+
+else:
+    if not query_input:
+        st.divider()
+        st.info("Kortex is ready. Enter a question above to start the agentic retrieval process.")
+        st.caption("Tip: You can use the sidebar to upload your own enterprise data.")
