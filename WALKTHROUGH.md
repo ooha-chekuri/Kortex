@@ -1,38 +1,38 @@
-# Kortex OS: User Walkthrough
+# Kortex User Walkthrough
 
-Welcome to the **Kortex Operating System**. This guide will walk you through the end-to-end flow of using the Copilot.
+Welcome to the **Kortex Enterprise Knowledge Copilot**. This guide explains how to use the clean, intuitive interface to search your enterprise data.
 
-## Step 1: Initialize the Knowledge Base
-Before querying, you need data.
-1. Go to the **UPLOAD_KNOWLEDGE** section in the right sidebar.
-2. Drag and drop your PDFs, Markdown, or TXT files.
-3. Click **SYNC_KNOWLEDGE**. The system will chunk your documents, redact PII (Emails, Phones, IPs), generate embeddings, and build the FAISS indices.
-4. Verify the success message (e.g., `OK: 5 DOCS / 28 TIX`).
+## Step 1: Manage the Knowledge Base (Admin)
+Before asking questions, ensure Kortex has data to search.
+1.  **Sidebar**: Open the collapsible sidebar on the left.
+2.  **Upload Knowledge**: Use the "📁 UPLOAD KNOWLEDGE" expander to drag and drop your PDFs, Markdown files, or TXT documents. They will be saved to the `/docs` directory.
+3.  **Sync**: Click the "🔄 SYNC KNOWLEDGE BASE" button. Kortex will:
+    - Redact PII (Emails, IPs, Phones).
+    - Chunk and embed the text.
+    - Build FAISS vector indices for semantic search.
+4.  **Confirmation**: A success message will show the number of documents and tickets indexed.
 
-## Step 2: Enter a Query
-1. Locate the **INPUT** field in the central panel.
-2. Type your question (e.g., *"How do I configure Kafka partitions?"*).
-3. (Optional) Check the sidebar to ensure you are in the correct **TRIAGE.ENV** context.
+## Step 2: Ask a Question
+1.  **Search Bar**: Type your question into the central input field (e.g., *"How do I resolve Kafka consumer lag?"*).
+2.  **Submit**: Click the **"ASK KORTEX"** button.
 
-## Step 3: Investigate
-1. Click the **INVESTIGATE** button in the top-right **ACTIONS** box.
-2. Observe the **RUNNING_AGENTS...** status panel. You will see real-time updates as the system:
-   - **TRIAGE**: Identifies whether to look at docs or tickets.
-   - **RETRIEVAL**: Searches the vector database.
-   - **SYNTHESIS**: Drafts the answer.
-   - **VALIDATOR**: Checks for accuracy and computes a confidence score.
+## Step 3: Observe Reasoning
+Once submitted, you will see a status panel showing the multi-agent collaboration:
+- **Triage**: Categorizing your query.
+- **Retrieval**: Finding relevant documents and tickets.
+- **Synthesis**: Writing the final answer.
+- **Validator**: Auditing for accuracy.
 
-## Step 4: Review the Synthesis
-Once the pipeline is complete:
-1. Read the **RESPONSE_SYNTHESIS** in the central ledger.
-2. Check the **SOURCES_MAPPING** at the bottom of the ledger to see exactly which documents or tickets were used.
-3. Look at the **AI_CONFIDENCE** stat box. 
-   - **> 75%**: Highly reliable.
-   - **50% - 75%**: Use with caution.
-   - **< 50%**: Trigger an **ESCALATION** (The system will warn you if it's not confident).
+## Step 4: Review Results
+The results area is divided into two panels:
+- **🧠 AGENT ACTIVITY (Left)**: Detailed logs of what each agent did.
+- **📄 GROUNDED RESPONSE (Right)**:
+  - **Answer**: The final synthesized response.
+  - **Sources**: Direct citations of the documents or tickets used.
+  - **Confidence**: A metric score (0-100%) showing how reliable the answer is.
 
-## Step 5: Reset
-If you want to start a new investigation, simply click **DISCARD** in the Actions panel to clear the session state and start fresh.
+## Step 5: Handling Uncertainties
+If Kortex is unsure (Confidence < 50%), an **Escalation Banner** will appear at the bottom, suggesting redirection to a human engineer.
 
 ---
-**System Note**: Always ensure your local LLM (Ollama) or OpenAI API key is configured in your `.env` file for the synthesis agent to function.
+*Built for Hackathon Demo Excellence*
