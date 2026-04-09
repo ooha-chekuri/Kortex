@@ -75,5 +75,5 @@ Each run also records an `agent_trace` so the frontend can show why the system m
 ## Team Roles
 
 - Charan: AI/orchestration
-- Oohaa: data/retrieval
+- Ooha: data/retrieval
 - Neelima: frontend
