@@ -1,0 +1,254 @@
+[
+  {
+    "ticket_id": "INC-1001",
+    "title": "Kafka consumer lag after deployment",
+    "description": "Consumer group lag spiked after a new release and messages stopped clearing from the topic",
+    "resolution": "Increased consumer replicas and reset a misconfigured max.poll.records value",
+    "category": "Kafka",
+    "content": "Kafka consumer lag after deployment Consumer group lag spiked after a new release and messages stopped clearing from the topic Increased consumer replicas and reset a misconfigured max.poll.records value Kafka",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1002",
+    "title": "Kafka broker disk nearly full",
+    "description": "Alerts showed broker storage above ninety percent during peak ingest",
+    "resolution": "Applied retention cleanup and moved older segments to expanded storage",
+    "category": "Kafka",
+    "content": "Kafka broker disk nearly full Alerts showed broker storage above ninety percent during peak ingest Applied retention cleanup and moved older segments to expanded storage Kafka",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1003",
+    "title": "Kafka producer timeout in payment service",
+    "description": "Payment service logs showed repeated request timeout errors while publishing events",
+    "resolution": "Updated bootstrap server list and increased request timeout to match network latency",
+    "category": "Kafka",
+    "content": "Kafka producer timeout in payment service Payment service logs showed repeated request timeout errors while publishing events Updated bootstrap server list and increased request timeout to match network latency Kafka",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1004",
+    "title": "Kafka SASL authentication failure",
+    "description": "Clients could not connect after password rotation and returned authentication exceptions",
+    "resolution": "Rotated the client secret in the deployment and restarted affected pods",
+    "category": "Auth",
+    "content": "Kafka SASL authentication failure Clients could not connect after password rotation and returned authentication exceptions Rotated the client secret in the deployment and restarted affected pods Auth",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1005",
+    "title": "Kubernetes pod CrashLoopBackOff on api gateway",
+    "description": "Gateway pod restarted continuously after config change",
+    "resolution": "Fixed invalid environment variable and rolled out corrected deployment",
+    "category": "Kubernetes",
+    "content": "Kubernetes pod CrashLoopBackOff on api gateway Gateway pod restarted continuously after config change Fixed invalid environment variable and rolled out corrected deployment Kubernetes",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1006",
+    "title": "Kubernetes image pull back-off in staging",
+    "description": "New worker pods failed to pull a private image from registry",
+    "resolution": "Refreshed imagePullSecret and re-ran deployment",
+    "category": "Kubernetes",
+    "content": "Kubernetes image pull back-off in staging New worker pods failed to pull a private image from registry Refreshed imagePullSecret and re-ran deployment Kubernetes",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1007",
+    "title": "Kubernetes ingress returns 502",
+    "description": "Users saw bad gateway responses from the ingress during service migration",
+    "resolution": "Updated service port mapping and reloaded ingress controller",
+    "category": "Kubernetes",
+    "content": "Kubernetes ingress returns 502 Users saw bad gateway responses from the ingress during service migration Updated service port mapping and reloaded ingress controller Kubernetes",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1008",
+    "title": "Kubernetes node NotReady alert",
+    "description": "A node stopped reporting healthy status after kernel patching",
+    "resolution": "Drained the node rebooted it and allowed kubelet to rejoin the cluster",
+    "category": "Kubernetes",
+    "content": "Kubernetes node NotReady alert A node stopped reporting healthy status after kernel patching Drained the node rebooted it and allowed kubelet to rejoin the cluster Kubernetes",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1009",
+    "title": "Docker container exits immediately on startup",
+    "description": "Container terminated because the entrypoint expected a missing config file",
+    "resolution": "Mounted the config volume correctly and rebuilt the image",
+    "category": "Docker",
+    "content": "Docker container exits immediately on startup Container terminated because the entrypoint expected a missing config file Mounted the config volume correctly and rebuilt the image Docker",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1010",
+    "title": "Docker daemon permission denied on build",
+    "description": "CI runners failed with permission denied while accessing docker socket",
+    "resolution": "Added runner user to docker group and rotated the runner",
+    "category": "Docker",
+    "content": "Docker daemon permission denied on build CI runners failed with permission denied while accessing docker socket Added runner user to docker group and rotated the runner Docker",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1011",
+    "title": "FastAPI service returns 422 on health probes",
+    "description": "Load balancer called the wrong route format and received validation errors",
+    "resolution": "Added a dedicated GET health endpoint and updated probe path",
+    "category": "FastAPI",
+    "content": "FastAPI service returns 422 on health probes Load balancer called the wrong route format and received validation errors Added a dedicated GET health endpoint and updated probe path FastAPI",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1012",
+    "title": "FastAPI startup failure due to missing dependency",
+    "description": "Application would not boot because sentence-transformers was not installed in the environment",
+    "resolution": "Pinned missing package in requirements and rebuilt the environment",
+    "category": "FastAPI",
+    "content": "FastAPI startup failure due to missing dependency Application would not boot because sentence-transformers was not installed in the environment Pinned missing package in requirements and rebuilt the environment FastAPI",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1013",
+    "title": "VPN users cannot access internal wiki",
+    "description": "Remote users reported timeout when loading the documentation portal",
+    "resolution": "Updated route advertisement and restarted the VPN gateway",
+    "category": "Network",
+    "content": "VPN users cannot access internal wiki Remote users reported timeout when loading the documentation portal Updated route advertisement and restarted the VPN gateway Network",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1014",
+    "title": "DNS resolution intermittent in dev subnet",
+    "description": "Pods in one subnet failed to resolve external package hosts",
+    "resolution": "Restarted CoreDNS and corrected upstream resolver policy",
+    "category": "Network",
+    "content": "DNS resolution intermittent in dev subnet Pods in one subnet failed to resolve external package hosts Restarted CoreDNS and corrected upstream resolver policy Network",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1015",
+    "title": "Single sign-on login loop in support portal",
+    "description": "Users were redirected back to sign-in repeatedly after successful identity provider auth",
+    "resolution": "Fixed callback URL mismatch in SSO configuration",
+    "category": "Auth",
+    "content": "Single sign-on login loop in support portal Users were redirected back to sign-in repeatedly after successful identity provider auth Fixed callback URL mismatch in SSO configuration Auth",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1016",
+    "title": "Expired TLS certificate on internal dashboard",
+    "description": "Browser security warnings blocked access to the dashboard",
+    "resolution": "Renewed certificate and updated secret in ingress namespace",
+    "category": "Security",
+    "content": "Expired TLS certificate on internal dashboard Browser security warnings blocked access to the dashboard Renewed certificate and updated secret in ingress namespace Security",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1017",
+    "title": "Database connection pool exhausted",
+    "description": "API latency increased and requests started failing under load",
+    "resolution": "Raised pool size and fixed leaked sessions in background worker",
+    "category": "Database",
+    "content": "Database connection pool exhausted API latency increased and requests started failing under load Raised pool size and fixed leaked sessions in background worker Database",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1018",
+    "title": "Redis cache miss storm after deploy",
+    "description": "Read latency increased because cache keys changed unexpectedly",
+    "resolution": "Restored prior key format and warmed cache asynchronously",
+    "category": "Cache",
+    "content": "Redis cache miss storm after deploy Read latency increased because cache keys changed unexpectedly Restored prior key format and warmed cache asynchronously Cache",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1019",
+    "title": "Kafka schema registry compatibility error",
+    "description": "Producer deployment failed when registering an incompatible schema",
+    "resolution": "Switched compatibility mode to backward and corrected field evolution",
+    "category": "Kafka",
+    "content": "Kafka schema registry compatibility error Producer deployment failed when registering an incompatible schema Switched compatibility mode to backward and corrected field evolution Kafka",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1020",
+    "title": "Kubernetes PVC stuck pending",
+    "description": "Stateful workload would not schedule because persistent volume claim stayed pending",
+    "resolution": "Created matching storage class and expanded default quota",
+    "category": "Kubernetes",
+    "content": "Kubernetes PVC stuck pending Stateful workload would not schedule because persistent volume claim stayed pending Created matching storage class and expanded default quota Kubernetes",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1021",
+    "title": "OAuth token expiry too short for cli users",
+    "description": "Engineers were forced to reauthenticate every few minutes",
+    "resolution": "Extended token lifetime policy for approved internal clients",
+    "category": "Auth",
+    "content": "OAuth token expiry too short for cli users Engineers were forced to reauthenticate every few minutes Extended token lifetime policy for approved internal clients Auth",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1022",
+    "title": "Packet loss between app and broker tier",
+    "description": "Consumer lag correlated with intermittent packet drops between subnets",
+    "resolution": "Adjusted firewall appliance policy and moved traffic off a saturated link",
+    "category": "Network",
+    "content": "Packet loss between app and broker tier Consumer lag correlated with intermittent packet drops between subnets Adjusted firewall appliance policy and moved traffic off a saturated link Network",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1023",
+    "title": "Kafka consumer rebalance thrashing",
+    "description": "Consumers repeatedly rebalanced causing lag and duplicate processing",
+    "resolution": "Stabilized group membership with static group instance IDs and tuned session timeout",
+    "category": "Kafka",
+    "content": "Kafka consumer rebalance thrashing Consumers repeatedly rebalanced causing lag and duplicate processing Stabilized group membership with static group instance IDs and tuned session timeout Kafka",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1024",
+    "title": "Docker build cache invalidated every run",
+    "description": "Build times doubled after Dockerfile changes removed effective layer caching",
+    "resolution": "Reordered Dockerfile instructions to isolate dependency installation",
+    "category": "Docker",
+    "content": "Docker build cache invalidated every run Build times doubled after Dockerfile changes removed effective layer caching Reordered Dockerfile instructions to isolate dependency installation Docker",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1025",
+    "title": "FastAPI CORS errors in frontend demo",
+    "description": "Browser blocked requests from React app to local API",
+    "resolution": "Enabled CORSMiddleware for local development origins",
+    "category": "FastAPI",
+    "content": "FastAPI CORS errors in frontend demo Browser blocked requests from React app to local API Enabled CORSMiddleware for local development origins FastAPI",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1026",
+    "title": "Kubernetes HPA not scaling workers",
+    "description": "Horizontal pod autoscaler stayed flat despite backlog growth",
+    "resolution": "Added missing cpu requests and corrected metrics-server permissions",
+    "category": "Kubernetes",
+    "content": "Kubernetes HPA not scaling workers Horizontal pod autoscaler stayed flat despite backlog growth Added missing cpu requests and corrected metrics-server permissions Kubernetes",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1027",
+    "title": "Email alert webhook rejected",
+    "description": "Monitoring system could not post to the notification endpoint because of malformed payload",
+    "resolution": "Updated webhook template and validated signature settings",
+    "category": "Integrations",
+    "content": "Email alert webhook rejected Monitoring system could not post to the notification endpoint because of malformed payload Updated webhook template and validated signature settings Integrations",
+    "source_type": "ticket"
+  },
+  {
+    "ticket_id": "INC-1028",
+    "title": "Service account lacks S3 read access",
+    "description": "Batch job failed when downloading reference files from object storage",
+    "resolution": "Attached read policy to workload identity and restarted the job",
+    "category": "Permissions",
+    "content": "Service account lacks S3 read access Batch job failed when downloading reference files from object storage Attached read policy to workload identity and restarted the job Permissions",
+    "source_type": "ticket"
+  }
+]
