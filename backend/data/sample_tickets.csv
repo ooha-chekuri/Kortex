@@ -1,0 +1,29 @@
+ticket_id,title,description,resolution,category
+INC-1001,Kafka consumer lag after deployment,Consumer group lag spiked after a new release and messages stopped clearing from the topic,Increased consumer replicas and reset a misconfigured max.poll.records value,Kafka
+INC-1002,Kafka broker disk nearly full,Alerts showed broker storage above ninety percent during peak ingest,Applied retention cleanup and moved older segments to expanded storage,Kafka
+INC-1003,Kafka producer timeout in payment service,Payment service logs showed repeated request timeout errors while publishing events,Updated bootstrap server list and increased request timeout to match network latency,Kafka
+INC-1004,Kafka SASL authentication failure,Clients could not connect after password rotation and returned authentication exceptions,Rotated the client secret in the deployment and restarted affected pods,Auth
+INC-1005,Kubernetes pod CrashLoopBackOff on api gateway,Gateway pod restarted continuously after config change,Fixed invalid environment variable and rolled out corrected deployment,Kubernetes
+INC-1006,Kubernetes image pull back-off in staging,New worker pods failed to pull a private image from registry,Refreshed imagePullSecret and re-ran deployment,Kubernetes
+INC-1007,Kubernetes ingress returns 502,Users saw bad gateway responses from the ingress during service migration,Updated service port mapping and reloaded ingress controller,Kubernetes
+INC-1008,Kubernetes node NotReady alert,A node stopped reporting healthy status after kernel patching,Drained the node rebooted it and allowed kubelet to rejoin the cluster,Kubernetes
+INC-1009,Docker container exits immediately on startup,Container terminated because the entrypoint expected a missing config file,Mounted the config volume correctly and rebuilt the image,Docker
+INC-1010,Docker daemon permission denied on build,CI runners failed with permission denied while accessing docker socket,Added runner user to docker group and rotated the runner,Docker
+INC-1011,FastAPI service returns 422 on health probes,Load balancer called the wrong route format and received validation errors,Added a dedicated GET health endpoint and updated probe path,FastAPI
+INC-1012,FastAPI startup failure due to missing dependency,Application would not boot because sentence-transformers was not installed in the environment,Pinned missing package in requirements and rebuilt the environment,FastAPI
+INC-1013,VPN users cannot access internal wiki,Remote users reported timeout when loading the documentation portal,Updated route advertisement and restarted the VPN gateway,Network
+INC-1014,DNS resolution intermittent in dev subnet,Pods in one subnet failed to resolve external package hosts,Restarted CoreDNS and corrected upstream resolver policy,Network
+INC-1015,Single sign-on login loop in support portal,Users were redirected back to sign-in repeatedly after successful identity provider auth,Fixed callback URL mismatch in SSO configuration,Auth
+INC-1016,Expired TLS certificate on internal dashboard,Browser security warnings blocked access to the dashboard,Renewed certificate and updated secret in ingress namespace,Security
+INC-1017,Database connection pool exhausted,API latency increased and requests started failing under load,Raised pool size and fixed leaked sessions in background worker,Database
+INC-1018,Redis cache miss storm after deploy,Read latency increased because cache keys changed unexpectedly,Restored prior key format and warmed cache asynchronously,Cache
+INC-1019,Kafka schema registry compatibility error,Producer deployment failed when registering an incompatible schema,Switched compatibility mode to backward and corrected field evolution,Kafka
+INC-1020,Kubernetes PVC stuck pending,Stateful workload would not schedule because persistent volume claim stayed pending,Created matching storage class and expanded default quota,Kubernetes
+INC-1021,OAuth token expiry too short for cli users,Engineers were forced to reauthenticate every few minutes,Extended token lifetime policy for approved internal clients,Auth
+INC-1022,Packet loss between app and broker tier,Consumer lag correlated with intermittent packet drops between subnets,Adjusted firewall appliance policy and moved traffic off a saturated link,Network
+INC-1023,Kafka consumer rebalance thrashing,Consumers repeatedly rebalanced causing lag and duplicate processing,Stabilized group membership with static group instance IDs and tuned session timeout,Kafka
+INC-1024,Docker build cache invalidated every run,Build times doubled after Dockerfile changes removed effective layer caching,Reordered Dockerfile instructions to isolate dependency installation,Docker
+INC-1025,FastAPI CORS errors in frontend demo,Browser blocked requests from React app to local API,Enabled CORSMiddleware for local development origins,FastAPI
+INC-1026,Kubernetes HPA not scaling workers,Horizontal pod autoscaler stayed flat despite backlog growth,Added missing cpu requests and corrected metrics-server permissions,Kubernetes
+INC-1027,Email alert webhook rejected,Monitoring system could not post to the notification endpoint because of malformed payload,Updated webhook template and validated signature settings,Integrations
+INC-1028,Service account lacks S3 read access,Batch job failed when downloading reference files from object storage,Attached read policy to workload identity and restarted the job,Permissions
