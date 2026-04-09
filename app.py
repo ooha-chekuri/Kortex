@@ -1,40 +1,61 @@
 import streamlit as st
+
+# MUST BE THE FIRST STREAMLIT COMMAND
+st.set_page_config(
+    page_title="KORTEX OS",
+    layout="wide",
+    page_icon="B",
+    initial_sidebar_state="collapsed"
+)
+
 import time
 import os
 from pathlib import Path
-from src.agents.orchestrator import run_kortex_agent
-from src.data.ingest import build_indices
 import json
 
-# Enforce light theme and wide layout MUST BE FIRST
-st.set_page_config(page_title="KORTEX_OS", layout="wide", page_icon="B")
+# Absolute imports from root
+from src.agents.orchestrator import run_kortex_agent
+from src.data.ingest import build_indices
 
-# Custom CSS: Strict Light Theme + Departure Mono (Mimicking OS wireframe)
+# Custom CSS for Light Theme + Departure Mono Aesthetic
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-    
-    /* Global Styles */
-    * {
-        font-family: 'JetBrains Mono', monospace !important;
-        text-transform: uppercase;
-        color: #000000;
+    /* Load Departure Mono from GitHub via JSDelivr */
+    @font-face {
+        font-family: 'Departure Mono';
+        src: url('https://cdn.jsdelivr.net/gh/lucas-dlevy/departure-mono@main/fonts/DepartureMono-Regular.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
     }
 
-    body, .stApp {
-        background-color: #ffffff !important;
+    /* Force Light Theme */
+    :root {
+        --primary-color: #4b49ff;
+        --bg-color: #ffffff;
+        --text-color: #000000;
+        --border-color: #000000;
+    }
+
+    .stApp {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    * {
+        font-family: 'Departure Mono', monospace !important;
+        text-transform: uppercase;
     }
 
     /* Container Styling (Thin Black Borders) */
     .kortex-box {
-        border: 1px solid #000000;
+        border: 1px solid var(--border-color);
         padding: 15px;
         background-color: #ffffff;
         margin-bottom: 10px;
     }
 
     .kortex-sidebar-item {
-        border: 1px solid #000000;
+        border: 1px solid var(--border-color);
         padding: 10px;
         margin-bottom: 10px;
         background-color: #ffffff;
@@ -54,7 +75,7 @@ st.markdown("""
 
     /* Header Styling */
     .kortex-header {
-        border-bottom: 2px solid #000;
+        border-bottom: 2px solid var(--border-color);
         padding-bottom: 5px;
         margin-bottom: 15px;
         display: flex;
@@ -65,7 +86,7 @@ st.markdown("""
     /* Button Styling */
     .stButton>button {
         border-radius: 0px !important;
-        border: 1px solid #000 !important;
+        border: 1px solid var(--border-color) !important;
         background-color: #fff !important;
         color: #000 !important;
         font-weight: 700 !important;
@@ -76,13 +97,24 @@ st.markdown("""
         color: #fff !important;
     }
     .stButton>button[kind="primary"] {
-        background-color: #4b49ff !important;
+        background-color: var(--primary-color) !important;
         color: #fff !important;
-        border: 1px solid #000 !important;
+        border: 1px solid var(--border-color) !important;
     }
 
     /* Hide default elements */
     #MainMenu, footer, header {visibility: hidden;}
+    
+    /* Escalation Banner */
+    .escalation-box {
+        border: 2px dashed #ff0000;
+        background-color: #fff0f0;
+        color: #ff0000;
+        padding: 15px;
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -91,47 +123,54 @@ if 'agent_output' not in st.session_state: st.session_state.agent_output = None
 if 'trace_logs' not in st.session_state: st.session_state.trace_logs = []
 if 'query' not in st.session_state: st.session_state.query = ""
 
-# Layout
+# Layout: 3 Columns
 l_col, m_col, r_col = st.columns([1, 4, 1.5])
 
-# LEFT SIDEBAR
+# --- LEFT SIDEBAR (TRIAGE.ENV) ---
 with l_col:
-    st.markdown("### 🔷 TRIAGE.ENV")
+    st.markdown("### B TRIAGE.ENV")
     st.markdown("<p class='kortex-label'>SELECT_TASK</p>", unsafe_allow_html=True)
-    for task in ["TASK 1: BEST EXP", "TASK 2: OVERFIT", "TASK 3: NEXT EXP"]:
+    tasks = ["TASK 1: BEST EXP", "TASK 2: OVERFIT", "TASK 3: NEXT EXP", "TASK 4: EXPERIMENTS", "TASK 5: FAILED RUN"]
+    for task in tasks:
         st.markdown(f"<div class='kortex-sidebar-item'>{task}</div>", unsafe_allow_html=True)
     
     st.markdown("<p class='kortex-label'>SUPPORT</p>", unsafe_allow_html=True)
     st.markdown("<div class='kortex-sidebar-item'>HOW TO USE / GUIDE</div>", unsafe_allow_html=True)
+    
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("<div style='border: 1px dashed #000; padding: 10px; font-size: 0.6rem;'>ENGINE_VERSION: QWEN_2.5_72B</div>", unsafe_allow_html=True)
 
-# MAIN CONTENT
+# --- MAIN CONTENT (REASONING ACTIVE) ---
 with m_col:
     # Header
     st.markdown(f"""
         <div class='kortex-header'>
-            <h2 style='margin:0;'>KORTEX_OS: REASONING_ACTIVE</h2>
-            <div style='color:green; font-size:0.7rem;'>STATE: STATUS_OK</div>
+            <div>
+                <h2 style='margin:0;'>KORTEX_OS: REASONING_ACTIVE</h2>
+                <p style='margin:0; font-size:0.7rem; color:#666;'>GROUNDED_RETRIEVAL_MODE</p>
+            </div>
+            <div style='color:green; font-size:0.7rem;'>STATE: STATUS_OK_ACTIVE</div>
         </div>
     """, unsafe_allow_html=True)
 
-    # Top Row Stats
+    # Stats Row
     s1, s2, s3 = st.columns(3)
-    with s1: st.markdown("<div class='kortex-box'><p class='kortex-label'>QUERY_CONTEXT</p><div class='kortex-value'>LOCAL_RAG</div></div>", unsafe_allow_html=True)
+    with s1: st.markdown("<div class='kortex-box'><p class='kortex-label'>RETRIEVAL_COUNT</p><div class='kortex-value'>5.00</div></div>", unsafe_allow_html=True)
     with s2: st.markdown("<div class='kortex-box'><p class='kortex-label'>STEP_COUNTER</p><div class='kortex-value'>0 // 10</div></div>", unsafe_allow_html=True)
     with s3:
         conf = st.session_state.agent_output.get("confidence", 0.0) if st.session_state.agent_output else 0.0
         st.markdown(f"<div class='kortex-box'><p class='kortex-label'>AI_CONFIDENCE</p><div class='kortex-value'>{conf*100:.0f}%</div></div>", unsafe_allow_html=True)
 
-    # Search Bar
+    # Input Bar
     query_input = st.text_input("INPUT", value=st.session_state.query, placeholder="ENTER COMMAND OR QUERY...", label_visibility="collapsed")
     if query_input != st.session_state.query: st.session_state.query = query_input
 
-    # Response Area
+    # Reasoning Ledger
     st.markdown("<div class='kortex-box' style='min-height: 400px;'>", unsafe_allow_html=True)
     if st.session_state.agent_output:
         out = st.session_state.agent_output
         if out.get("status") == "escalated":
-            st.error(f"TASK_ESCALATED: {out.get('reason', 'Confidence below threshold')}")
+            st.error(f"TASK_ESCALATED: {out.get('reason', 'CONFIDENCE_LOW')}")
         else:
             st.markdown("### RESPONSE_SYNTHESIS")
             st.write(out.get("answer", ""))
@@ -139,12 +178,12 @@ with m_col:
             st.markdown("<br><p class='kortex-label'>SOURCES_MAPPING</p>", unsafe_allow_html=True)
             if out.get("context"):
                 for ctx in list({(c['source'], c['type']) for c in out['context']}):
-                    st.markdown(f"<div style='font-size:0.7rem;'>ID: {ctx[0]} // TYPE: {ctx[1]}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='font-size:0.7rem; border-bottom:1px solid #eee; padding:2px 0;'>ID: {ctx[0]} // TYPE: {ctx[1]}</div>", unsafe_allow_html=True)
     else:
-        st.markdown("<div style='text-align:center; padding:50px; opacity:0.3;'>WAITING_FOR_INPUT...</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center; padding:50px; opacity:0.3;'>WAITING_FOR_SYSTEM_INPUT...</div>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# RIGHT SIDEBAR
+# --- RIGHT SIDEBAR (ACTIONS / UPLOAD / INGEST) ---
 with r_col:
     st.markdown("<p class='kortex-label'>ACTIONS</p>", unsafe_allow_html=True)
     with st.container():
@@ -152,15 +191,15 @@ with r_col:
         if st.button("INVESTIGATE", type="primary"):
             if st.session_state.query:
                 st.session_state.trace_logs = []
-                with st.status("RUNNING_AGENTS...", expanded=True) as status:
+                with st.status("EXECUTING_PIPELINE...", expanded=True) as status:
                     final = {}
                     for step in run_kortex_agent(st.session_state.query):
                         node = list(step.keys())[0]
-                        status.write(f"NODE_{node.upper()}: PROCESSING...")
+                        status.write(f"AGENT_{node.upper()}: PROCESSING...")
                         for k, v in step[node].items():
                             if k != "trace": final[k] = v
                         time.sleep(0.1)
-                    status.update(label="PIPELINE_OK", state="complete")
+                    status.update(label="PIPELINE_COMPLETE", state="complete")
                 st.session_state.agent_output = final
                 st.rerun()
         if st.button("DISCARD"):
@@ -171,7 +210,7 @@ with r_col:
     st.markdown("<p class='kortex-label'>UPLOAD_KNOWLEDGE</p>", unsafe_allow_html=True)
     with st.container():
         st.markdown("<div class='kortex-box'>", unsafe_allow_html=True)
-        uploaded_files = st.file_uploader("UPLOAD_FILES", type=["pdf", "txt", "md"], accept_multiple_files=True, label_visibility="collapsed")
+        uploaded_files = st.file_uploader("FILES", type=["pdf", "txt", "md"], accept_multiple_files=True, label_visibility="collapsed")
         if uploaded_files:
             docs_path = Path("docs")
             docs_path.mkdir(exist_ok=True)
@@ -181,14 +220,14 @@ with r_col:
             st.success(f"SAVED_{len(uploaded_files)}_FILES")
         st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<p class='kortex-label'>INGESTION</p>", unsafe_allow_html=True)
+    st.markdown("<p class='kortex-label'>INGESTION_CONTROLS</p>", unsafe_allow_html=True)
     with st.container():
         st.markdown("<div class='kortex-box'>", unsafe_allow_html=True)
         if st.button("SYNC_KNOWLEDGE"):
-            with st.spinner("INGESTING..."):
+            with st.spinner("SYNCING..."):
                 stats = build_indices()
                 st.success(f"OK: {stats['docs']} DOCS / {stats['tickets']} TIX")
         st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<p class='kortex-label'>SYSTEM_INFO</p>", unsafe_allow_html=True)
-    st.markdown("<div class='kortex-box' style='font-size:0.6rem;'>VERSION: 2.0.0-STABLE<br>LATENCY: 12MS<br>STATE: ENCRYPTED</div>", unsafe_allow_html=True)
+    st.markdown("<div class='kortex-box' style='font-size:0.6rem;'>CLUSTER_ID: K-880<br>LATENCY: 42MS<br>UPTIME: 99.9%</div>", unsafe_allow_html=True)
