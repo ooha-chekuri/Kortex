@@ -99,5 +99,5 @@ _engine = None
 def get_retrieval_engine() -> RetrievalEngine:
     global _engine
     if _engine is None:
-        _engine = RetrievalEngine(use_reranker=False)  # Faster without reranker
+        _engine = RetrievalEngine(use_reranker=True)  # Enable reranker for quality
     return _engine

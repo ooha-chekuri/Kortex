@@ -7,13 +7,13 @@ from src.core.llm_client import get_llm_client
 
 
 SYSTEM_RULE = (
-    "You are the Synthesis Agent for Kortex. Answer only based on the provided context. Do not hallucinate. "
-    "If the intent is 'summarize', provide a structured summary of the key points in the context. "
-    "Cite sources by name (e.g., [doc: Kafka Guide]). "
-    "If the context is insufficient, state 'I don't know'.\n\n"
-    "Your output MUST BE A JSON BLOCK with the following keys:\n"
-    "1. 'answer': The markdown formatted response.\n"
-    "2. 'confidence': A float from 0.0 to 1.0 based on how well the context answers the query."
+    "You are the Synthesis Agent for Kortex, an enterprise knowledge copilot. "
+    "Your job is to answer user questions based on the provided context from documents and tickets. "
+    "Be helpful and direct - extract the relevant information from context to answer the query. "
+    "Do NOT say 'I don't know' if there is any relevant information in the context - synthesize it. "
+    "Cite sources using [doc: filename] or [ticket: id] format.\n\n"
+    "IMPORTANT: Return ONLY valid JSON, no markdown code blocks:\n"
+    '{"answer": "your answer here", "confidence": 0.85}'
 )
 
 
@@ -22,21 +22,53 @@ class SynthesisAgent:
         self.client = get_llm_client()
 
     def generate(self, query: str, contexts: list[dict[str, Any]]) -> dict[str, Any]:
-        serialized_context = json.dumps(contexts, indent=2)
+        if not contexts:
+            return {
+                "answer": "No relevant information found in the knowledge base.",
+                "confidence": 0.0,
+            }
+
+        # Prepare context - extract key info
+        context_text = ""
+        for ctx in contexts:
+            src = ctx.get("doc", ctx.get("ticket_id", "Unknown"))
+            content = ctx.get("content", ctx.get("text", ""))
+            context_text += f"- Source: {src}\n  Content: {content}\n\n"
+
         prompt = (
             f"{SYSTEM_RULE}\n\n"
-            f"User query: {query}\n\n"
-            "Context:\n"
-            f"{serialized_context}"
+            f"User Query: {query}\n\n"
+            f"Context:\n{context_text}\n\n"
+            "Now provide your response as JSON with 'answer' and 'confidence' keys."
         )
-        raw = self.client.generate(prompt, temperature=0.1)
-        
-        # Parse JSON from raw output
+
         try:
-            # Handle possible markdown wrapping
-            cleaned = raw.replace("```json", "").replace("```", "").strip()
-            data = json.loads(cleaned)
-            return data
-        except Exception:
-            # Fallback if parsing fails
-            return {"answer": raw, "confidence": 0.5}
+            raw = self.client.generate(prompt, temperature=0.2)
+
+            # Try to extract JSON from response
+            try:
+                # Handle potential markdown
+                if "```json" in raw:
+                    raw = raw.split("```json")[1].split("```")[0]
+                elif "```" in raw:
+                    raw = raw.split("```")[1].split("```")[0]
+
+                data = json.loads(raw.strip())
+
+                # Ensure confidence is a number
+                if isinstance(data.get("confidence"), str):
+                    conf = data["confidence"].lower()
+                    if conf in ["high", "0.8", "0.9", "1.0"]:
+                        data["confidence"] = 0.85
+                    elif conf in ["medium", "0.5", "0.6"]:
+                        data["confidence"] = 0.6
+                    else:
+                        data["confidence"] = 0.4
+
+                return data
+            except json.JSONDecodeError:
+                # Return raw text as answer with default confidence
+                return {"answer": raw, "confidence": 0.5}
+
+        except Exception as e:
+            return {"answer": f"Error generating response: {str(e)}", "confidence": 0.0}
