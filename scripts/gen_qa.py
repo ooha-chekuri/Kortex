@@ -1,0 +1,48 @@
+import json
+
+qa = [
+    {"question": "How do I connect to VPN?", "answer": "Download VPN client from IT portal, install, enter vpn.company.com, use credentials with MFA.", "source": "VPN_Setup_Guide"},
+    {"question": "What is the password policy?", "answer": "Minimum 12 chars, uppercase, lowercase, number, special char. Change every 90 days.", "source": "Password_Policy"},
+    {"question": "How do I reset my password?", "answer": "Submit reset request via IT Service Portal or contact helpdesk.", "source": "Password_Policy"},
+    {"question": "What is MFA required for?", "answer": "VPN, email, financial systems, admin accounts.", "source": "Password_Policy"},
+    {"question": "How do I request software?", "answer": "Request via IT portal with manager approval. IT installs.", "source": "Software_Installation_Guide"},
+    {"question": "What software is approved?", "answer": "MS Office, VS Code, IntelliJ, Slack, Teams, Zoom.", "source": "Software_Installation_Guide"},
+    {"question": "How do I setup email on phone?", "answer": "IMAP/SMTP: mail.company.com, SSL/TLS, 2FA required.", "source": "Email_Configuration"},
+    {"question": "What are remote work requirements?", "answer": "Available during hours, camera on, status updates, VPN required.", "source": "Remote_Work_Policy"},
+    {"question": "How do I access Kubernetes?", "answer": "Request via IT Service Portal. 24hr approval. RBAC access.", "source": "Kubernetes_Onboarding"},
+    {"question": "What is the CI/CD pipeline?", "answer": "Build: checkout, install, test. Test: integration, security. Deploy: staging, prod.", "source": "CI_CD_Pipeline_Guide"},
+    {"question": "What Docker standards apply?", "answer": "Alpine base, multi-stage builds, non-root user, health checks.", "source": "Docker_Standards"},
+    {"question": "How do I create a Helm chart?", "answer": "Chart.yaml, values.yaml, templates. Test with helm lint.", "source": "Helm_Chart_Guidelines"},
+    {"question": "How do I troubleshoot K8s pods?", "answer": "kubectl describe, verify image, check resource quotas.", "source": "K8s_Troubleshooting"},
+    {"question": "What are FastAPI guidelines?", "answer": "REST endpoints, OpenAPI, /api/v1/, JWT, 100 req/min.", "source": "FastAPI_Guidelines"},
+    {"question": "Kafka deployment architecture?", "answer": "3 brokers, replication 3, 6 partitions, 7-day retention.", "source": "Kafka_Deployment_Guide"},
+    {"question": "What are API rate limits?", "answer": "Standard: 100/min. Premium: 500/min. Enterprise: custom.", "source": "API_Rate_Limits"},
+    {"question": "How does API versioning work?", "answer": "/v1/, /v2/ URI versioning. 12 month deprecation support.", "source": "API_Versioning_SOP"},
+    {"question": "What are access control levels?", "answer": "Read, Write, Admin, Super Admin.", "source": "Access_Control_SOP"},
+    {"question": "What is considered PII?", "answer": "Name, address, phone, email, SSN, financial accounts.", "source": "PII_Handling_Guidelines"},
+    {"question": "How should PII be handled?", "answer": "Need-to-know, encrypt always, no copying, secure delete.", "source": "PII_Handling_Guidelines"},
+    {"question": "Security audit frequency?", "answer": "Internal monthly, external annually, pen-test quarterly.", "source": "Security_Audit_Procedure"},
+    {"question": "Vulnerability response timeline?", "answer": "Critical 24hr, High 7 days, Medium 30 days, Low 90 days.", "source": "Vulnerability_Management"},
+    {"question": "Encryption standards required?", "answer": "AES-256 at rest, TLS 1.3 in transit, annual key rotation.", "source": "Encryption_Standards"},
+    {"question": "Incident response steps?", "answer": "Detection, Containment, Eradication, Recovery, Post-review.", "source": "Security_Incident_Response"},
+    {"question": "New employee IT setup?", "answer": "Badge, email, VPN, laptop, apps, team access.", "source": "New_Employee_IT_Setup"},
+    {"question": "Device security requirements?", "answer": "Disk encryption, auto updates, antivirus, 5-min lock.", "source": "Device_Policy"},
+    {"question": "What is the backup schedule?", "answer": "Daily 2AM incremental, weekly full offsite, monthly cold.", "source": "Backup_Recovery_SOP"},
+    {"question": "Incident classification levels?", "answer": "P1 Critical, P2 High, P3 Medium.", "source": "Incident_Response_SOP"},
+    {"question": "How do I report incidents?", "answer": "IT Security Team first, then Security Manager, then CISO.", "source": "Incident_Response_SOP"},
+    {"question": "Network security requirements?", "answer": "Firewall deny-all, VPN mandatory, segmentation, weekly scans.", "source": "Network_Security_SOP"},
+    {"question": "VPN connection requirements?", "answer": "Approved client, secure WiFi, disconnect idle, 30-min timeout.", "source": "VPN_Access_Policy"},
+    {"question": "Data classification system?", "answer": "Public, Internal, Confidential, Restricted.", "source": "Data_Privacy_Policy"},
+    {"question": "Container resource limits?", "answer": "CPU 500m-1000m, Memory 1Gi-2Gi, Storage 10Gi.", "source": "Container_Orchestration"},
+    {"question": "How do I request system access?", "answer": "IT portal request, manager approval, IT implements.", "source": "Access_Control_SOP"},
+    {"question": "How do I contact helpdesk?", "answer": "helpdesk@company.com or ext. 4357. Security: ext. 911.", "source": "Remote_Access_SOP"},
+    {"question": "External scan frequency?", "answer": "External weekly, internal monthly, web continuous.", "source": "Vulnerability_Management"},
+    {"question": "TLS version requirement?", "answer": "TLS 1.3 minimum, cert pinning for mobile.", "source": "Encryption_Standards"},
+    {"question": "Namespace strategy?", "answer": "dev, staging, production isolation.", "source": "Container_Orchestration"},
+    {"question": "How to handle 429 errors?", "answer": "Exponential backoff, cache responses, contact API team.", "source": "API_Rate_Limits"},
+    {"question": "BYOD policy requirements?", "answer": "MDM enrollment, separate data, remote wipe capability.", "source": "Device_Policy"}
+]
+
+with open("demo/inputs/docs/knowledge_base.json", "w", encoding="utf-8") as f:
+    json.dump(qa, f, indent=2)
+print(f"Created {len(qa)} Q&A pairs")
