@@ -1,0 +1,13 @@
+# Security Incident Response
+## Incident Types
+- Phishing attacks
+- Malware infections
+- Data breaches
+- Unauthorized access
+- DDoS attacks
+## Response Steps
+1. Detection and identification
+2. Containment
+3. Eradication
+4. Recovery
+5. Post-incident review

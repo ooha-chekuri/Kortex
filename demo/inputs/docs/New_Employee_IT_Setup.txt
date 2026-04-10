@@ -1,0 +1,10 @@
+# New Employee IT Setup Guide
+## First Day Checklist
+1. Badge activation
+2. Email account setup
+3. VPN configuration
+4. Laptop configuration
+## Access Provisioning
+- Department resources
+- Required applications
+- Team chat tools

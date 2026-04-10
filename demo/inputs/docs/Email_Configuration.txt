@@ -1,0 +1,9 @@
+# Email Configuration Guide
+## Setup
+- IMAP/SMTP: mail.company.com
+- SSL/TLS required
+- Two-factor authentication
+## Features
+- Calendar integration
+- Email forwarding (with approval)
+- Out of office messages

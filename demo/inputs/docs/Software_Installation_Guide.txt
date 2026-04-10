@@ -1,0 +1,10 @@
+# Software Installation Guide
+## Approved Software
+- Microsoft Office suite
+- VS Code / IntelliJ
+- Slack, Teams
+- Zoom
+## Installation Process
+1. Request via IT portal
+2. Manager approval
+3. IT installs (no self-install)

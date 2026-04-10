@@ -1,0 +1,6 @@
+# API Versioning Standard Operating Procedure
+## Version Strategy
+- URI versioning: /v1/, /v2/
+- Major version for breaking changes
+- Minor version for new features
+- Deprecated versions supported 12 months

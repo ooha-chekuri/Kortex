@@ -1,0 +1,10 @@
+# PII Handling Guidelines
+## What is PII
+- Name, address, phone
+- Email, SSN
+- Financial account numbers
+- Biometric data
+## Handling Rules
+- Need-to-know access only
+- Encrypt at all times
+- No unnecessary copying

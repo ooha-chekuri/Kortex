@@ -1,0 +1,32 @@
+# Network Security Standard Operating Procedure
+
+## 1. Purpose
+This SOP establishes guidelines for maintaining network security across all enterprise systems.
+
+## 2. Scope
+Applies to all employees, contractors, and third-party vendors accessing the corporate network.
+
+## 3. Requirements
+
+### 3.1 Firewall Configuration
+- All external traffic must pass through designated firewall points
+- Default deny all inbound connections
+- Annual review of firewall rules by security team
+
+### 3.2 VPN Usage
+- Mandatory VPN for all remote access
+- Split tunneling prohibited
+- Multi-factor authentication required
+
+### 3.3 Network Segmentation
+- Production, development, and guest networks must be isolated
+- Internal network scans weekly
+- Any anomalies reported to SOC immediately
+
+## 4. Monitoring
+- 24/7 network monitoring via SIEM
+- Log retention: 90 days minimum
+- Quarterly security assessments
+
+## 5. Compliance
+Violations may result in disciplinary action up to and including termination.

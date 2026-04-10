@@ -1,0 +1,1 @@
+Severity 1 incidents require a bridge call within 15 minutes. Root cause analysis (RCA) must be published within 48 hours of resolution.

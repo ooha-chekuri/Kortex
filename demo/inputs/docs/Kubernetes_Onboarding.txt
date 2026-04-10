@@ -1,0 +1,1 @@
+Developers must use Helm for deployments. Resource limits (CPU/Memory) are required for every container. Use namespaces for environment isolation.

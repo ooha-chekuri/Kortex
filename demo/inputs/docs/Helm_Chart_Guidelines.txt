@@ -1,0 +1,10 @@
+# Helm Chart Guidelines
+## Chart Structure
+- Chart.yaml
+- values.yaml
+- templates/deployment.yaml
+- templates/service.yaml
+## Testing
+- helm lint
+- helm template
+- helm unittest

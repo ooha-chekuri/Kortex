@@ -1,0 +1,15 @@
+# Remote Access Standard Operating Procedure
+## Secure Remote Work Guidelines
+### Before Connecting
+1. Verify antivirus is current
+2. Ensure OS updates installed
+3. Confirm VPN client running
+### During Session
+- Work in private locations
+- Lock screen when away
+### After Session
+- Clear clipboard
+- Logout of all applications
+- Disconnect VPN
+## Emergency Contacts
+IT Helpdesk: ext. 4357 | Security Team: ext. 911

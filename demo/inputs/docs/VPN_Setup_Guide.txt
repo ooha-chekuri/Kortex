@@ -1,0 +1,10 @@
+# VPN Setup Guide
+## Windows
+1. Download VPN client from IT portal
+2. Install with admin rights
+3. Enter server: vpn.company.com
+4. Use corporate credentials
+5. Complete MFA challenge
+## Troubleshooting
+- Check internet connection
+- Verify credentials

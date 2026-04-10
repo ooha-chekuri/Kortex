@@ -1,0 +1,8 @@
+# Container Orchestration Guidelines
+## Namespace Strategy
+- dev: Development environments
+- staging: Pre-production
+- production: Live systems
+## Resource Limits
+- CPU: Request 500m, Limit 1000m
+- Memory: Request 1Gi, Limit 2Gi

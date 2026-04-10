@@ -1,0 +1,14 @@
+# Backup and Recovery Standard Operating Procedure
+## Backup Schedule
+### Daily
+- Incremental backups at 2 AM
+- Full backup of critical systems
+### Weekly
+- Full system backup
+- Off-site replication
+- Recovery testing
+### Monthly
+- Archive to cold storage
+- DR test execution
+## Testing
+Monthly recovery drills required

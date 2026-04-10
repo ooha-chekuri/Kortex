@@ -1,0 +1,15 @@
+# VPN Access Policy
+## Overview
+This policy governs the use of Virtual Private Network (VPN) connections to access corporate resources.
+## Eligibility
+- All full-time employees
+- Contractors with manager approval
+- Third-party vendors with security clearance
+## Connection Requirements
+1. Use only company-approved VPN clients
+2. Always connect via secure WiFi (not public networks)
+3. Disconnect when not in use
+4. Never share VPN credentials
+## Security Controls
+- Session timeout: 30 minutes of inactivity
+- Multi-factor authentication required

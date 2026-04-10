@@ -1,0 +1,1 @@
+PII data must be encrypted at rest and in transit. Access to production databases requires approval from the DPO. Log all access attempts.

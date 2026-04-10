@@ -1,0 +1,10 @@
+# Webhook Configuration Guide
+## Setup
+1. Generate webhook URL
+2. Configure events to subscribe
+3. Set secret token
+4. Test endpoint
+## Retry Policy
+- Retry on 5xx errors
+- Exponential backoff
+- Maximum 5 retries

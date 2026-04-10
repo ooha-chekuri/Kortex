@@ -1,0 +1,10 @@
+# Security Audit Procedure
+## Audit Types
+- Internal: Monthly
+- External: Annual
+- Penetration testing: Quarterly
+## Findings
+- Critical: 24 hours
+- High: 7 days
+- Medium: 30 days
+- Low: 90 days

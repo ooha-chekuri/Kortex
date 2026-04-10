@@ -1,0 +1,15 @@
+# CI/CD Pipeline Guide
+## Pipeline Stages
+### Build
+- Checkout code
+- Install dependencies
+- Run unit tests
+- Build artifacts
+### Test
+- Integration tests
+- Security scans
+- Performance tests
+### Deploy
+- Staging deployment
+- Integration tests
+- Production rollout

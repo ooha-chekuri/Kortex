@@ -1,0 +1,8 @@
+# API Rate Limiting Policy
+## Limits by Tier
+### Standard: 100 requests/minute, 10,000 requests/day
+### Premium: 500 requests/minute, 100,000 requests/day
+### Enterprise: Custom limits
+## Headers
+- X-RateLimit-Limit
+- X-RateLimit-Remaining

@@ -1,0 +1,1 @@
+Kafka brokers should be deployed across multiple zones. Min.insync.replicas should be set to 2 for high availability. Use SASL_SSL for secure communication.

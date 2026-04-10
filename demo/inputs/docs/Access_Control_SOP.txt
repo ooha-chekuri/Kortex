@@ -1,0 +1,10 @@
+# Access Control Standard Operating Procedure
+## Access Levels
+- Read: View data only
+- Write: Create/modify data
+- Admin: Full control
+- Super Admin: System-wide
+## Request Process
+1. Submit access request
+2. Manager approval
+3. IT implementation

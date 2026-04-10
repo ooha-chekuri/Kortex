@@ -1,0 +1,9 @@
+# Docker Standards and Best Practices
+## Image Requirements
+- Base image: alpine or slim variants
+- Multi-stage builds for smaller images
+- Non-root user required
+- Health checks included
+## Security Scanning
+- Scan all images before deployment
+- Critical vulnerabilities must be fixed

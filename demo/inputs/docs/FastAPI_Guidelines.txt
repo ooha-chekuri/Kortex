@@ -1,0 +1,10 @@
+# FastAPI Development Guidelines
+## Project Structure
+- app/main.py
+- app/api/v1/
+- app/models/
+- app/services/
+## Security
+- JWT authentication
+- Rate limiting: 100 req/min
+- Input validation with Pydantic

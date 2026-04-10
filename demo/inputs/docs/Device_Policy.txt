@@ -1,0 +1,10 @@
+# Device Management Policy
+## Company Devices
+- Laptop: Primary work device
+- Mobile: Optional, BYOD allowed
+- Peripherals: As needed
+## Security Requirements
+- Full disk encryption
+- Automatic updates
+- Antivirus installed
+- Screen lock: 5 minutes

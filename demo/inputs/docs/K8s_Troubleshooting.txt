@@ -1,0 +1,8 @@
+# Kubernetes Troubleshooting Guide
+## Common Issues
+### Pod Not Starting
+1. Check events: kubectl describe pod name
+2. Verify image availability
+3. Check resource quotas
+### Service Connectivity
+1. Endpoint exists: kubectl get endpoints service

@@ -1,0 +1,8 @@
+# Encryption Standards
+## Data at Rest
+- AES-256 encryption
+- Key rotation: Annual
+- Hardware security modules
+## Data in Transit
+- TLS 1.3 minimum
+- Certificate pinning for mobile
