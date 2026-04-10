@@ -14,32 +14,17 @@ SELF_EVAL_PROMPT = (
 
 
 class ValidatorAgent:
-    def __init__(self) -> None:
-        self.client = get_llm_client()
-
-    def _self_eval(self, answer: str, contexts: list[dict[str, Any]]) -> float:
-        context_preview = "\n\n".join(item["content"][:500] for item in contexts)
-        prompt = (
-            f"{SELF_EVAL_PROMPT}\n\n"
-            f"Answer:\n{answer}\n\n"
-            f"Context:\n{context_preview}"
-        )
-        raw = self.client.generate(prompt, temperature=0.0)
-        try:
-            value = float(raw.strip())
-        except ValueError:
-            value = 0.3
-        return max(0.0, min(1.0, value))
-
-    def validate(self, answer: str, contexts: list[dict[str, Any]]) -> dict[str, Any]:
+    def validate(self, answer: str, contexts: list[dict[str, Any]], llm_self_eval: float = 0.5) -> dict[str, Any]:
         if not contexts:
             return {"confidence": 0.0, "decision": "escalate", "llm_self_eval": 0.0}
 
+        # Use pre-calculated scores from retrieval/reranker
         retrieval_similarity = sum(
             item.get("retrieval_score", 0.0) for item in contexts
         ) / len(contexts)
         reranker_score = sum(item.get("reranker_score", 0.0) for item in contexts) / len(contexts)
-        llm_self_eval = self._self_eval(answer, contexts)
+        
+        # Combined Confidence Formula from PRD
         confidence = compute_confidence(retrieval_similarity, reranker_score, llm_self_eval)
 
         return {

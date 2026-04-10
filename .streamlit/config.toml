@@ -1,0 +1,11 @@
+[server]
+# Disable the problematic watcher that causes torch errors on Windows
+fileWatcherType = "none"
+
+[theme]
+base="light"
+primaryColor="#4b49ff"
+backgroundColor="#ffffff"
+secondaryBackgroundColor="#f9f9f9"
+textColor="#000000"
+font="monospace"

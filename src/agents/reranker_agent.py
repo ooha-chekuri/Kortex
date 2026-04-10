@@ -8,20 +8,24 @@ from sentence_transformers import CrossEncoder
 
 MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
+_reranker_model = None
 
-import streamlit as st
 
-@st.cache_resource
 def get_reranker_model() -> CrossEncoder:
-    return CrossEncoder(MODEL_NAME)
+    global _reranker_model
+    if _reranker_model is None:
+        _reranker_model = CrossEncoder(MODEL_NAME)
+    return _reranker_model
 
 
 class RerankerAgent:
-    def rerank(self, query: str, items: list[dict[str, Any]], top_k: int = 3) -> list[dict[str, Any]]:
+    def rerank(
+        self, query: str, items: list[dict[str, Any]], top_k: int = 3
+    ) -> list[dict[str, Any]]:
         if not items:
             return []
 
-        pairs = [(query, item["content"]) for item in items]
+        pairs = [(query, item.get("content", item.get("text", ""))) for item in items]
         model = get_reranker_model()
         raw_scores = model.predict(pairs)
 

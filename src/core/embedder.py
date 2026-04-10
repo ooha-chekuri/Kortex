@@ -9,12 +9,14 @@ from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
+_embedding_model = None
 
-import streamlit as st
 
-@st.cache_resource
 def get_embedding_model() -> SentenceTransformer:
-    return SentenceTransformer(MODEL_NAME)
+    global _embedding_model
+    if _embedding_model is None:
+        _embedding_model = SentenceTransformer(MODEL_NAME)
+    return _embedding_model
 
 
 def embed_texts(texts: Iterable[str]) -> np.ndarray:

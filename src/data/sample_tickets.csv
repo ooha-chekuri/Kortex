@@ -1,29 +1,201 @@
 ticket_id,title,description,resolution,category
-INC-1001,Kafka consumer lag after deployment,Consumer group lag spiked after a new release and messages stopped clearing from the topic,Increased consumer replicas and reset a misconfigured max.poll.records value,Kafka
-INC-1002,Kafka broker disk nearly full,Alerts showed broker storage above ninety percent during peak ingest,Applied retention cleanup and moved older segments to expanded storage,Kafka
-INC-1003,Kafka producer timeout in payment service,Payment service logs showed repeated request timeout errors while publishing events,Updated bootstrap server list and increased request timeout to match network latency,Kafka
-INC-1004,Kafka SASL authentication failure,Clients could not connect after password rotation and returned authentication exceptions,Rotated the client secret in the deployment and restarted affected pods,Auth
-INC-1005,Kubernetes pod CrashLoopBackOff on api gateway,Gateway pod restarted continuously after config change,Fixed invalid environment variable and rolled out corrected deployment,Kubernetes
-INC-1006,Kubernetes image pull back-off in staging,New worker pods failed to pull a private image from registry,Refreshed imagePullSecret and re-ran deployment,Kubernetes
-INC-1007,Kubernetes ingress returns 502,Users saw bad gateway responses from the ingress during service migration,Updated service port mapping and reloaded ingress controller,Kubernetes
-INC-1008,Kubernetes node NotReady alert,A node stopped reporting healthy status after kernel patching,Drained the node rebooted it and allowed kubelet to rejoin the cluster,Kubernetes
-INC-1009,Docker container exits immediately on startup,Container terminated because the entrypoint expected a missing config file,Mounted the config volume correctly and rebuilt the image,Docker
-INC-1010,Docker daemon permission denied on build,CI runners failed with permission denied while accessing docker socket,Added runner user to docker group and rotated the runner,Docker
-INC-1011,FastAPI service returns 422 on health probes,Load balancer called the wrong route format and received validation errors,Added a dedicated GET health endpoint and updated probe path,FastAPI
-INC-1012,FastAPI startup failure due to missing dependency,Application would not boot because sentence-transformers was not installed in the environment,Pinned missing package in requirements and rebuilt the environment,FastAPI
-INC-1013,VPN users cannot access internal wiki,Remote users reported timeout when loading the documentation portal,Updated route advertisement and restarted the VPN gateway,Network
-INC-1014,DNS resolution intermittent in dev subnet,Pods in one subnet failed to resolve external package hosts,Restarted CoreDNS and corrected upstream resolver policy,Network
-INC-1015,Single sign-on login loop in support portal,Users were redirected back to sign-in repeatedly after successful identity provider auth,Fixed callback URL mismatch in SSO configuration,Auth
-INC-1016,Expired TLS certificate on internal dashboard,Browser security warnings blocked access to the dashboard,Renewed certificate and updated secret in ingress namespace,Security
-INC-1017,Database connection pool exhausted,API latency increased and requests started failing under load,Raised pool size and fixed leaked sessions in background worker,Database
-INC-1018,Redis cache miss storm after deploy,Read latency increased because cache keys changed unexpectedly,Restored prior key format and warmed cache asynchronously,Cache
-INC-1019,Kafka schema registry compatibility error,Producer deployment failed when registering an incompatible schema,Switched compatibility mode to backward and corrected field evolution,Kafka
-INC-1020,Kubernetes PVC stuck pending,Stateful workload would not schedule because persistent volume claim stayed pending,Created matching storage class and expanded default quota,Kubernetes
-INC-1021,OAuth token expiry too short for cli users,Engineers were forced to reauthenticate every few minutes,Extended token lifetime policy for approved internal clients,Auth
-INC-1022,Packet loss between app and broker tier,Consumer lag correlated with intermittent packet drops between subnets,Adjusted firewall appliance policy and moved traffic off a saturated link,Network
-INC-1023,Kafka consumer rebalance thrashing,Consumers repeatedly rebalanced causing lag and duplicate processing,Stabilized group membership with static group instance IDs and tuned session timeout,Kafka
-INC-1024,Docker build cache invalidated every run,Build times doubled after Dockerfile changes removed effective layer caching,Reordered Dockerfile instructions to isolate dependency installation,Docker
-INC-1025,FastAPI CORS errors in frontend demo,Browser blocked requests from React app to local API,Enabled CORSMiddleware for local development origins,FastAPI
-INC-1026,Kubernetes HPA not scaling workers,Horizontal pod autoscaler stayed flat despite backlog growth,Added missing cpu requests and corrected metrics-server permissions,Kubernetes
-INC-1027,Email alert webhook rejected,Monitoring system could not post to the notification endpoint because of malformed payload,Updated webhook template and validated signature settings,Integrations
-INC-1028,Service account lacks S3 read access,Batch job failed when downloading reference files from object storage,Attached read policy to workload identity and restarted the job,Permissions
+INC-1001,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Rotated the secret and updated the application.,Docker
+INC-1002,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Rotated the secret and updated the application.,Network
+INC-1003,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Fixed a syntax error in the environment variables.,Kubernetes
+INC-1004,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1005,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1006,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Cleared disk space and adjusted retention policy.,Kafka
+INC-1007,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1008,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Fixed a syntax error in the environment variables.,Network
+INC-1009,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Increased resource limits and added replicas.,Network
+INC-1010,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Rotated the secret and updated the application.,Database
+INC-1011,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1012,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Updated the configuration file and redeployed.,Network
+INC-1013,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Cleared disk space and adjusted retention policy.,Kafka
+INC-1014,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1015,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Updated the configuration file and redeployed.,Network
+INC-1016,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1017,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1018,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1019,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1020,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Cleared disk space and adjusted retention policy.,Network
+INC-1021,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1022,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Increased resource limits and added replicas.,Docker
+INC-1023,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Increased resource limits and added replicas.,Network
+INC-1024,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Increased resource limits and added replicas.,Network
+INC-1025,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1026,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Cleared disk space and adjusted retention policy.,Kafka
+INC-1027,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Fixed a syntax error in the environment variables.,Kafka
+INC-1028,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Fixed a syntax error in the environment variables.,Database
+INC-1029,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1030,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Fixed a syntax error in the environment variables.,Auth
+INC-1031,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Increased resource limits and added replicas.,Network
+INC-1032,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Rotated the secret and updated the application.,Database
+INC-1033,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1034,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Rotated the secret and updated the application.,Network
+INC-1035,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1036,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1037,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Cleared disk space and adjusted retention policy.,Kafka
+INC-1038,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1039,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Fixed a syntax error in the environment variables.,Network
+INC-1040,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1041,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Cleared disk space and adjusted retention policy.,Kubernetes
+INC-1042,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Increased resource limits and added replicas.,Docker
+INC-1043,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1044,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1045,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1046,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Rotated the secret and updated the application.,Kafka
+INC-1047,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1048,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Fixed a syntax error in the environment variables.,Kubernetes
+INC-1049,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Cleared disk space and adjusted retention policy.,Kubernetes
+INC-1050,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Cleared disk space and adjusted retention policy.,Network
+INC-1051,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Rotated the secret and updated the application.,Kafka
+INC-1052,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1053,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Updated the configuration file and redeployed.,Docker
+INC-1054,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Increased resource limits and added replicas.,Kubernetes
+INC-1055,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1056,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Restarted the service and cleared cache.,Kubernetes
+INC-1057,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Increased resource limits and added replicas.,Docker
+INC-1058,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1059,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1060,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1061,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Fixed a syntax error in the environment variables.,Docker
+INC-1062,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Restarted the service and cleared cache.,Network
+INC-1063,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1064,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1065,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1066,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Updated the configuration file and redeployed.,Network
+INC-1067,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1068,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Updated the configuration file and redeployed.,Kubernetes
+INC-1069,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Restarted the service and cleared cache.,Kubernetes
+INC-1070,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Increased resource limits and added replicas.,Kubernetes
+INC-1071,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1072,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Increased resource limits and added replicas.,Auth
+INC-1073,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Restarted the service and cleared cache.,Auth
+INC-1074,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1075,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1076,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Restarted the service and cleared cache.,Docker
+INC-1077,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Updated the configuration file and redeployed.,Kubernetes
+INC-1078,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1079,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1080,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Updated the configuration file and redeployed.,Kubernetes
+INC-1081,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1082,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1083,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Fixed a syntax error in the environment variables.,Kafka
+INC-1084,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1085,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Restarted the service and cleared cache.,Network
+INC-1086,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1087,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Updated the configuration file and redeployed.,Kubernetes
+INC-1088,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Fixed a syntax error in the environment variables.,Database
+INC-1089,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Fixed a syntax error in the environment variables.,Auth
+INC-1090,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Rotated the secret and updated the application.,Network
+INC-1091,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1092,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1093,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1094,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Restarted the service and cleared cache.,Auth
+INC-1095,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1096,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1097,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Increased resource limits and added replicas.,Database
+INC-1098,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1099,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1100,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1101,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Increased resource limits and added replicas.,Network
+INC-1102,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Updated the configuration file and redeployed.,Network
+INC-1103,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1104,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1105,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1106,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1107,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1108,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Rotated the secret and updated the application.,Network
+INC-1109,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1110,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1111,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1112,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Cleared disk space and adjusted retention policy.,Kubernetes
+INC-1113,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Fixed a syntax error in the environment variables.,Database
+INC-1114,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Increased resource limits and added replicas.,Auth
+INC-1115,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Rotated the secret and updated the application.,Docker
+INC-1116,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Restarted the service and cleared cache.,Network
+INC-1117,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Cleared disk space and adjusted retention policy.,Kafka
+INC-1118,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Restarted the service and cleared cache.,Docker
+INC-1119,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Increased resource limits and added replicas.,Database
+INC-1120,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1121,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Updated the configuration file and redeployed.,Docker
+INC-1122,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1123,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1124,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Rotated the secret and updated the application.,Database
+INC-1125,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Rotated the secret and updated the application.,Network
+INC-1126,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1127,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1128,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1129,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Cleared disk space and adjusted retention policy.,Network
+INC-1130,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Updated the configuration file and redeployed.,Docker
+INC-1131,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1132,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1133,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1134,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Updated the configuration file and redeployed.,Network
+INC-1135,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1136,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1137,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1138,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Fixed a syntax error in the environment variables.,Database
+INC-1139,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Increased resource limits and added replicas.,Kubernetes
+INC-1140,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1141,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1142,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1143,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Increased resource limits and added replicas.,Network
+INC-1144,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Fixed a syntax error in the environment variables.,Network
+INC-1145,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Rotated the secret and updated the application.,Database
+INC-1146,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Rotated the secret and updated the application.,Network
+INC-1147,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Increased resource limits and added replicas.,Auth
+INC-1148,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Increased resource limits and added replicas.,Kubernetes
+INC-1149,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Fixed a syntax error in the environment variables.,Docker
+INC-1150,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1151,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Updated the configuration file and redeployed.,Docker
+INC-1152,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Increased resource limits and added replicas.,Kafka
+INC-1153,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Fixed a syntax error in the environment variables.,Database
+INC-1154,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Cleared disk space and adjusted retention policy.,Kafka
+INC-1155,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1156,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Rotated the secret and updated the application.,Kubernetes
+INC-1157,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Updated the configuration file and redeployed.,Auth
+INC-1158,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1159,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Restarted the service and cleared cache.,Network
+INC-1160,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Rotated the secret and updated the application.,Docker
+INC-1161,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1162,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Updated the configuration file and redeployed.,Docker
+INC-1163,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Rotated the secret and updated the application.,Database
+INC-1164,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Restarted the service and cleared cache.,Docker
+INC-1165,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Cleared disk space and adjusted retention policy.,Database
+INC-1166,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1167,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1168,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1169,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Cleared disk space and adjusted retention policy.,Auth
+INC-1170,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Updated the configuration file and redeployed.,Network
+INC-1171,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Updated the configuration file and redeployed.,Database
+INC-1172,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1173,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1174,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Restarted the service and cleared cache.,Auth
+INC-1175,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1176,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Restarted the service and cleared cache.,Network
+INC-1177,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Rotated the secret and updated the application.,Database
+INC-1178,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Fixed a syntax error in the environment variables.,Network
+INC-1179,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Restarted the service and cleared cache.,Database
+INC-1180,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Restarted the service and cleared cache.,Kafka
+INC-1181,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1182,Issue with Database in production,The user reported a failure in the Database module during peak hours.,Fixed a syntax error in the environment variables.,Database
+INC-1183,Issue with Network in production,The user reported a failure in the Network module during peak hours.,Restarted the service and cleared cache.,Network
+INC-1184,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Increased resource limits and added replicas.,Docker
+INC-1185,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Cleared disk space and adjusted retention policy.,Docker
+INC-1186,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Restarted the service and cleared cache.,Docker
+INC-1187,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Updated the configuration file and redeployed.,Kafka
+INC-1188,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Restarted the service and cleared cache.,Kubernetes
+INC-1189,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Updated the configuration file and redeployed.,Kubernetes
+INC-1190,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Restarted the service and cleared cache.,Docker
+INC-1191,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Rotated the secret and updated the application.,Auth
+INC-1192,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Restarted the service and cleared cache.,Docker
+INC-1193,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Restarted the service and cleared cache.,Kubernetes
+INC-1194,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Increased resource limits and added replicas.,Kubernetes
+INC-1195,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Restarted the service and cleared cache.,Kubernetes
+INC-1196,Issue with Docker in production,The user reported a failure in the Docker module during peak hours.,Updated the configuration file and redeployed.,Docker
+INC-1197,Issue with Auth in production,The user reported a failure in the Auth module during peak hours.,Restarted the service and cleared cache.,Auth
+INC-1198,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Fixed a syntax error in the environment variables.,Kafka
+INC-1199,Issue with Kafka in production,The user reported a failure in the Kafka module during peak hours.,Rotated the secret and updated the application.,Kafka
+INC-1200,Issue with Kubernetes in production,The user reported a failure in the Kubernetes module during peak hours.,Increased resource limits and added replicas.,Kubernetes

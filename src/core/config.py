@@ -18,8 +18,11 @@ TICKETS_CSV = DATA_DIR / "sample_tickets.csv"
 # Model Configs
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-LLM_PROVIDER = os.getenv("KORTEX_LLM_PROVIDER", "ollama")
-LLM_MODEL = os.getenv("KORTEX_LLM_MODEL", "llama3")
+LLM_PROVIDER = os.getenv("KORTEX_LLM_PROVIDER", "gemini")
+LLM_MODEL = os.getenv("KORTEX_LLM_MODEL", "gemini-2.0-flash")
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434").split()[
+    0
+]  # Remove "(optional)"
 
 # RAG Configs
 CHUNK_SIZE = 512

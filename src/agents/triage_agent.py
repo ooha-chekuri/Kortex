@@ -1,52 +1,30 @@
 from __future__ import annotations
 
-import re
+from src.core.llm_client import get_llm_client
 
 
-DOC_KEYWORDS = {
-    "docs",
-    "document",
-    "guide",
-    "manual",
-    "install",
-    "configure",
-    "setup",
-    "architecture",
-    "best practice",
-    "kafka",
-    "kubernetes",
-    "docker",
-    "fastapi",
-}
-
-TICKET_KEYWORDS = {
-    "incident",
-    "ticket",
-    "error",
-    "failed",
-    "issue",
-    "outage",
-    "resolution",
-    "resolved",
-    "support",
-    "auth",
-    "login",
-    "lag",
-    "timeout",
-}
+TRIAGE_PROMPT = (
+    "You are the Triage Agent for Kortex, an agentic knowledge copilot.\n"
+    "Classify the following user query into one of four categories:\n"
+    "1. 'docs': For conceptual, architectural, installation, or 'how-to' questions.\n"
+    "2. 'tickets': For error messages, specific incident IDs, known technical issues, or historical fix patterns.\n"
+    "3. 'both': If the query spans both conceptual understanding and specific troubleshooting.\n"
+    "4. 'summarize': If the user explicitly asks to summarize a document, topic, or recent activity.\n\n"
+    "Respond with only one word: 'docs', 'tickets', 'both', or 'summarize'."
+)
 
 
 def classify_intent(query: str) -> str:
-    lowered = query.lower()
-    doc_hits = sum(1 for word in DOC_KEYWORDS if re.search(rf"\b{re.escape(word)}\b", lowered))
-    ticket_hits = sum(
-        1 for word in TICKET_KEYWORDS if re.search(rf"\b{re.escape(word)}\b", lowered)
-    )
-
-    if doc_hits and ticket_hits:
+    client = get_llm_client()
+    prompt = f"{TRIAGE_PROMPT}\n\nQuery: {query}"
+    raw = client.generate(prompt, temperature=0.0).lower()
+    
+    if "summarize" in raw:
+        return "summarize"
+    if "docs" in raw and "tickets" in raw:
         return "both"
-    if ticket_hits > doc_hits:
-        return "tickets"
-    if doc_hits > ticket_hits:
+    if "docs" in raw:
         return "docs"
+    if "tickets" in raw:
+        return "tickets"
     return "both"
