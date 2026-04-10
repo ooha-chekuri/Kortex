@@ -4,10 +4,6 @@ import os
 from pathlib import Path
 import json
 
-# Absolute imports from root
-from src.agents.orchestrator import run_kortex_agent
-from src.data.ingest import build_indices
-
 # --- CORE CONFIGURATION (MUST BE FIRST) ---
 st.set_page_config(
     page_title="KORTEX | Enterprise Knowledge Copilot",
@@ -16,248 +12,297 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- HIGH-FIDELITY FULL LIGHT THEME (DASHBOARD AESTHETIC) ---
+# Absolute imports from root
+from src.agents.orchestrator import run_kortex_agent
+from src.data.ingest import build_indices
+
+# --- HIGH-FIDELITY FULL LIGHT THEME ---
 st.markdown("""
     <style>
-    /* Load Departure Mono via CDN */
     @font-face {
         font-family: 'Departure Mono';
         src: url('https://cdn.jsdelivr.net/gh/lucas-dlevy/departure-mono@main/fonts/DepartureMono-Regular.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
     }
 
-    /* Force Full Light Theme (Strict White/Black/Blue) */
     :root {
         --primary-color: #4b49ff;
         --bg-color: #ffffff;
         --text-color: #000000;
         --border-color: #000000;
-        --subtle-gray: #f9f9f9;
     }
 
-    /* Global Overrides */
-    .stApp {
-        background-color: var(--bg-color) !important;
-        color: var(--text-color) !important;
-    }
-
-    * {
+    .stApp { background-color: #ffffff !important; }
+    
+    /* Global Pure Dark Text */
+    span, p, div, h1, h2, h3, h4, li, label, .stMarkdown, [data-testid="stMetricValue"], .stCaption {
+        color: #000000 !important;
         font-family: 'Departure Mono', monospace !important;
     }
 
-    /* Sidebar Styling */
-    section[data-testid="stSidebar"] {
-        background-color: var(--bg-color) !important;
-        border-right: 1px solid var(--border-color);
-    }
-
-    /* CRISP DASHBOARD CONTAINERS (The "Box" Look) */
     .dashboard-box {
-        border: 1px solid var(--border-color);
+        border: 1px solid #000;
         padding: 20px;
-        background-color: var(--bg-color);
+        background-color: #fff;
         margin-bottom: 15px;
-        border-radius: 0px;
     }
 
     .dashboard-label {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         font-weight: bold;
         text-transform: uppercase;
-        color: #555;
         margin-bottom: 8px;
         display: block;
     }
 
-    /* Input & Button Styling */
-    .stTextInput input {
-        border-radius: 0px !important;
-        border: 1px solid var(--border-color) !important;
-        background-color: var(--bg-color) !important;
-        color: var(--text-color) !important;
-        padding: 12px !important;
-    }
-
     .stButton>button {
         border-radius: 0px !important;
-        border: 1px solid var(--border-color) !important;
-        background-color: var(--bg-color) !important;
-        color: var(--text-color) !important;
+        border: 1px solid #000 !important;
+        background-color: #fff !important;
+        color: #000 !important;
         font-weight: bold !important;
-        width: 100% !important;
-        transition: 0.1s;
         text-transform: uppercase;
-    }
-    .stButton>button:hover {
-        background-color: var(--border-color) !important;
-        color: var(--bg-color) !important;
     }
     .stButton>button[kind="primary"] {
-        background-color: var(--primary-color) !important;
-        color: #ffffff !important;
-        border: 1px solid var(--primary-color) !important;
+        background-color: #4b49ff !important;
+        color: #fff !important;
     }
 
-    /* Headings */
-    h1, h2, h3, h4 {
-        color: var(--text-color);
-        text-transform: uppercase;
-        margin-top: 0;
+    /* Pixel Agent Styling */
+    .agent-stage {
+        display: flex;
+        justify-content: space-around;
+        padding: 30px 0;
+        background: #fff;
+        border: 1px solid #000;
+        margin-bottom: 20px;
     }
-
-    /* Custom Trace Logs */
-    .trace-line {
-        font-size: 0.85rem;
-        padding: 4px 0;
-        border-bottom: 1px solid #eee;
-        color: #333;
-    }
-
-    /* Hide standard UI fluff */
-    #MainMenu, footer, header {visibility: hidden;}
-
-    /* Escalation Box */
-    .escalation-box {
-        border: 2px dashed #ff0000;
-        background-color: #fffafa;
-        color: #ff0000;
-        padding: 20px;
-        margin-top: 20px;
+    .pixel-agent {
         text-align: center;
-        font-weight: bold;
-        text-transform: uppercase;
+        transition: transform 0.3s;
     }
+    .pixel-agent svg {
+        width: 60px;
+        height: 60px;
+    }
+    .active-agent {
+        transform: scale(1.3);
+        filter: drop-shadow(0 0 10px #4b49ff);
+        animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1.3); }
+        50% { transform: scale(1.4); }
+        100% { transform: scale(1.3); }
+    }
+    .active-text {
+        color: #4b49ff !important;
+        font-size: 0.6rem;
+        font-weight: bold;
+        animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0.3; }
+        100% { opacity: 1; }
+    }
+    
+    #MainMenu, footer, header {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
 
-# Session State Initialization
+# Pixel SVGs (Detailed Humanoid Pixel Style)
+def get_pixel_icon(name, active=False):
+    color = "#4b49ff" if active else "#000000"
+    # Detailed Pixel Art SVGs (16x16 grid style)
+    icons = {
+        "TRIAGE": f'''<svg viewBox="0 0 16 16" fill="{color}">
+            <path d="M6 0h4v2H6V0zm-2 2h8v2H4V2zm-2 2h12v2H2V4zM0 6h16v4H0V6zm2 4h12v2H2v-2zm2 2h8v2H4v-2zm2 2h4v2H6v-2z"/>
+            <rect x="6" y="6" width="4" height="4" fill="white"/>
+        </svg>''',
+        "RETRIEVAL": f'''<svg viewBox="0 0 16 16" fill="{color}">
+            <path d="M4 0h8v2H4V0zM2 2h12v2H2V2zM0 4h16v2H0V4zm0 4h16v2H0V8zm2 4h12v2H2v-2zm2 2h8v2H4v-2z"/>
+            <rect x="4" y="6" width="8" height="2" fill="white"/>
+        </svg>''',
+        "SYNTHESIS": f'''<svg viewBox="0 0 16 16" fill="{color}">
+            <path d="M2 0h12v2H2V0zm0 4h12v2H2V4zm0 4h12v2H2V8zm0 12h12v2H2v-2z"/>
+            <path d="M4 2v12h8V2H4z" fill="white" opacity="0.3"/>
+        </svg>''',
+        "VALIDATOR": f'''<svg viewBox="0 0 16 16" fill="{color}">
+            <path d="M8 0L0 8l8 8 8-8-8-8zM8 4l4 4-4 4-4-4 4-4z"/>
+            <circle cx="8" cy="8" r="2" fill="white"/>
+        </svg>'''
+    }
+    return icons.get(name, "")
+
+def render_visualizer(active_node=""):
+    st.markdown("<div class='agent-stage'>", unsafe_allow_html=True)
+    cols = st.columns(4)
+    nodes = ["TRIAGE", "RETRIEVAL", "SYNTHESIS", "VALIDATOR"]
+    for i, name in enumerate(nodes):
+        is_active = active_node.upper() in name
+        with cols[i]:
+            st.markdown(f"<div class='pixel-agent {'active-agent' if is_active else ''}'>{get_pixel_icon(name, is_active)}<div style='font-size:0.6rem; margin-top:5px;'>{name}</div></div>", unsafe_allow_html=True)
+            if is_active: st.markdown("<p class='active-text' style='text-align:center;'>TALKING...</p>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+def render_knowledge_graph(query, context):
+    """SVG-based minimalist Knowledge Graph."""
+    if not context: return
+    
+    # Simple SVG Graph
+    width = 800
+    height = 250
+    query_node = (width/2, 40)
+    
+    svg = f'<svg width="100%" viewBox="0 0 {width} {height}" style="background:#fff; border:1px solid #000; margin-bottom:15px;">'
+    
+    # Draw Lines
+    for i, item in enumerate(context):
+        x = (i + 1) * (width / (len(context) + 1))
+        y = 180
+        svg += f'<line x1="{query_node[0]}" y1="{query_node[1]}" x2="{x}" y2="{y}" stroke="#4b49ff" stroke-width="1.5" opacity="0.4" />'
+        
+    # Query Node
+    svg += f'<rect x="{query_node[0]-40}" y="{query_node[1]-15}" width="80" height="30" fill="#4b49ff" stroke="#000" />'
+    svg += f'<text x="{query_node[0]}" y="{query_node[1]+5}" fill="#fff" font-size="10" text-anchor="middle" font-family="Departure Mono">QUERY</text>'
+    
+    # Context Nodes
+    for i, item in enumerate(context):
+        x = (i + 1) * (width / (len(context) + 1))
+        y = 180
+        is_doc = item.get("source_type") == "doc"
+        color = "#000" if is_doc else "#444"
+        label = item.get("doc", item.get("ticket_id", "UNK"))
+        
+        # Node Shape
+        if is_doc:
+            svg += f'<rect x="{x-35}" y="{y-15}" width="70" height="30" fill="#fff" stroke="{color}" />'
+        else:
+            svg += f'<path d="M{x-35} {y-15} L{x+35} {y-15} L{x+25} {y+15} L{x-25} {y+15} Z" fill="#fff" stroke="{color}" />'
+            
+        svg += f'<text x="{x}" y="{y+5}" fill="#000" font-size="8" text-anchor="middle" font-family="Departure Mono">{label[:12]}</text>'
+        svg += f'<text x="{x}" y="{y+25}" fill="#4b49ff" font-size="7" text-anchor="middle" font-family="Departure Mono">{int(item.get("reranker_score", 0)*100)}% REL</text>'
+        
+    svg += '</svg>'
+    st.markdown("<p class='dashboard-label'>NEURAL_KNOWLEDGE_NETWORK</p>", unsafe_allow_html=True)
+    st.markdown(svg, unsafe_allow_html=True)
+
+# Session Initialization
 if 'agent_output' not in st.session_state: st.session_state.agent_output = None
 if 'trace_logs' not in st.session_state: st.session_state.trace_logs = []
 if 'query' not in st.session_state: st.session_state.query = ""
 
-# --- SIDEBAR (ADMIN TOOLS) ---
 with st.sidebar:
     st.markdown("### 🔷 SYSTEM_ADMIN")
-    st.markdown("<p class='dashboard-label'>KNOWLEDGE_INGESTION</p>", unsafe_allow_html=True)
     
-    with st.container():
-        uploaded_files = st.file_uploader("UPLOAD_FILES", type=["pdf", "txt", "md"], accept_multiple_files=True, label_visibility="collapsed")
-        if uploaded_files:
-            docs_path = Path("docs")
-            docs_path.mkdir(exist_ok=True)
-            for uploaded_file in uploaded_files:
-                with open(docs_path / uploaded_file.name, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-            st.success(f"SAVED_{len(uploaded_files)}_FILES")
-
+    # API Key Handling
+    env_key = os.getenv("GEMINI_API_KEY", "")
+    api_key = st.text_input("GEMINI_API_KEY", value=env_key, type="password", placeholder="ENTER KEY...")
+    if api_key: os.environ["GEMINI_API_KEY"] = api_key
+    
+    st.divider()
+    st.markdown("#### 📁 DEMO_INPUTS")
+    st.info("Technical docs are in `/demo/inputs/docs` and Tickets are in `/demo/inputs/tickets`.")
+    
+    uploaded_files = st.file_uploader("UPLOAD_FILES", type=["pdf", "txt", "md"], accept_multiple_files=True, label_visibility="collapsed")
+    if uploaded_files:
+        docs_path = Path("docs")
+        docs_path.mkdir(exist_ok=True)
+        for f in uploaded_files:
+            with open(docs_path / f.name, "wb") as file: file.write(f.getbuffer())
+        st.success(f"SAVED_{len(uploaded_files)}_FILES")
+    
     if st.button("SYNC_KNOWLEDGE_BASE"):
-        with st.spinner("ANALYZING_DATA..."):
+        with st.spinner("ANALYZING..."):
             stats = build_indices()
             st.success(f"OK: {stats['docs']} DOCS / {stats['tickets']} TIX")
-
     st.divider()
-    st.markdown("<p class='dashboard-label'>SESSION_CONTROLS</p>", unsafe_allow_html=True)
     if st.button("RESET_SESSION"):
         st.session_state.clear()
         st.rerun()
 
-# --- MAIN DASHBOARD INTERFACE ---
 st.markdown("## 🔷 KORTEX // ENTERPRISE_COPILOT")
-st.markdown("<p style='font-size:0.8rem; opacity:0.6;'>AGENTIC_REASONING_ACTIVE // GROUNDED_RETRIEVAL_MODE</p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:0.8rem; opacity:0.6; color:#000 !important;'>AGENTIC_REASONING_ACTIVE // GROUNDED_RETRIEVAL_MODE</p>", unsafe_allow_html=True)
 
-# Main Query Section
 st.markdown("<p class='dashboard-label'>QUERY_INPUT</p>", unsafe_allow_html=True)
-query_input = st.text_input("INPUT", value=st.session_state.query, placeholder="ENTER COMMAND OR SEARCH QUERY...", label_visibility="collapsed")
-if query_input:
-    st.session_state.query = query_input
+query_input = st.text_input("INPUT", value=st.session_state.query, placeholder="ENTER COMMAND...", label_visibility="collapsed")
+if query_input: st.session_state.query = query_input
 
 if st.button("INVESTIGATE_KNOWLEDGE", type="primary"):
     if st.session_state.query:
         st.session_state.trace_logs = []
         st.session_state.agent_output = None
+        viz_placeholder = st.empty()
         
-        with st.status("EXECUTING_MULTI_AGENT_PIPELINE...", expanded=True) as status:
-            final_result = {}
-            for step in run_kortex_agent(st.session_state.query):
-                node_name = list(step.keys())[0]
-                node_data = step[node_name]
-                
-                status.write(f"**{node_name.upper()}**: PROCESSING...")
-                
-                if "trace" in node_data:
-                    st.session_state.trace_logs.extend(node_data["trace"])
-                
-                for k, v in node_data.items():
-                    if k != "trace":
-                        final_result[k] = v
-                time.sleep(0.1)
-            
-            status.update(label="PIPELINE_SUCCESS", state="complete")
-        
-        st.session_state.agent_output = final_result
+        try:
+            with st.status("EXECUTING_PIPELINE...", expanded=True) as status:
+                final_result = {}
+                for step in run_kortex_agent(st.session_state.query):
+                    node_name = list(step.keys())[0]
+                    node_data = step[node_name]
+                    with viz_placeholder.container(): render_visualizer(active_node=node_name)
+                    status.write(f"**{node_name.upper()}**: PROCESSING...")
+                    if "trace" in node_data: st.session_state.trace_logs.extend(node_data["trace"])
+                    for k, v in node_data.items():
+                        if k != "trace": final_result[k] = v
+                    time.sleep(0.4)
+                status.update(label="PIPELINE_SUCCESS", state="complete")
+            st.session_state.agent_output = final_result
+        except Exception as e:
+            st.error(f"PIPELINE_ERROR: {str(e)}")
+            st.session_state.agent_output = {"status": "error", "answer": "The system encountered a pipeline error. Check LLM/Connectivity."}
         st.rerun()
-    else:
-        st.warning("EMPTY_QUERY_FIELD")
 
-# --- RESULTS GRID ---
 if st.session_state.agent_output:
     st.divider()
-    col_activity, col_response = st.columns([1.5, 3])
-    
-    with col_activity:
+    col1, col2 = st.columns([1.5, 3])
+    with col1:
         st.markdown("<p class='dashboard-label'>AGENT_ACTIVITY_TRACE</p>", unsafe_allow_html=True)
         with st.container():
-            st.markdown("<div class='dashboard-box' style='min-height:450px;'>", unsafe_allow_html=True)
+            st.markdown("<div class='dashboard-box' style='height:750px; overflow-y:auto;'>", unsafe_allow_html=True)
             for log in st.session_state.trace_logs:
-                st.markdown(f"<div class='trace-line'>> {log}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-size:0.8rem; border-bottom:1px solid #eee; padding:5px 0; color:#000 !important;'>{log}</div>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
-
-    with col_response:
-        st.markdown("<p class='dashboard-label'>RESPONSE_SYNTHESIS</p>", unsafe_allow_html=True)
+    with col2:
         res = st.session_state.agent_output
+        render_knowledge_graph(st.session_state.query, res.get("context", []))
         
-        with st.container():
-            st.markdown("<div class='dashboard-box' style='min-height:450px;'>", unsafe_allow_html=True)
-            
-            if res.get("status") == "escalated":
-                st.error(f"ESCALATION_TRIGGERED: {res.get('reason', 'LOW_CONFIDENCE')}")
-                st.markdown("<div class='escalation-box'>SYSTEM_UNCERTAIN // REDIRECTING_TO_HUMAN_ENGINEER</div>", unsafe_allow_html=True)
-            else:
-                st.markdown("#### GENERATED_ANSWER")
-                st.write(res.get('answer', 'NO_DATA_GENERATED'))
-                
-                st.divider()
-                
-                # Sources & Stats Row
-                c1, c2 = st.columns(2)
-                with c1:
-                    st.markdown("<p class='dashboard-label'>SOURCES_MAPPED</p>", unsafe_allow_html=True)
-                    if res.get("context"):
-                        seen = set()
-                        for ctx in res["context"]:
-                            sid = ctx.get("source", "UNK")
-                            if sid not in seen:
-                                st.markdown(f"<p style='font-size:0.75rem; border-bottom:1px solid #eee;'>ID: {sid} // TYPE: {ctx.get('type','DOC')}</p>", unsafe_allow_html=True)
-                                seen.add(sid)
-                    else:
-                        st.caption("NO_SOURCES_CITED")
-
-                with c2:
-                    st.markdown("<p class='dashboard-label'>RELIABILITY_METRICS</p>", unsafe_allow_html=True)
-                    conf = res.get("confidence", 0.0)
-                    st.metric("CONFIDENCE_SCORE", f"{int(conf*100)}%")
-                    if conf < 0.5:
-                        st.warning("LOW_RELIABILITY_WARNING")
-            
-            st.markdown("</div>", unsafe_allow_html=True)
-
+        confidence_val = res.get('confidence', 0)
+        confidence_pct = int(confidence_val * 100)
+        conf_color = "#22c55e" if confidence_pct >= 70 else "#f59e0b" if confidence_pct >= 40 else "#ef4444"
+        conf_label = "ANSWER" if confidence_val >= 0.5 else "ESCALATE"
+        
+        st.markdown(f"""
+        <div style="border:1px solid #000; padding:20px; margin-bottom:15px; background:#fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <span style="font-size:0.7rem; font-weight:bold; text-transform:uppercase; background:{conf_color}; color:#fff; padding:4px 12px;">{conf_label}</span>
+                <span style="font-size:0.8rem; color:#000;">CONFIDENCE: {confidence_pct}%</span>
+            </div>
+            <div style="font-size:0.9rem; line-height:1.6; color:#000 !important;">{res.get('answer', 'NO_DATA')}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<p class='dashboard-label'>SOURCES_REFERENCED</p>", unsafe_allow_html=True)
+        if res.get("context"):
+            for ctx in res["context"]:
+                src_type = ctx.get("source_type", "UNKNOWN")
+                src_badge = "DOC" if src_type == "doc" else "TICKET"
+                src_id = ctx.get("doc", ctx.get("ticket_id", "UNK"))
+                rel_score = int(ctx.get("reranker_score", 0) * 100)
+                preview = ctx.get("text", "")[:100] + "..." if len(ctx.get("text", "")) > 100 else ctx.get("text", "")
+                st.markdown(f"""
+                <div style="border:1px solid #ccc; padding:12px; margin:8px 0; background:#fafafa;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:0.7rem; font-weight:bold; color:#4b49ff;">{src_badge}</span>
+                        <span style="font-size:0.7rem; color:#666;">{rel_score}% REL</span>
+                    </div>
+                    <div style="font-size:0.75rem; font-weight:bold; color:#000; margin-bottom:4px;">{src_id}</div>
+                    <div style="font-size:0.7rem; color:#444; font-style:italic;">{preview}</div>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.caption("NO_SOURCES_CITED")
 else:
     if not query_input:
         st.divider()
-        st.markdown("""
-            <div class='dashboard-box' style='text-align:center; padding:100px; opacity:0.4;'>
-                SYSTEM_READY_FOR_INPUT<br>
-                ENTER_QUERY_TO_INITIALIZE_AGENTIC_REASONING
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='dashboard-box' style='text-align:center; padding:100px; opacity:0.4;'>SYSTEM_READY</div>", unsafe_allow_html=True)
