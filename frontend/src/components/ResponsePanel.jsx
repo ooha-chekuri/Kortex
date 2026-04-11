@@ -1,10 +1,11 @@
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import EscalationBanner from "./EscalationBanner";
 
 function confidenceTone(score) {
-  if (score > 0.75) return "bg-emerald-500";
-  if (score >= 0.5) return "bg-amber-500";
-  return "bg-red-500";
+  if (score > 0.75) return "#00ff41";  // Green - good
+  if (score >= 0.5) return "#ffff00"; // Yellow - retry
+  return "#ff0000";                    // Red - escalate
 }
 
 function sourceLabel(source) {
@@ -16,64 +17,106 @@ function sourceLabel(source) {
 export default function ResponsePanel({ result, loading }) {
   const confidence = result?.confidence ?? 0;
   const escalated = result?.status === "escalated";
+  const color = confidenceTone(confidence);
 
   return (
-    <section className="rounded-3xl border border-white/70 bg-white/85 p-5 shadow-card backdrop-blur">
-      <div className="mb-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pine/70">
+    <section className="rounded-3xl border border-pixel-border bg-pixel-card p-5 backdrop-blur relative overflow-hidden">
+      {/* Scanline effect */}
+      <div className="absolute inset-0 pointer-events-none opacity-5">
+        <div className="w-full h-full" style={{
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #fff 2px, #fff 4px)'
+        }}></div>
+      </div>
+      
+      <div className="mb-4 relative z-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: '#00d4ff' }}>
           Response
         </p>
-        <h2 className="font-display text-2xl text-ink">Grounded answer</h2>
+        <h2 className="font-display text-2xl text-white" style={{ fontFamily: '"Departure Mono", monospace' }}>
+          Generated Answer
+        </h2>
       </div>
 
       <EscalationBanner visible={escalated} reason={result?.reason} />
 
-      <div className="min-h-64 rounded-2xl border border-slate-200 bg-white p-5">
+      <div className="min-h-64 rounded-2xl border border-pixel-border bg-black/50 p-5 relative z-10">
         {loading ? (
-          <div className="flex h-full min-h-52 items-center justify-center text-slate-500">
-            Synthesizing a grounded response...
+          <div className="flex h-full min-h-52 items-center justify-center flex-col gap-4">
+            <div className="flex gap-2">
+              {[0, 1, 2, 3, 4].map(i => (
+                <div 
+                  key={i}
+                  className="w-4 h-8 animate-bounce"
+                  style={{ 
+                    background: i % 2 === 0 ? '#00ff41' : '#00d4ff',
+                    animationDelay: `${i * 100}ms`
+                  }}
+                />
+              ))}
+            </div>
+            <span style={{ color: '#00ff41', fontFamily: '"Departure Mono", monospace' }}>
+              {'>'} Synthesizing response...
+            </span>
           </div>
         ) : result ? (
           <div className="space-y-5">
-            <div className="markdown-body prose prose-slate max-w-none">
+            <div className="markdown-body max-w-none" style={{ color: '#e0e0e0', fontFamily: '"Departure Mono", monospace' }}>
               <ReactMarkdown>{result.answer || result.suggestion || "No answer available."}</ReactMarkdown>
             </div>
 
-            <div>
+            <div className="border-t border-pixel-border pt-4">
               <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="font-medium text-slate-700">Confidence</span>
-                <span className="text-slate-500">{confidence.toFixed(2)}</span>
+                <span className="font-medium" style={{ color: '#00d4ff' }}>CONFIDENCE</span>
+                <span style={{ color: color, fontFamily: '"Departure Mono", monospace' }}>
+                  {confidence.toFixed(2)}
+                </span>
               </div>
-              <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+              <div className="h-4 overflow-hidden rounded border" style={{ borderColor: color }}>
                 <div
-                  className={`h-full rounded-full transition-all duration-500 ${confidenceTone(confidence)}`}
-                  style={{ width: `${confidence * 100}%` }}
+                  className="h-full transition-all duration-500"
+                  style={{ 
+                    width: `${confidence * 100}%`,
+                    background: color,
+                    boxShadow: `0 0 10px ${color}`
+                  }}
                 />
               </div>
             </div>
 
-            <div>
-              <p className="mb-2 text-sm font-medium text-slate-700">Sources</p>
+            <div className="border-t border-pixel-border pt-4">
+              <p className="mb-2 text-sm font-medium" style={{ color: '#00d4ff', fontFamily: '"Departure Mono", monospace' }}>
+                SOURCES_
+              </p>
               <div className="flex flex-wrap gap-2">
                 {(result.sources || []).length > 0 ? (
                   result.sources.map((source, index) => (
                     <button
-                      type="button"
                       key={`${sourceLabel(source)}-${index}`}
-                      className="rounded-full border border-slate-300 bg-mist px-3 py-1 text-sm text-slate-700"
+                      className="rounded px-3 py-1 text-sm transition-all hover:scale-105"
+                      style={{ 
+                        border: '1px solid #00d4ff', 
+                        color: '#00d4ff',
+                        fontFamily: '"Departure Mono", monospace',
+                        background: 'rgba(0, 212, 255, 0.1)'
+                      }}
                     >
                       {sourceLabel(source)}
                     </button>
                   ))
                 ) : (
-                  <span className="text-sm text-slate-500">No sources returned.</span>
+                  <span className="text-sm" style={{ color: '#666', fontFamily: '"Departure Mono", monospace' }}>
+                    No sources returned_
+                  </span>
                 )}
               </div>
             </div>
           </div>
         ) : (
-          <div className="flex h-full min-h-52 items-center justify-center text-center text-slate-500">
-            Submit a query to see the answer, confidence score, and supporting sources.
+          <div className="flex h-full min-h-52 items-center justify-center text-center" style={{ color: '#666', fontFamily: '"Departure Mono", monospace' }}>
+            <div>
+              <div className="mb-2" style={{ color: '#00ff41' }}>{'>'}_</div>
+              <p>Submit a query to see the answer, confidence score, and supporting sources.</p>
+            </div>
           </div>
         )}
       </div>

@@ -27,7 +27,8 @@ A complete guide to setting up, running, and testing the Kortex Agentic Knowledg
 
 ```bash
 cd backend
-pip install -r requirements.txt
+uv venv
+uv pip install -r requirements.txt
 ```
 
 Required packages:
