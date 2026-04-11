@@ -16,6 +16,7 @@ export default function App() {
   const [query, setQuery] = useState(demoQueries[0]);
   const [result, setResult] = useState(null);
   const [visibleTrace, setVisibleTrace] = useState([]);
+  const [xaiExplanation, setXaiExplanation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [activeAgent, setActiveAgent] = useState(null);
   const timeoutsRef = useRef([]);
@@ -80,6 +81,7 @@ export default function App() {
       }
 
       setResult(payload);
+      setXaiExplanation(payload.xai_explanation || null);
       revealTrace(payload.agent_trace || []);
     } catch (error) {
       setResult({
@@ -140,7 +142,7 @@ export default function App() {
         </div>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-[1fr,1.2fr]">
-          <AgentActivityPanel trace={visibleTrace} loading={loading} />
+          <AgentActivityPanel trace={visibleTrace} loading={loading} xaiExplanation={xaiExplanation} />
           <ResponsePanel result={result} loading={loading} />
         </section>
 

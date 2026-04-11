@@ -8,6 +8,7 @@ from backend.agents.synthesis_agent import SynthesisAgent
 from backend.agents.ticket_agent import TicketAgent
 from backend.agents.triage_agent import classify_intent
 from backend.agents.validator_agent import ValidatorAgent
+from backend.services.xai_explainer import XAIExplainer
 
 
 class Orchestrator:
@@ -17,6 +18,7 @@ class Orchestrator:
         self.reranker_agent = RerankerAgent()
         self.synthesis_agent = SynthesisAgent()
         self.validator_agent = ValidatorAgent()
+        self.xai = XAIExplainer()
 
     def _collect_sources(self, contexts: list[dict[str, Any]]) -> list[dict[str, Any]]:
         seen: set[tuple[str, str]] = set()
@@ -41,8 +43,22 @@ class Orchestrator:
 
     def run(self, query: str, context_mode: str = "auto") -> dict[str, Any]:
         trace: list[str] = []
+        xai_explanations: list[dict[str, Any]] = []
+
+        # Step 1: Triage
         intent = classify_intent(query) if context_mode == "auto" else context_mode
         trace.append(f"Triage Agent -> {intent}")
+
+        # XAI for Triage
+        triage_xai = self.xai.explain_triage(intent, query)
+        xai_explanations.append(triage_xai)
+
+        # Store results for XAI
+        retrieval_result = None
+        rerank_result = None
+        synthesis_result = None
+        validator_result = None
+        had_fallback = False
 
         retry_count = 0
         while retry_count <= 1:
@@ -65,6 +81,15 @@ class Orchestrator:
             if tickets:
                 trace.append(f"Ticket Agent -> Found {len(tickets)} matching tickets")
 
+            # XAI for Retrieval
+            top_score = max([d.get("retrieval_score", 0) for d in docs], default=0)
+            retrieval_xai = self.xai.explain_retrieval(
+                len(docs), len(tickets), top_score
+            )
+            if retry_count == 0:
+                xai_explanations.append(retrieval_xai)
+                retrieval_result = retrieval_xai
+
             combined = docs + tickets
             if not combined:
                 return {
@@ -73,18 +98,49 @@ class Orchestrator:
                     "suggestion": "Forward to human engineer",
                     "agent_trace": trace
                     + ["Guardrail -> Escalated due to empty context"],
+                    "xai_explanation": xai_explanations,
                 }
 
             ranked = self.reranker_agent.rerank(query, combined, top_k=3)
             trace.append(f"Reranker Agent -> Selected top {len(ranked)} context items")
 
-            answer = self.synthesis_agent.generate(query, ranked)
+            # XAI for Rerank
+            reranker_scores = [r.get("reranker_score", 0) for r in ranked]
+            rerank_xai = self.xai.explain_rerank(
+                len(combined), len(ranked), reranker_scores
+            )
+            if retry_count == 0:
+                xai_explanations.append(rerank_xai)
+                rerank_result = rerank_xai
+
+            answer, fallback_used = self.synthesis_agent.generate(query, ranked)
+            had_fallback = had_fallback or fallback_used
             trace.append("Synthesis Agent -> Generated grounded answer")
+
+            # XAI for Synthesis
+            synthesis_xai = self.xai.explain_synthesis(
+                len(answer), len(ranked), fallback_used
+            )
+            if retry_count == 0:
+                xai_explanations.append(synthesis_xai)
+                synthesis_result = synthesis_xai
 
             validation = self.validator_agent.validate(answer, ranked)
             trace.append(
                 f"Validator Agent -> Confidence {validation['confidence']:.2f} ({validation['decision']})"
             )
+
+            # XAI for Validator
+            validator_xai = self.xai.explain_validator(
+                validation["confidence"],
+                validation["decision"],
+                validation.get("retrieval_similarity", 0),
+                validation.get("reranker_score", 0),
+                validation.get("llm_self_eval", 0),
+            )
+            if retry_count == 0:
+                xai_explanations.append(validator_xai)
+                validator_result = validator_xai
 
             if validation["decision"] == "respond":
                 return {
@@ -93,6 +149,7 @@ class Orchestrator:
                     "confidence": validation["confidence"],
                     "agent_trace": trace,
                     "status": "success",
+                    "xai_explanation": xai_explanations,
                 }
 
             if validation["decision"] == "retry" and retry_count == 0:
@@ -106,6 +163,7 @@ class Orchestrator:
                 "suggestion": "Forward to human engineer",
                 "confidence": validation["confidence"],
                 "agent_trace": trace,
+                "xai_explanation": xai_explanations,
             }
 
         return {
@@ -113,4 +171,5 @@ class Orchestrator:
             "reason": "Retry limit reached",
             "suggestion": "Forward to human engineer",
             "agent_trace": trace,
+            "xai_explanation": xai_explanations,
         }

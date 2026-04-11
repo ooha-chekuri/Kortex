@@ -36,17 +36,19 @@ class SynthesisAgent:
             "Return a concise answer in markdown. For each piece of information, cite the source name in brackets like [source.pdf] or [TICKET-001]."
         )
 
-    def generate(self, query: str, contexts: list[dict[str, Any]]) -> str:
+    def generate(self, query: str, contexts: list[dict[str, Any]]) -> tuple[str, bool]:
+        """Generate answer. Returns tuple of (answer, fallback_used)."""
         prompt = self.build_prompt(query, contexts)
+        fallback_used = False
         try:
             result = self.client.generate(prompt, temperature=0.1)
             # Check if we got a valid response or an error
             if "FAILED" in result or "Error:" in result:
                 raise Exception("LLM generation failed")
-            return result
+            return result, fallback_used
         except Exception as e:
+            fallback_used = True
             # If LLM fails, generate a fallback answer based on contexts
-            # This allows the system to still respond even without an LLM
             fallback_parts = [f"# Answer to: {query}\n"]
 
             for ctx in contexts[:3]:  # Use top 3 contexts
@@ -55,10 +57,8 @@ class SynthesisAgent:
                 )
                 content = ctx.get("content", "")
 
-                # Extract the key information based on the query
                 fallback_parts.append(f"\n### From [{source}]\n")
 
-                # Add the content (truncated if too long)
                 if len(content) > 400:
                     fallback_parts.append(content[:400] + "...")
                 else:
@@ -68,4 +68,4 @@ class SynthesisAgent:
                 "\n\n**Note:** This answer was generated from retrieved context as the LLM is temporarily unavailable."
             )
 
-            return "\n".join(fallback_parts)
+            return "\n".join(fallback_parts), fallback_used
