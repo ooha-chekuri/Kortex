@@ -6,3 +6,7 @@ __pycache__/
 *.pyc
 # Ignore .env files containing sensitive information
 .env
+
+frontend/node_modules/
+frontend/dist/
+frontend/build/  
