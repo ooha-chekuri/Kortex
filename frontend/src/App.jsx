@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import AgentActivityPanel from "./components/AgentActivityPanel";
 import QueryInput from "./components/QueryInput";
 import ResponsePanel from "./components/ResponsePanel";
+import Documentation from "./components/Documentation";
 import { AgentPipeline, PixelDecoration } from "./components/PixelAgent";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -19,6 +20,7 @@ export default function App() {
   const [xaiExplanation, setXaiExplanation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [activeAgent, setActiveAgent] = useState(null);
+  const [currentPage, setCurrentPage] = useState('home');
   const timeoutsRef = useRef([]);
 
   useEffect(() => {
@@ -103,48 +105,84 @@ export default function App() {
       <PixelDecoration />
       
       <div className="mx-auto max-w-7xl relative z-10">
-        <header className="mb-8 space-y-4 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.32em]" style={{ color: '#00ff41', fontFamily: '"Departure Mono", monospace' }}>
-            Kortex v1.0
-          </p>
-          <h1 className="font-display text-4xl text-white md:text-6xl" style={{ fontFamily: '"Departure Mono", monospace', textShadow: '0 0 20px rgba(0, 255, 65, 0.5)' }}>
-            AGENTIC KNOWLEDGE COPILOT
-          </h1>
-          <p className="mx-auto max-w-3xl text-base" style={{ color: '#888', fontFamily: '"Departure Mono", monospace' }}>
-            {'>'} Multi-agent RAG pipeline with confidence-based decision making
-          </p>
-        </header>
+        {/* Navigation */}
+        <nav className="mb-6 flex justify-center gap-4">
+          <button
+            onClick={() => setCurrentPage('home')}
+            className="px-4 py-2 rounded-lg transition-all"
+            style={{
+              fontFamily: '"Departure Mono", monospace',
+              background: currentPage === 'home' ? 'rgba(0,255,65,0.2)' : 'transparent',
+              border: `1px solid ${currentPage === 'home' ? '#00ff41' : '#1e1e2e'}`,
+              color: currentPage === 'home' ? '#00ff41' : '#666'
+            }}
+          >
+            <span style={{ marginRight: '8px' }}>🏠</span>
+            HOME
+          </button>
+          <button
+            onClick={() => setCurrentPage('docs')}
+            className="px-4 py-2 rounded-lg transition-all"
+            style={{
+              fontFamily: '"Departure Mono", monospace',
+              background: currentPage === 'docs' ? 'rgba(0,255,65,0.2)' : 'transparent',
+              border: `1px solid ${currentPage === 'docs' ? '#00ff41' : '#1e1e2e'}`,
+              color: currentPage === 'docs' ? '#00ff41' : '#666'
+            }}
+          >
+            <span style={{ marginRight: '8px' }}>📖</span>
+            DOCUMENTATION
+          </button>
+        </nav>
 
-        {/* Agent Pipeline Visualization */}
-        <div className="mb-8">
-          <AgentPipeline activeAgent={activeAgent} trace={visibleTrace} />
-        </div>
+        {currentPage === 'home' ? (
+          <>
+            <header className="mb-8 space-y-4 text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.32em]" style={{ color: '#00ff41', fontFamily: '"Departure Mono", monospace' }}>
+                Kortex v1.0
+              </p>
+              <h1 className="font-display text-4xl text-white md:text-6xl" style={{ fontFamily: '"Departure Mono", monospace', textShadow: '0 0 20px rgba(0, 255, 65, 0.5)' }}>
+                AGENTIC KNOWLEDGE COPILOT
+              </h1>
+              <p className="mx-auto max-w-3xl text-base" style={{ color: '#888', fontFamily: '"Departure Mono", monospace' }}>
+                {'>'} Multi-agent RAG pipeline with confidence-based decision making
+              </p>
+            </header>
 
-        <QueryInput value={query} onChange={setQuery} onSubmit={handleSubmit} loading={loading} />
+            {/* Agent Pipeline Visualization */}
+            <div className="mb-8">
+              <AgentPipeline activeAgent={activeAgent} trace={visibleTrace} />
+            </div>
 
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {demoQueries.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setQuery(item)}
-              className="rounded px-4 py-2 text-sm transition-all hover:scale-105"
-              style={{ 
-                border: '1px solid #00d4ff', 
-                color: '#00d4ff',
-                fontFamily: '"Departure Mono", monospace',
-                background: 'rgba(0, 212, 255, 0.1)'
-              }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+            <QueryInput value={query} onChange={setQuery} onSubmit={handleSubmit} loading={loading} />
 
-        <section className="mt-8 grid gap-6 lg:grid-cols-[1fr,1.2fr]">
-          <AgentActivityPanel trace={visibleTrace} loading={loading} xaiExplanation={xaiExplanation} />
-          <ResponsePanel result={result} loading={loading} />
-        </section>
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
+              {demoQueries.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setQuery(item)}
+                  className="rounded px-4 py-2 text-sm transition-all hover:scale-105"
+                  style={{ 
+                    border: '1px solid #00d4ff', 
+                    color: '#00d4ff',
+                    fontFamily: '"Departure Mono", monospace',
+                    background: 'rgba(0, 212, 255, 0.1)'
+                  }}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <section className="mt-8 grid gap-6 lg:grid-cols-[1fr,1.2fr]">
+              <AgentActivityPanel trace={visibleTrace} loading={loading} xaiExplanation={xaiExplanation} />
+              <ResponsePanel result={result} loading={loading} />
+            </section>
+          </>
+        ) : (
+          <Documentation />
+        )}
 
         {/* Footer */}
         <footer className="mt-12 text-center text-xs" style={{ color: '#444', fontFamily: '"Departure Mono", monospace' }}>
