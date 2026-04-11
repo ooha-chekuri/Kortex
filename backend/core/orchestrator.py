@@ -22,15 +22,20 @@ class Orchestrator:
         seen: set[tuple[str, str]] = set()
         sources: list[dict[str, Any]] = []
         for item in contexts:
-            if item["source_type"] == "doc":
-                key = ("doc", f'{item["doc"]}:{item["page"]}')
+            # Handle both formats: doc (with page) and ticket (with ticket_id)
+            if item.get("source_type") == "doc":
+                # SOP format uses 'file', other format uses 'doc'
+                doc_name = item.get("file", item.get("doc", "unknown"))
+                page = item.get("page", 1)
+                key = ("doc", f"{doc_name}:{page}")
                 if key not in seen:
-                    sources.append({"doc": item["doc"], "page": item["page"]})
+                    sources.append({"doc": doc_name, "page": page})
                     seen.add(key)
-            else:
-                key = ("ticket", item["ticket_id"])
+            elif item.get("source_type") == "ticket":
+                ticket_id = item.get("ticket_id", "unknown")
+                key = ("ticket", ticket_id)
                 if key not in seen:
-                    sources.append({"ticket": item["ticket_id"]})
+                    sources.append({"ticket": ticket_id})
                     seen.add(key)
         return sources
 
@@ -44,9 +49,15 @@ class Orchestrator:
             doc_k = 5 if retry_count == 0 else 8
             ticket_k = 3 if retry_count == 0 else 5
 
-            docs = self.retrieval_agent.search(query, top_k=doc_k) if intent in {"docs", "both"} else []
+            docs = (
+                self.retrieval_agent.search(query, top_k=doc_k)
+                if intent in {"docs", "both"}
+                else []
+            )
             tickets = (
-                self.ticket_agent.search(query, top_k=ticket_k) if intent in {"tickets", "both"} else []
+                self.ticket_agent.search(query, top_k=ticket_k)
+                if intent in {"tickets", "both"}
+                else []
             )
 
             if docs:
@@ -60,7 +71,8 @@ class Orchestrator:
                     "status": "escalated",
                     "reason": "No context chunks retrieved",
                     "suggestion": "Forward to human engineer",
-                    "agent_trace": trace + ["Guardrail -> Escalated due to empty context"],
+                    "agent_trace": trace
+                    + ["Guardrail -> Escalated due to empty context"],
                 }
 
             ranked = self.reranker_agent.rerank(query, combined, top_k=3)

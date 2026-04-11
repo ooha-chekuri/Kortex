@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import time
 from functools import lru_cache
 
 from dotenv import load_dotenv
@@ -15,17 +16,27 @@ class LLMClient:
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.ollama_host = os.getenv("OLLAMA_HOST")
+        self.last_error: str | None = None
 
     def generate(self, prompt: str, temperature: float = 0.1) -> str:
-        if self.provider == "openai":
-            return self._generate_openai(prompt, temperature)
-        if self.provider == "ollama":
-            return self._generate_ollama(prompt, temperature)
-        if self.provider == "gemini":
+        try:
+            if self.provider == "openai":
+                return self._generate_openai(prompt, temperature)
+            if self.provider == "ollama":
+                return self._generate_ollama(prompt, temperature)
+            if self.provider == "gemini":
+                return self._generate_gemini(prompt, temperature)
+            if self.provider == "groq":
+                return self._generate_groq(prompt, temperature)
             return self._generate_gemini(prompt, temperature)
-        if self.provider == "groq":
-            return self._generate_groq(prompt, temperature)
-        return self._generate_gemini(prompt, temperature)
+        except Exception as e:
+            self.last_error = str(e)
+            # Return a fallback message for demo purposes
+            if "RESOURCE_EXHAUSTED" in str(e) or "quota" in str(e).lower():
+                # Return a string that won't be confused as a confidence float
+                return "GENERATION_FAILED_QUOTA"
+            # For other errors, return a different fallback
+            return f"Error: {type(e).__name__}"
 
     def _generate_openai(self, prompt: str, temperature: float) -> str:
         from openai import OpenAI
@@ -81,6 +92,19 @@ class LLMClient:
         return response.choices[0].message.content.strip()
 
 
-@lru_cache(maxsize=1)
+# Global client instance
+_llm_client: LLMClient | None = None
+
+
 def get_llm_client() -> LLMClient:
-    return LLMClient()
+    """Get or create the LLM client singleton."""
+    global _llm_client
+    if _llm_client is None:
+        _llm_client = LLMClient()
+    return _llm_client
+
+
+def reset_llm_client() -> None:
+    """Reset the LLM client to force re-creation."""
+    global _llm_client
+    _llm_client = None
