@@ -13,14 +13,18 @@ from backend.core.embedder import embed_texts
 
 
 BASE_DIR = Path(__file__).resolve().parents[2]
+# Check both docs folder and synthetic SOPs folder
 DOCS_DIR = BASE_DIR / "docs"
+SYNTHETIC_SOPS = BASE_DIR / "data" / "synthetic" / "sops"
 DATA_DIR = BASE_DIR / "backend" / "data"
 DOC_INDEX_DIR = DATA_DIR / "faiss_index"
 TICKET_INDEX_DIR = DATA_DIR / "ticket_index"
 TICKETS_CSV = DATA_DIR / "sample_tickets.csv"
 
 EMAIL_PATTERN = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
-PHONE_PATTERN = re.compile(r"(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}")
+PHONE_PATTERN = re.compile(
+    r"(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}"
+)
 
 
 def redact_pii(text: str) -> str:
@@ -46,31 +50,45 @@ def chunk_text(text: str, chunk_size: int = 512, overlap: int = 50) -> list[str]
 
 def load_pdf_chunks() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    for pdf_path in sorted(DOCS_DIR.glob("*.pdf")):
-        reader = PdfReader(str(pdf_path))
-        for page_number, page in enumerate(reader.pages, start=1):
-            text = (page.extract_text() or "").strip()
-            if not text:
-                continue
-            for chunk_id, chunk in enumerate(chunk_text(text), start=1):
-                records.append(
-                    {
-                        "doc": pdf_path.name,
-                        "page": page_number,
-                        "chunk_id": chunk_id,
-                        "content": chunk,
-                    }
-                )
+
+    # Check docs folder
+    pdf_dirs = [DOCS_DIR]
+    if SYNTHETIC_SOPS.exists():
+        pdf_dirs.append(SYNTHETIC_SOPS)
+
+    for pdf_dir in pdf_dirs:
+        for pdf_path in sorted(pdf_dir.glob("*.pdf")):
+            try:
+                reader = PdfReader(str(pdf_path))
+                for page_number, page in enumerate(reader.pages, start=1):
+                    text = (page.extract_text() or "").strip()
+                    if not text:
+                        continue
+                    for chunk_id, chunk in enumerate(chunk_text(text), start=1):
+                        records.append(
+                            {
+                                "doc": pdf_path.name,
+                                "page": page_number,
+                                "chunk_id": chunk_id,
+                                "content": chunk,
+                            }
+                        )
+            except Exception as e:
+                print(f"Error loading {pdf_path}: {e}")
     return records
 
 
-def save_faiss_index(records: list[dict[str, Any]], output_dir: Path, stem: str) -> None:
+def save_faiss_index(
+    records: list[dict[str, Any]], output_dir: Path, stem: str
+) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     embeddings = embed_texts(item["content"] for item in records)
     index = faiss.IndexFlatIP(embeddings.shape[1])
     index.add(embeddings)
     faiss.write_index(index, str(output_dir / f"{stem}.index"))
-    (output_dir / "metadata.json").write_text(json.dumps(records, indent=2), encoding="utf-8")
+    (output_dir / "metadata.json").write_text(
+        json.dumps(records, indent=2), encoding="utf-8"
+    )
 
 
 def ingest_docs() -> dict[str, Any]:

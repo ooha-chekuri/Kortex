@@ -9,3 +9,10 @@ pypdf==5.4.0
 python-dotenv==1.1.0
 openai==1.75.0
 ollama==0.4.8
+beautifulsoup4==4.12.3
+requests==2.32.3
+reportlab==4.2.5
+lxml==5.3.0
+google-genai>=1.60.0
+pytest==8.3.4
+pytest-asyncio==0.25.2
