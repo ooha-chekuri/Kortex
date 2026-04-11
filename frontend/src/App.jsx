@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { House, BookOpen } from '@phosphor-icons/react';
 import AgentActivityPanel from "./components/AgentActivityPanel";
 import QueryInput from "./components/QueryInput";
 import ResponsePanel from "./components/ResponsePanel";
@@ -109,7 +110,7 @@ export default function App() {
         <nav className="mb-6 flex justify-center gap-4">
           <button
             onClick={() => setCurrentPage('home')}
-            className="px-4 py-2 rounded-lg transition-all"
+            className="px-4 py-2 rounded-lg transition-all flex items-center gap-2"
             style={{
               fontFamily: '"Departure Mono", monospace',
               background: currentPage === 'home' ? 'rgba(0,255,65,0.2)' : 'transparent',
@@ -117,12 +118,12 @@ export default function App() {
               color: currentPage === 'home' ? '#00ff41' : '#666'
             }}
           >
-            <span style={{ marginRight: '8px' }}>🏠</span>
+            <House size={18} weight="fill" />
             HOME
           </button>
           <button
             onClick={() => setCurrentPage('docs')}
-            className="px-4 py-2 rounded-lg transition-all"
+            className="px-4 py-2 rounded-lg transition-all flex items-center gap-2"
             style={{
               fontFamily: '"Departure Mono", monospace',
               background: currentPage === 'docs' ? 'rgba(0,255,65,0.2)' : 'transparent',
@@ -130,7 +131,7 @@ export default function App() {
               color: currentPage === 'docs' ? '#00ff41' : '#666'
             }}
           >
-            <span style={{ marginRight: '8px' }}>📖</span>
+            <BookOpen size={18} weight="fill" />
             DOCUMENTATION
           </button>
         </nav>

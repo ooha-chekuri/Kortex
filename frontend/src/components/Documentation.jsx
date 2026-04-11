@@ -1,10 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  House,
+  BookOpen,
+  Gear,
+  Plugs,
+  Warning,
+  Database,
+  Brain,
+  ChartLine,
+  CaretRight,
+  Lightning,
+  MagnifyingGlass,
+  Ticket,
+  ArrowsDownUp,
+  ChatsCircle,
+  ShieldCheck
+} from '@phosphor-icons/react';
+import mermaid from 'mermaid';
+
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#00ff41',
+    primaryTextColor: '#000',
+    primaryBorderColor: '#00ff41',
+    lineColor: '#00ff41',
+    secondaryColor: '#00d4ff',
+    tertiaryColor: '#12121a',
+    background: '#0a0a0f',
+    mainBkg: '#12121a',
+    nodeBorder: '#00ff41',
+    clusterBkg: '#12121a',
+    clusterBorder: '#1e1e2e',
+    titleColor: '#00ff41',
+    edgeLabelBackground: '#12121a'
+  }
+});
 
 const docsSections = [
   {
     id: 'overview',
     title: '1. Overview',
-    icon: '📋',
+    icon: BookOpen,
     content: `Kortex is an Agentic Enterprise Knowledge Copilot that combines multi-agent orchestration with RAG (Retrieval Augmented Generation) to answer employee queries about IT systems, documentation, and historical incidents.
 
 Key Features:
@@ -17,40 +55,70 @@ Key Features:
   {
     id: 'architecture',
     title: '2. System Architecture',
-    icon: '🏗️',
+    icon: ChartLine,
+    diagram: `flowchart TB
+      subgraph INPUT
+        Q[User Query]
+      end
+      
+      subgraph AGENTS
+        T[Triage<br/>Agent] --> R[Retrieval<br/>Agent]
+        T --> K[Ticket<br/>Agent]
+        R --> RR[Reranker<br/>Agent]
+        K --> RR
+        RR --> S[Synthesis<br/>Agent]
+        S --> V[Validator<br/>Agent]
+      end
+      
+      subgraph OUTPUT
+        V --> A[Answer]
+        V --> SRC[Sources]
+        V --> CONF[Confidence]
+        V --> XAI[XAI Trace]
+      end
+      
+      Q --> T
+      A --> RESP[Response]
+      
+      style T fill:#ff6b00,color:#000
+      style R fill:#00d4ff,color:#000
+      style K fill:#9d00ff,color:#000
+      style RR fill:#ffff00,color:#000
+      style S fill:#00ff41,color:#000
+      style V fill:#ff00ff,color:#000`,
     content: `Kortex uses a 6-stage agent pipeline:
 
-[Triage Agent]
+1. [Lightning] Triage Agent
 Analyzes query intent to determine search strategy
 - docs: User needs documentation
 - tickets: User needs historical incidents  
 - both: User needs both
 
-[Retrieval Agent]
+2. [MagnifyingGlass] Retrieval Agent
 Searches FAISS vector database for document chunks
 - Uses sentence-transformers embeddings
 - Returns top-K semantically similar results
 
-[Ticket Agent]
+3. [Ticket] Ticket Agent
 Searches historical support tickets
 - Finds related incident resolutions
 
-[Reranker Agent]
+4. [ArrowsDownUp] Reranker Agent
 Re-ranks results using cross-encoder
 - Improves precision of top results
 
-[Synthesis Agent]
+5. [ChatsCircle] Synthesis Agent
 Generates LLM response with citations
 - Grounds answer in retrieved context
 
-[Validator Agent]
+6. [ShieldCheck] Validator Agent
 Computes confidence score
 - Formula: 0.4*retrieval + 0.35*reranker + 0.25*llm_self_eval`
   },
   {
     id: 'confidence',
     title: '3. Confidence Scoring',
-    icon: '🎯',
+    icon: Gear,
     content: `Kortex uses a weighted confidence formula:
 
 confidence = (0.4 × retrieval_similarity) + (0.35 × reranker_score) + (0.25 × llm_self_eval)
@@ -65,7 +133,7 @@ This ensures we only provide answers when we have sufficient context evidence.`
   {
     id: 'api',
     title: '4. API Reference',
-    icon: '🔌',
+    icon: Plugs,
     content: `POST /query
 Request:
 {
@@ -93,7 +161,7 @@ Returns {"status": "ok"}`
   {
     id: 'config',
     title: '5. Configuration',
-    icon: '⚙️',
+    icon: Gear,
     content: `Environment variables in .env:
 
 LLM Providers:
@@ -111,7 +179,7 @@ Ollama:
   {
     id: 'troubleshooting',
     title: '6. Troubleshooting',
-    icon: '🔧',
+    icon: Warning,
     content: `Issue: "No context chunks retrieved"
 Solution: Run POST /ingest to index data
 
@@ -127,7 +195,7 @@ Solution: Run 'ollama serve' and 'ollama pull llama3'`
   {
     id: 'data',
     title: '7. Data Sources',
-    icon: '📊',
+    icon: Database,
     content: `Kortex supports three data sources:
 
 Option A: Public IT Documentation
@@ -149,7 +217,7 @@ Option C: Custom Data
   {
     id: 'xai',
     title: '8. Explainable AI (XAI)',
-    icon: '🤖',
+    icon: Brain,
     content: `Every agent decision includes human-readable explanations:
 
 Triage: Shows which keywords triggered intent
@@ -168,6 +236,18 @@ The XAI panel displays:
 
 export default function Documentation() {
   const [activeSection, setActiveSection] = useState('overview');
+  const [expandedSections, setExpandedSections] = useState({});
+
+  useEffect(() => {
+    mermaid.run();
+  }, [activeSection]);
+
+  const toggleSection = (id) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   return (
     <div className="min-h-screen px-4 py-8 md:px-8 relative overflow-hidden" style={{ background: '#0a0a0f' }}>
@@ -192,42 +272,60 @@ export default function Documentation() {
           </p>
         </header>
 
-        <div className="grid gap-6 lg:grid-cols-[250px_1fr]">
+        <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
           {/* Sidebar */}
           <nav className="space-y-2">
-            {docsSections.map(section => (
-              <button
-                key={section.id}
-                onClick={() => setActiveSection(section.id)}
-                className="w-full text-left px-4 py-3 rounded-lg transition-all"
-                style={{
-                  fontFamily: '"Departure Mono", monospace',
-                  background: activeSection === section.id ? 'rgba(0,255,65,0.1)' : 'transparent',
-                  border: `1px solid ${activeSection === section.id ? '#00ff41' : '#1e1e2e'}`,
-                  color: activeSection === section.id ? '#00ff41' : '#888'
-                }}
-              >
-                <span className="mr-2">{section.icon}</span>
-                {section.title}
-              </button>
-            ))}
+            {docsSections.map(section => {
+              const Icon = section.icon;
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => setActiveSection(section.id)}
+                  className="w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3"
+                  style={{
+                    fontFamily: '"Departure Mono", monospace',
+                    background: activeSection === section.id ? 'rgba(0,255,65,0.1)' : 'transparent',
+                    border: `1px solid ${activeSection === section.id ? '#00ff41' : '#1e1e2e'}`,
+                    color: activeSection === section.id ? '#00ff41' : '#888'
+                  }}
+                >
+                  <Icon size={20} weight="fill" />
+                  {section.title}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Content */}
           <main className="rounded-3xl border border-pixel-border bg-pixel-card p-6" style={{ fontFamily: '"Departure Mono", monospace' }}>
-            {docsSections.map(section => (
-              <div 
-                key={section.id}
-                className={activeSection === section.id ? 'block' : 'hidden'}
-              >
-                <h2 className="text-2xl mb-4" style={{ color: '#00ff41' }}>
-                  {section.icon} {section.title}
-                </h2>
-                <pre className="whitespace-pre-wrap text-sm leading-relaxed" style={{ color: '#e0e0e0' }}>
-                  {section.content}
-                </pre>
-              </div>
-            ))}
+            {docsSections.map(section => {
+              const Icon = section.icon;
+              return (
+                <div 
+                  key={section.id}
+                  className={activeSection === section.id ? 'block' : 'hidden'}
+                >
+                  <h2 className="text-2xl mb-4 flex items-center gap-3" style={{ color: '#00ff41' }}>
+                    <Icon size={28} weight="fill" />
+                    {section.title}
+                  </h2>
+                  
+                  {/* Mermaid Diagram */}
+                  {section.diagram && (
+                    <div className="mb-6 p-4 rounded-lg bg-black/30 border border-pixel-border overflow-x-auto">
+                      <div className="mermaid">
+                        {section.diagram}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Content */}
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed" style={{ color: '#e0e0e0' }}>
+                    {section.content}
+                  </pre>
+                </div>
+              );
+            })}
           </main>
         </div>
 
