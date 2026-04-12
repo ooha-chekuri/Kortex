@@ -55,8 +55,37 @@ cd Kortex
 cd backend
 pip install -r requirements.txt
 
+<<<<<<< HEAD
 # Frontend  
 cd ../frontend
+=======
+2. Add technical PDFs to [`docs/README.md`](c:/Users/oohac/OneDrive/Documents/Kortex/docs/README.md). If a PDF is not available, generate one from the official website.
+```powershell
+.\scripts\save-web-docs.ps1 -Urls "https://kafka.apache.org/documentation/"
+```
+
+3. Configure your LLM provider.
+```bash
+# Ollama
+set KORTEX_LLM_PROVIDER=ollama
+set KORTEX_LLM_MODEL=llama3
+
+# Or OpenAI
+set KORTEX_LLM_PROVIDER=openai
+set KORTEX_LLM_MODEL=gpt-4.1-mini
+set OPENAI_API_KEY=your_key_here
+```
+
+4. Start the backend and ingest data.
+```bash
+uvicorn backend.main:app --reload
+curl -X POST http://localhost:8000/ingest
+```
+
+5. Start the frontend.
+```bash
+cd frontend
+>>>>>>> 0ee08a5 (Docs)
 npm install
 ```
 
