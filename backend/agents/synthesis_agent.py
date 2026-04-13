@@ -51,18 +51,17 @@ class SynthesisAgent:
             # If LLM fails, generate a fallback answer based on contexts
             fallback_parts = [f"# Answer to: {query}\n"]
 
-            for ctx in contexts[:3]:  # Use top 3 contexts
+            for ctx in contexts[:5]:  # Use top 5 contexts for complete answer
                 source = ctx.get(
                     "file", ctx.get("doc", ctx.get("ticket_id", "Unknown"))
                 )
                 content = ctx.get("content", "")
 
-                fallback_parts.append(f"\n### From [{source}]\n")
+                if not content:
+                    continue
 
-                if len(content) > 400:
-                    fallback_parts.append(content[:400] + "...")
-                else:
-                    fallback_parts.append(content)
+                fallback_parts.append(f"\nFrom [{source}]\n")
+                fallback_parts.append(content)
 
             fallback_parts.append(
                 "\n\n**Note:** This answer was generated from retrieved context as the LLM is temporarily unavailable."

@@ -146,6 +146,7 @@ class Orchestrator:
                 return {
                     "answer": answer,
                     "sources": self._collect_sources(ranked),
+                    "contexts": ranked,
                     "confidence": validation["confidence"],
                     "agent_trace": trace,
                     "status": "success",

@@ -43,6 +43,21 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.get("/api/source")
+def get_source(file: str, page: int = 1):
+    """Serve a PDF source file at a specific page."""
+    BASE_DIR = Path(__file__).resolve().parents[1]
+    SOP_DIR = BASE_DIR / "data" / "synthetic" / "sops"
+
+    pdf_path = SOP_DIR / file
+    if not pdf_path.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+
+    return FileResponse(
+        pdf_path, media_type="application/pdf", headers={"Accept-Ranges": "bytes"}
+    )
+
+
 @app.get("/docs")
 def get_docs():
     """Serve API documentation page."""
