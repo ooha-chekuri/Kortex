@@ -1,363 +1,68 @@
-# Kortex Walkthrough
+# ⚡ KORTEX: User Walkthrough ⚡
 
-A complete guide to setting up, running, and testing the Kortex Agentic Knowledge Copilot.
-
----
-
-## Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [Installation](#installation)
-3. [Running the Application](#running-the-application)
-4. [Testing the System](#testing-the-system)
-5. [API Usage](#api-usage)
-6. [Troubleshooting](#troubleshooting)
+Welcome to Kortex, your **Agentic Knowledge Copilot**. This guide will help you get started with the platform, from data ingestion to running queries and understanding the agent's reasoning.
 
 ---
 
-## Prerequisites
+## 🚀 1. Setup & Ingestion
 
-| Requirement | Version | Notes |
-|-------------|---------|-------|
-| Python | 3.10+ | Required |
-| pip | Latest | For package installation |
-| Git | Any | For version control |
+Before you can query the system, you need to ingest the enterprise documents (SOPs) and historical tickets.
 
-### Install Python Dependencies
-
+### **Step 1: Configure your LLM**
+Ensure your `.env` file in the root directory points to your preferred provider (Ollama, OpenAI, Gemini, or Groq).
 ```bash
-cd backend
-uv venv
-uv pip install -r requirements.txt
+KORTEX_LLM_PROVIDER=ollama
+KORTEX_LLM_MODEL=llama3.2:3b
+OLLAMA_HOST=http://localhost:11434
 ```
 
-Required packages:
-- FastAPI, Uvicorn
-- sentence-transformers, faiss-cpu
-- pandas, numpy, scikit-learn
-- pypdf, reportlab
-- google-genai, openai
+### **Step 2: Run Ingestion**
+This will clean, chunk, and embed your documents (`/data/synthetic/sops`) and tickets (`/backend/data/sample_tickets.csv`).
+```bash
+python -m backend.data.ingest
+```
+*Tip: Subsequent runs will automatically skip unchanged files using MD5 hashes.*
 
 ---
 
-## Installation
+## 🔍 2. Running Your First Query
 
-### Step 1: Clone the Repository
+Start the backend and frontend, then visit `http://localhost:5173` (or the port Vite provides).
 
-```bash
-git clone <repository-url>
-cd kortex
-```
-
-### Step 2: Generate Data
-
-```bash
-# Option A: Run the generation script
-python scripts/generate_data.py
-
-# This creates:
-# - 26 SOP PDFs in data/synthetic/sops/
-# - 250 IT tickets in data/synthetic/tickets.csv
-```
-
-### Step 3: Run Ingestion
-
-```bash
-# Option B: Use the API directly (after starting server)
-# See "Running the Application" below
-```
-
-### Step 4: Configure LLM Provider
-
-Edit `.env` file:
-
-```bash
-# Choose your provider: gemini, openai, ollama, groq
-KORTEX_LLM_PROVIDER=gemini
-
-# Add your API key
-GEMINI_API_KEY=your_key_here
-
-# Model selection
-KORTEX_LLM_MODEL=gemini-2.0-flash
-```
+### **Types of Queries You Can Ask:**
+1.  **SOP Search:** "How do I configure Kafka consumer lag monitoring?"
+2.  **Incident Lookup:** "What past incidents mention SSO login loops?"
+3.  **Complex Reasoning:** "How do I fix the VPN error from yesterday?" (The agent will check both docs and tickets).
+4.  **Summarization:** "Summarize the data retention policy for user logs."
 
 ---
 
-## Running the Application
+## 🤖 3. Understanding the Agent
 
-### Start the Backend
+Kortex uses a **ReAct (Reason + Act) loop**. You can watch this in real-time in the **Agent Activity Panel**:
 
-```bash
-# From project root
-uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-The server will start at `http://localhost:8000`
-
-### Ingest Data
-
-Once the server is running:
-
-```bash
-curl -X POST http://localhost:8000/ingest
-```
-
-Expected response:
-```json
-{
-  "status": "ok",
-  "summary": {
-    "docs": {"documents_indexed": 26, "chunks_indexed": 43},
-    "tickets": {"tickets_indexed": 250}
-  }
-}
-```
-
-### Start the Frontend (Optional)
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Visit `http://localhost:5173` for the UI.
+1.  **Planning:** The agent thinks about what it needs to solve your query.
+2.  **Actions:** It calls tools like `doc_search`, `ticket_search`, or `summarize`.
+3.  **Observation:** It reads the results and decides if it has enough information.
+4.  **Validation:** It performs a **Faithfulness Check** to ensure it isn't hallucinating.
+5.  **Final Answer:** You receive a grounded response with citations.
 
 ---
 
-## Testing the System
+## 📊 4. Running Evaluations
 
-### Test 1: Health Check
-
+To see how well the system is performing, run the automated evaluation suite:
 ```bash
-curl http://localhost:8000/health
+python scripts/run_evaluation.py
 ```
-
-Expected: `{"status": "ok"}`
-
-### Test 2: Query with cURL
-
-```bash
-curl -X POST http://localhost:8000/query \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "How do I fix Kafka consumer lag after a deployment?"
-  }'
-```
-
-Expected response:
-```json
-{
-  "answer": "To fix Kafka consumer lag...",
-  "sources": [{"doc": "kafka_topic_management.pdf", "page": 3}],
-  "confidence": 0.82,
-  "status": "success",
-  "agent_trace": ["Triage Agent -> docs", ...]
-}
-```
-
-### Test 3: Query with Python
-
-```python
-import requests
-
-response = requests.post(
-    "http://localhost:8000/query",
-    json={"query": "What is the password reset procedure?"}
-)
-print(response.json())
-```
-
-### Test 4: Run Unit Tests
-
-```bash
-pytest tests/test_agents.py -v
-```
-
-Expected: 14 tests passing
-
-### Test 5: Evaluation Metrics
-
-```bash
-python -c "
-import sys
-sys.path.insert(0, '.')
-from backend.services.evaluation import get_evaluation_service
-
-eval = get_evaluation_service()
-
-# Test Precision@K
-docs = [{'content': 'doc1'}, {'content': 'doc2'}, {'content': 'doc3'}]
-scores = [1.0, 0.0, 1.0]
-print('Precision@K:', eval.precision_at_k(docs, scores, 3))
-
-# Test Recall@K
-print('Recall@K:', eval.recall_at_k(docs, scores, 3))
-
-# Test MRR
-print('MRR:', eval.mean_reciprocal_rank(docs, scores))
-
-# Test Semantic Similarity
-print('Similarity:', eval.semantic_similarity('VPN setup', 'VPN configuration'))
-"
-```
+This generates a detailed `evaluation_report.md` in your root directory with Precision, Recall, and MRR metrics.
 
 ---
 
-## API Usage
+## 🐳 5. Docker Deployment
 
-### Full Query Example
-
-```python
-import requests
-
-def query_kortex(question):
-    response = requests.post(
-        "http://localhost:8000/query",
-        json={
-            "query": question,
-            "user_id": "demo",
-            "context_mode": "auto"
-        }
-    )
-    return response.json()
-
-# Test questions
-questions = [
-    "How do I fix Kafka consumer lag after a deployment?",
-    "What is the password reset procedure?",
-    "How do I configure VPN?",
-    "Why would a Kubernetes pod enter CrashLoopBackOff?",
-    "What past incidents mention SSO login issues?"
-]
-
-for q in questions:
-    result = query_kortex(q)
-    print(f"Q: {q}")
-    print(f"Status: {result.get('status')}")
-    print(f"Confidence: {result.get('confidence', 0):.2f}")
-    print(f"Answer: {result.get('answer', 'N/A')[:150]}...")
-    print("-" * 50)
-```
-
-### Check Agent Trace
-
-```python
-result = query_kortex("How do I configure VPN?")
-print("Agent Trace:")
-for step in result.get('agent_trace', []):
-    print(f"  - {step}")
-```
-
----
-
-## Sample Data Available
-
-### Documents (26 SOPs)
-
-- VPN Setup and Configuration
-- Password Reset Procedure
-- Email Configuration Guide
-- Database Backup and Recovery
-- Kubernetes Cluster Management
-- Kafka Topic Management
-- Incident Response Procedure
-- Security Patch Management
-- And more...
-
-### Tickets (250 IT Support Tickets)
-
-Categories: Network, Hardware, Software, Security, Email, Database, VPN, Authentication, Cloud, Application
-
----
-
-## Troubleshooting
-
-### Issue: "Module not found"
-
+For a production-ready setup, use Docker Compose:
 ```bash
-# Reinstall dependencies
-pip install -r backend/requirements.txt
+docker-compose up --build
 ```
-
-### Issue: "FAISS index not found"
-
-```bash
-# Re-run ingestion
-curl -X POST http://localhost:8000/ingest
-```
-
-### Issue: "LLM API quota exceeded"
-
-- Switch provider in `.env`
-- Or wait for quota to reset
-
-### Issue: Port already in use
-
-```bash
-# Find process using port 8000
-netstat -ano | findstr :8000
-
-# Kill it or use different port
-uvicorn backend.main:app --port 8001
-```
-
-### Issue: Tests failing
-
-```bash
-# Run with verbose output
-pytest tests/test_agents.py -v -s
-```
-
----
-
-## Architecture Overview
-
-```
-User Query
-    ↓
-Triage Agent (intent classification)
-    ↓
-Retrieval Agent + Ticket Agent (FAISS search)
-    ↓
-Reranker Agent (cross-encoder)
-    ↓
-Synthesis Agent (LLM generation)
-    ↓
-Validator Agent (confidence scoring)
-    ↓
-Response (+ sources, confidence, trace)
-```
-
-### Confidence Formula
-
-```
-confidence = 0.5 × retrieval_score + 0.3 × reranker_score + 0.2 × llm_self_eval
-```
-
-### Decision Thresholds
-
-| Confidence | Action |
-|------------|--------|
-| > 0.75 | Respond with answer |
-| 0.5-0.75 | Retry with expanded search |
-| < 0.5 | Escalate to human |
-
----
-
-## Next Steps
-
-1. **Add more data**: Place PDFs in `docs/` or `data/synthetic/sops/`
-2. **Switch LLM**: Try OpenAI or Ollama in `.env`
-3. **Customize agents**: Modify agents in `backend/agents/`
-4. **Add evaluation**: Use services in `backend/services/evaluation.py`
-
----
-
-## Support
-
-For issues or questions, check:
-- `docs/architecture.md` - Full architecture
-- `docs/agent-flow.md` - Agent pipeline details
-- `docs/api.md` - API reference
+This will start both the FastAPI backend (port 8000) and the Nginx-hosted frontend (port 80).

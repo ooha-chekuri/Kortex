@@ -33,29 +33,104 @@ def redact_pii(text: str) -> str:
     return text
 
 
-def chunk_text(text: str, chunk_size: int = 512, overlap: int = 50) -> list[str]:
-    words = text.split()
-    chunks: list[str] = []
-    start = 0
-    while start < len(words):
-        end = min(len(words), start + chunk_size)
-        chunk = " ".join(words[start:end]).strip()
-        if chunk:
-            chunks.append(chunk)
-        if end == len(words):
-            break
-        start = max(0, end - overlap)
+def chunk_text(text: str, chunk_size: int = 800, overlap: int = 100) -> list[str]:
+    """Recursive character-based splitting to preserve structure."""
+    if len(text) <= chunk_size:
+        return [text]
+
+    # Try splitting by headers, then double newlines, then single newlines, then spaces
+    separators = ["\n\n", "\n", " ", ""]
+    
+    chunks = []
+    
+    def recursive_split(subtext: str, sep_idx: int):
+        if len(subtext) <= chunk_size:
+            if subtext.strip():
+                chunks.append(subtext.strip())
+            return
+
+        sep = separators[sep_idx]
+        if sep == "": # Final fallback: force split by characters
+            chunks.append(subtext[:chunk_size].strip())
+            recursive_split(subtext[chunk_size:], sep_idx)
+            return
+
+        parts = subtext.split(sep)
+        current_chunk = ""
+        
+        for part in parts:
+            if len(current_chunk) + len(part) + len(sep) <= chunk_size:
+                current_chunk += (sep if current_chunk else "") + part
+            else:
+                if current_chunk:
+                    chunks.append(current_chunk.strip())
+                    
+                # If a single part is larger than chunk_size, split it further
+                if len(part) > chunk_size:
+                    recursive_split(part, sep_idx + 1)
+                    current_chunk = ""
+                else:
+                    current_chunk = part
+                    
+        if current_chunk:
+            chunks.append(current_chunk.strip())
+
+    recursive_split(text, 0)
+    
+    # Simple overlap handling (optional optimization)
+    # For now, this recursive split is much better than word-based split.
     return chunks
 
 
+import hashlib
+
+# ... (other imports)
+TICKETS_CSV = DATA_DIR / "sample_tickets.csv"
+TRACKING_FILE = DATA_DIR / "ingestion_tracking.json"
+
+# ... (redact_pii and chunk_text methods)
+
+def get_file_hash(file_path: Path) -> str:
+    hasher = hashlib.md5()
+    with open(file_path, "rb") as f:
+        buf = f.read()
+        hasher.update(buf)
+    return hasher.hexdigest()
+
 def load_pdf_chunks() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    
+    # Load tracking info
+    tracking = {}
+    if TRACKING_FILE.exists():
+        try:
+            tracking = json.loads(TRACKING_FILE.read_text())
+        except:
+            pass
 
     # Check docs folder
     pdf_dirs = [DOCS_DIR]
     if SYNTHETIC_SOPS.exists():
         pdf_dirs.append(SYNTHETIC_SOPS)
 
+    new_tracking = {}
+    any_changes = False
+
+    # First pass: check for changes
+    for pdf_dir in pdf_dirs:
+        for pdf_path in sorted(pdf_dir.glob("*.pdf")):
+            current_hash = get_file_hash(pdf_path)
+            new_tracking[pdf_path.name] = current_hash
+            if tracking.get(pdf_path.name) != current_hash:
+                any_changes = True
+
+    if not any_changes and tracking:
+        # No changes, return previous records if they exist in metadata
+        metadata_path = DOC_INDEX_DIR / "metadata.json"
+        if metadata_path.exists():
+            return json.loads(metadata_path.read_text())
+
+    # If changes detected, re-process everything (for simplicity with FAISS IndexFlatIP)
     for pdf_dir in pdf_dirs:
         for pdf_path in sorted(pdf_dir.glob("*.pdf")):
             try:
@@ -75,6 +150,9 @@ def load_pdf_chunks() -> list[dict[str, Any]]:
                         )
             except Exception as e:
                 print(f"Error loading {pdf_path}: {e}")
+    
+    # Save new tracking
+    TRACKING_FILE.write_text(json.dumps(new_tracking, indent=2))
     return records
 
 

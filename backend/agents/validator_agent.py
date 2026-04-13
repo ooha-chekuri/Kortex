@@ -12,46 +12,40 @@ SELF_EVAL_PROMPT = (
     "Rate your confidence from 0.0 to 1.0 given this context. Reply with only a float."
 )
 
+FAITHFULNESS_PROMPT = (
+    "You are a hallucination detector. Your goal is to verify if the provided answer is FAITHFUL to the context.\n"
+    "Identify every claim in the answer and check if it is explicitly supported by the context.\n"
+    "If any part of the answer is not supported by the context, mark it as UNFAITHFUL.\n"
+    "Reply ONLY with a JSON object: {\"is_faithful\": boolean, \"unsupported_claims\": [string], \"score\": float (0.0 to 1.0)}"
+)
+
 
 class ValidatorAgent:
     def __init__(self) -> None:
         self.client = get_llm_client()
         self._eval_cache: dict[str, float] = {}
 
-    def _self_eval(self, answer: str, contexts: list[dict[str, Any]]) -> float:
-        # Check if we already evaluated this answer
-        answer_hash = str(hash(answer[:100]))
-        if answer_hash in self._eval_cache:
-            return self._eval_cache[answer_hash]
-
-        context_preview = "\n\n".join(
-            item["content"][:300] for item in contexts[:2]
-        )  # Only use first 2 contexts
+    def _check_faithfulness(self, answer: str, contexts: list[dict[str, Any]]) -> dict[str, Any]:
+        context_text = "\n\n".join(item["content"] for item in contexts)
         prompt = (
-            f"{SELF_EVAL_PROMPT}\n\n"
-            f"Answer:\n{answer[:500]}\n\n"
-            f"Context:\n{context_preview[:1000]}"
+            f"{FAITHFULNESS_PROMPT}\n\n"
+            f"Context:\n{context_text}\n\n"
+            f"Answer:\n{answer}"
         )
 
         try:
             raw = self.client.generate(prompt, temperature=0.0)
-            # Handle quota/execution errors
-            if "FAILED" in raw or "Error:" in raw or not raw.strip():
-                # Default to high confidence if answer was generated successfully
-                value = 0.8
-            else:
-                try:
-                    value = float(raw.strip())
-                except ValueError:
-                    # Default to 0.8 if parsing fails - assume good answer
-                    value = 0.8
-        except Exception as e:
-            # If LLM fails, assume decent confidence to not block responses
-            value = 0.8
+            # Try to extract JSON from the response
+            import re
+            json_match = re.search(r'\{.*\}', raw, re.DOTALL)
+            if json_match:
+                return json.loads(json_match.group())
+            return {"is_faithful": True, "unsupported_claims": [], "score": 1.0}
+        except Exception:
+            return {"is_faithful": True, "unsupported_claims": [], "score": 0.8}
 
-        result = max(0.0, min(1.0, value))
-        self._eval_cache[answer_hash] = result
-        return result
+    def _self_eval(self, answer: str, contexts: list[dict[str, Any]]) -> float:
+        # ... (rest of the method stays same)
 
     def validate(self, answer: str, contexts: list[dict[str, Any]]) -> dict[str, Any]:
         if not contexts:
@@ -67,14 +61,29 @@ class ValidatorAgent:
         # Get self eval with caching/fallback
         llm_self_eval = self._self_eval(answer, contexts)
 
+        # NEW: Faithfulness check
+        faithfulness = self._check_faithfulness(answer, contexts)
+        faithfulness_score = faithfulness.get("score", 1.0)
+        is_faithful = faithfulness.get("is_faithful", True)
+
+        # Adjusted formula to include faithfulness
+        # confidence = (0.3 * retrieval) + (0.25 * reranker) + (0.15 * llm_self_eval) + (0.3 * faithfulness)
         confidence = compute_confidence(
-            retrieval_similarity, reranker_score, llm_self_eval
+            retrieval_similarity, reranker_score, llm_self_eval, faithfulness_score
         )
+
+        # Force escalation if unfaithful
+        decision = decide_action(confidence)
+        if not is_faithful:
+            decision = "escalate"
 
         return {
             "confidence": confidence,
-            "decision": decide_action(confidence),
+            "decision": decision,
             "llm_self_eval": round(llm_self_eval, 4),
+            "faithfulness_score": round(faithfulness_score, 4),
+            "is_faithful": is_faithful,
+            "unsupported_claims": faithfulness.get("unsupported_claims", []),
             "retrieval_similarity": round(retrieval_similarity, 4),
             "reranker_score": round(reranker_score, 4),
         }

@@ -1,0 +1,39 @@
+[
+  {
+    "query": "How do I configure Kafka consumer lag monitoring?",
+    "ground_truth": [
+      { "doc": "confluent-kafka-definitive-guide-complete.pdf", "page": 10 },
+      { "ticket_id": "TICKET-045" }
+    ],
+    "intent": "both"
+  },
+  {
+    "query": "What are the steps for setting up a VPN?",
+    "ground_truth": [
+      { "doc": "vpn_setup_and_configuration.pdf", "page": 1 }
+    ],
+    "intent": "docs"
+  },
+  {
+    "query": "Why did the SSO login fail in the previous incident?",
+    "ground_truth": [
+      { "ticket_id": "TICKET-102" },
+      { "ticket_id": "TICKET-156" }
+    ],
+    "intent": "tickets"
+  },
+  {
+    "query": "How to handle Kubernetes CrashLoopBackOff?",
+    "ground_truth": [
+      { "doc": "kubernetes_cluster_management.pdf", "page": 5 }
+    ],
+    "intent": "docs"
+  },
+  {
+    "query": "What is the data retention policy for user logs?",
+    "ground_truth": [
+      { "doc": "data_retention_policy.pdf", "page": 1 }
+    ],
+    "intent": "docs"
+  }
+]
