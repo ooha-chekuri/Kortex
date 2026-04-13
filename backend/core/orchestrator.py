@@ -47,6 +47,7 @@ class Orchestrator:
 
     def run(self, query: str, context_mode: str = "auto") -> dict[str, Any]:
         trace: list[str] = []
+        xai_explanations: list[dict[str, Any]] = []
         history: List[str] = []
         contexts: List[Dict[str, Any]] = []
         last_answer = None
@@ -56,12 +57,21 @@ class Orchestrator:
             plan = self.planning_agent.plan_next_step(query, history)
             trace.append(f"Planning Agent -> Step {step+1}: {plan['thought']}")
             
+            # Structured XAI for Planning
+            xai_explanations.append({
+                "agent": "Planning Agent",
+                "reason": plan["thought"],
+                "decision": plan.get("action", "final_answer"),
+                "step": step + 1
+            })
+            
             if plan.get("final_answer"):
                 return {
                     "answer": plan["final_answer"],
                     "sources": self._collect_sources(contexts),
                     "contexts": contexts,
                     "agent_trace": trace,
+                    "xai_explanation": xai_explanations,
                     "status": "success"
                 }
                 
@@ -73,29 +83,50 @@ class Orchestrator:
                 contexts.extend(results)
                 history.append(f"Observation: doc_search found {len(results)} items.")
                 trace.append(f"Retrieval Agent -> Found {len(results)} document chunks")
+                
+                # Structured XAI for Retrieval
+                top_score = max([r.get("retrieval_score", 0) for r in results], default=0)
+                xai_explanations.append(self.xai.explain_retrieval(len(results), 0, top_score))
+                
             elif action == "ticket_search":
                 results = self.ticket_agent.search(action_input or query)
                 contexts.extend(results)
                 history.append(f"Observation: ticket_search found {len(results)} items.")
                 trace.append(f"Ticket Agent -> Found {len(results)} matching tickets")
+                
+                # Structured XAI for Ticket Search
+                top_score = max([r.get("retrieval_score", 0) for r in results], default=0)
+                xai_explanations.append(self.xai.explain_retrieval(0, len(results), top_score))
+
             elif action == "synthesize":
                 if not contexts:
                     history.append("Observation: No contexts available to synthesize.")
                     continue
-                # Rerank first
                 ranked = self.reranker_agent.rerank(query, contexts, top_k=3)
                 answer, fallback = self.synthesis_agent.generate(query, ranked)
                 last_answer = answer
                 history.append(f"Observation: Synthesis generated an answer. Length: {len(answer)}")
                 trace.append("Synthesis Agent -> Generated grounded answer")
+                
+                # Structured XAI for Synthesis
+                xai_explanations.append(self.xai.explain_synthesis(len(answer), len(ranked), fallback))
+
             elif action == "validate":
                 if not last_answer:
                     history.append("Observation: No answer to validate.")
                     continue
-                # Rerank again or use already ranked items? Let's use top 3 for validation
                 ranked = self.reranker_agent.rerank(query, contexts, top_k=3)
                 validation = self.validator_agent.validate(last_answer, ranked)
                 trace.append(f"Validator Agent -> Confidence {validation['confidence']:.2f} ({validation['decision']})")
+                
+                # Structured XAI for Validator (Formula and Factors)
+                xai_explanations.append(self.xai.explain_validator(
+                    validation["confidence"],
+                    validation["decision"],
+                    validation.get("retrieval_similarity", 0),
+                    validation.get("reranker_score", 0),
+                    validation.get("llm_self_eval", 0)
+                ))
                 
                 if validation["decision"] == "respond":
                     return {
@@ -104,10 +135,12 @@ class Orchestrator:
                         "contexts": ranked,
                         "confidence": validation["confidence"],
                         "agent_trace": trace,
+                        "xai_explanation": xai_explanations,
                         "status": "success"
                     }
                 else:
                     history.append(f"Observation: Validation failed with score {validation['confidence']}. Decision: {validation['decision']}")
+            
             elif action == "summarize":
                 if not contexts:
                     history.append("Observation: No contexts available to summarize.")
@@ -116,18 +149,20 @@ class Orchestrator:
                 last_answer = summary
                 history.append(f"Observation: Summarizer generated a summary. Length: {len(summary)}")
                 trace.append("Summarizer Agent -> Generated executive summary")
+                xai_explanations.append({"agent": "Summarizer Agent", "reason": "Generated concise summary of retrieved context.", "decision": "summarized"})
+            
             elif action == "check_duplicates":
                 results = self.ticket_agent.search(action_input or query, top_k=1)
                 if results and results[0].get("retrieval_score", 0) > 0.85:
                     duplicate = results[0]
                     history.append(f"Observation: Found potential duplicate ticket {duplicate['ticket_id']} with score {duplicate['retrieval_score']:.2f}")
                     trace.append(f"Ticket Agent -> Flagged potential duplicate: {duplicate['ticket_id']}")
-                    # If it's a very strong match, we can even provide the resolution directly
                     if duplicate.get("resolution"):
                         last_answer = f"This issue appears to be a duplicate of ticket **{duplicate['ticket_id']}**. \n\n**Previous Resolution:** {duplicate['resolution']}"
                 else:
                     history.append("Observation: No high-confidence duplicate tickets found.")
                     trace.append("Ticket Agent -> No duplicate issues detected")
+                xai_explanations.append({"agent": "Ticket Agent", "reason": "Checked for high-similarity duplicates in historical records.", "decision": "checked_duplicates"})
             else:
                 break
                 
@@ -136,4 +171,5 @@ class Orchestrator:
             "reason": "Max planning steps reached without confidence",
             "suggestion": "Forward to human engineer",
             "agent_trace": trace,
+            "xai_explanation": xai_explanations
         }
