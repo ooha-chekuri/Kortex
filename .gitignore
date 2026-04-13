@@ -8,6 +8,7 @@ __pycache__/
 # Ignore .env files containing sensitive information
 .env
 
+node_modules/
 kortex/
 frontend/node_modules/
 frontend/dist/

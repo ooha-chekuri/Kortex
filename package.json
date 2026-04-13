@@ -1,0 +1,13 @@
+{
+  "name": "kortex-root",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"uvicorn backend.main:app --reload\" \"cd frontend && npm run dev\"",
+    "install-all": "npm install && cd frontend && npm install",
+    "ingest": "python -m backend.data.ingest",
+    "evaluate": "python scripts/run_evaluation.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
