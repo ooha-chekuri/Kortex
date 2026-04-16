@@ -13,10 +13,11 @@ from backend.core.embedder import embed_texts
 
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-# Check both docs folder and synthetic SOPs folder
+# Keep all runtime indexes under the shared top-level data directory so
+# ingestion, local runs, and Docker deployments read the same artifacts.
 DOCS_DIR = BASE_DIR / "docs"
 SYNTHETIC_SOPS = BASE_DIR / "data" / "synthetic" / "sops"
-DATA_DIR = BASE_DIR / "backend" / "data"
+DATA_DIR = BASE_DIR / "data"
 DOC_INDEX_DIR = DATA_DIR / "faiss_index"
 TICKET_INDEX_DIR = DATA_DIR / "ticket_index"
 TICKETS_CSV = DATA_DIR / "sample_tickets.csv"

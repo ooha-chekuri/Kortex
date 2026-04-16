@@ -55,10 +55,6 @@ cd Kortex
 cd backend
 pip install -r requirements.txt
 
-<<<<<<< HEAD
-# Frontend  
-cd ../frontend
-=======
 2. Add technical PDFs to [`docs/README.md`](c:/Users/oohac/OneDrive/Documents/Kortex/docs/README.md). If a PDF is not available, generate one from the official website.
 ```powershell
 .\scripts\save-web-docs.ps1 -Urls "https://kafka.apache.org/documentation/"
@@ -85,7 +81,6 @@ curl -X POST http://localhost:8000/ingest
 5. Start the frontend.
 ```bash
 cd frontend
->>>>>>> 0ee08a5 (Docs)
 npm install
 ```
 
@@ -119,6 +114,36 @@ npm run dev
 ```
 
 Visit: **http://localhost:5173**
+
+## Hugging Face Space Deployment
+
+This repo already includes a root-level `Dockerfile` configured for a Hugging Face Docker Space.
+
+1. Create a new Space at https://huggingface.co/new-space
+2. Choose:
+   - Name: `kortex-api`
+   - SDK: `Docker`
+   - Template: `Blank`
+   - Privacy: `Public`
+3. In the Space settings, add the secret `GEMINI_API_KEY`
+4. Upload the full repository contents, including:
+   - `Dockerfile`
+   - `backend/`
+   - `frontend/`
+   - `data/`
+   - `docs/`
+5. Hugging Face will build the container and serve the API on port `7860`
+
+You can also push with git instead of dragging files into the browser:
+
+```bash
+git clone https://huggingface.co/spaces/ooha/kortex-api
+cd kortex-api
+# Copy this repo's files into that cloned folder, then:
+git add .
+git commit -m "Deploy Kortex backend"
+git push
+```
 
 ### 4. Test
 
