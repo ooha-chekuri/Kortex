@@ -6,7 +6,7 @@ import ResponsePanel from "./components/ResponsePanel";
 import Documentation from "./components/Documentation";
 import { AgentPipeline, PixelDecoration } from "./components/PixelAgent";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
 
 const demoQueries = [
   "How do I fix Kafka consumer lag after a deployment?",
