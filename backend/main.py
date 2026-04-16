@@ -6,6 +6,7 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from backend.core.orchestrator import Orchestrator
@@ -239,3 +240,10 @@ def query(request: QueryRequest) -> dict:
         return orchestrator.run(request.query, request.context_mode)
     except Exception as exc:  # pragma: no cover
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+# Serve static files from the React build
+# This should be mounted last so it doesn't override API routes
+FRONTEND_DIR = Path(__file__).resolve().parents[1] / "frontend" / "dist"
+if FRONTEND_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
