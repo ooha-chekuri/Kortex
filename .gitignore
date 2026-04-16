@@ -1,0 +1,15 @@
+.env
+
+.ruff_cache/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+# Ignore .env files containing sensitive information
+.env
+
+node_modules/
+kortex/
+frontend/node_modules/
+frontend/dist/
+frontend/build/

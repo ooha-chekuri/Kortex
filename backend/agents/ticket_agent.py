@@ -10,7 +10,7 @@ import numpy as np
 from backend.core.embedder import embed_query
 
 
-INDEX_DIR = Path(__file__).resolve().parents[1] / "data" / "ticket_index"
+INDEX_DIR = Path(__file__).resolve().parents[2] / "data" / "ticket_index"
 INDEX_PATH = INDEX_DIR / "tickets.index"
 METADATA_PATH = INDEX_DIR / "metadata.json"
 

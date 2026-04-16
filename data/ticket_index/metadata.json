@@ -1,0 +1,2252 @@
+[
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01000",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Cloud",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01001",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Cloud",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01002",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Application",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01003",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Network",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01004",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01005",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Network",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01006",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Security",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01007",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Authentication",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01008",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "VPN",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01009",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Network",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01010",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Application",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01011",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01012",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Authentication",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01013",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Software",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01014",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01015",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Database",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01016",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Database",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01017",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "VPN",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01018",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Cloud",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01019",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Authentication",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01020",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Network",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01021",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "VPN",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01022",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Hardware",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01023",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Email",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01024",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Hardware",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01025",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "VPN",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01026",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Authentication",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01027",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Database",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01028",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "VPN",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01029",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Cloud",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01030",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Hardware",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01031",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Email",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01032",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Security",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01033",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Cloud",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01034",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Authentication",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01035",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Software",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01036",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "VPN",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01037",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Security",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01038",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01039",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Cloud",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01040",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Authentication",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01041",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Application",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01042",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Email",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01043",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Software",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01044",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Cloud",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01045",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Email",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01046",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Application",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01047",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "VPN",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01048",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Database",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01049",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01050",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Security",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01051",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Email",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01052",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Software",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01053",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Software",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01054",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "VPN",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01055",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Security",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01056",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Cloud",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01057",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Cloud",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01058",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Email",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01059",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Authentication",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01060",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Software",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01061",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Application",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01062",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Network",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01063",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Cloud",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01064",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Application",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01065",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Network",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01066",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Email",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01067",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "VPN",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01068",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Authentication",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01069",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Cloud",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01070",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Database",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01071",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Authentication",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01072",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Network",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01073",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Security",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01074",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Database",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01075",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Hardware",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01076",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01077",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Email",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01078",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Security",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01079",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Hardware",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01080",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Software",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01081",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "VPN",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01082",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Authentication",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01083",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "VPN",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01084",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Database",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01085",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01086",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Database",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01087",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "VPN",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01088",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01089",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Database",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01090",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Hardware",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01091",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Email",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01092",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "VPN",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01093",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Application",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01094",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Software",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01095",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Authentication",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01096",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01097",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "VPN",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01098",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Hardware",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01099",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "VPN",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01100",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Authentication",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01101",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Email",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01102",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Cloud",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01103",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Application",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01104",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Authentication",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01105",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Application",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01106",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Database",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01107",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Authentication",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01108",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "VPN",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01109",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Authentication",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01110",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Network",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01111",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Database",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01112",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "VPN",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01113",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Application",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01114",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Hardware",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01115",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Network",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01116",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Hardware",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01117",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Software",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01118",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Security",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01119",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Security",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01120",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Software",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01121",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Software",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01122",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Authentication",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01123",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01124",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Network",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01125",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Authentication",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01126",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Network",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01127",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Hardware",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01128",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Security",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01129",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Email",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01130",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Application",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01131",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "VPN",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01132",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Cloud",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01133",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Network",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01134",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Email",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01135",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Software",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01136",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Cloud",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01137",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Email",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01138",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Cloud",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01139",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Network",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01140",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Database",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01141",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Database",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01142",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Software",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01143",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Database",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01144",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Authentication",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01145",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Database",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01146",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Database",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01147",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Cloud",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01148",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Email",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01149",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Software",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01150",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Email",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01151",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Cloud",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01152",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01153",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Authentication",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01154",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Network",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01155",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "VPN",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01156",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Email",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01157",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "VPN",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01158",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Security",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01159",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Software",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01160",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "VPN",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01161",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "VPN",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01162",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Hardware",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01163",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "VPN",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01164",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01165",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Network",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01166",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "VPN",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01167",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01168",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Authentication",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01169",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Security",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01170",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Security",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01171",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Application",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01172",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "VPN",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01173",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Authentication",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01174",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Network",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01175",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Hardware",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01176",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Email",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01177",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Application",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01178",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Software",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01179",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Database",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01180",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "VPN",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01181",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "VPN",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01182",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Database",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01183",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Authentication",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01184",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Application",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01185",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "VPN",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01186",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Security",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01187",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Network",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01188",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Software",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01189",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Application",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01190",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Hardware",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01191",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Software",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01192",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Email",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01193",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01194",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Email",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01195",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Authentication",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01196",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Network",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01197",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Cloud",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01198",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Network",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01199",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Database",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01200",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Authentication",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01201",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Security",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01202",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Hardware",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01203",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "VPN",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01204",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "VPN",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01205",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Software",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01206",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Email",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01207",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Network",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01208",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "VPN",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01209",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Cloud",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01210",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Application",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01211",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Authentication",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01212",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "VPN",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01213",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Application",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01214",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Software",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01215",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Cloud",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01216",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Email",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01217",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Authentication",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01218",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Hardware",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01219",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Security",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01220",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Email",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01221",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Network",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01222",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Hardware",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Hardware"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01223",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Email",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01224",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Cloud",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01225",
+    "title": "Database Connection Failed",
+    "description": "Application cannot connect to production database.",
+    "resolution": "Firewall rule added. Connection string corrected. DB accessible.",
+    "category": "Authentication",
+    "content": "Database Connection Failed Application cannot connect to production database. Firewall rule added. Connection string corrected. DB accessible. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01226",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Security",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01227",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Network",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01228",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Authentication",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01229",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Database",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01230",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "Software",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01231",
+    "title": "Kubernetes Pod Crash",
+    "description": "Pod in CrashLoopBackOff. Logs show memory error.",
+    "resolution": "Increased memory limit. Pod running stable.",
+    "category": "Email",
+    "content": "Kubernetes Pod Crash Pod in CrashLoopBackOff. Logs show memory error. Increased memory limit. Pod running stable. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01232",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Cloud",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01233",
+    "title": "File Share Access Denied",
+    "description": "Cannot access shared drive. Permission denied error.",
+    "resolution": "Added user to correct AD group. Access restored.",
+    "category": "VPN",
+    "content": "File Share Access Denied Cannot access shared drive. Permission denied error. Added user to correct AD group. Access restored. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01234",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "VPN",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. VPN"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01235",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Email",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01236",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Email",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01237",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Authentication",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01238",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Software",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Software"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01239",
+    "title": "Printer Not Found",
+    "description": "Cannot find network printer from my computer.",
+    "resolution": "Reinstalled printer driver. Printer now visible.",
+    "category": "Database",
+    "content": "Printer Not Found Cannot find network printer from my computer. Reinstalled printer driver. Printer now visible. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01240",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Application",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Application"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01241",
+    "title": "Email Not Syncing",
+    "description": "Outlook not receiving new emails. Can send but not receive.",
+    "resolution": "Cleared Outlook cache. Reconfigured account. Emails flowing again.",
+    "category": "Security",
+    "content": "Email Not Syncing Outlook not receiving new emails. Can send but not receive. Cleared Outlook cache. Reconfigured account. Emails flowing again. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01242",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Network",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01243",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Database",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Database"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01244",
+    "title": "Slow Network Performance",
+    "description": "Network is extremely slow. Downloads taking hours.",
+    "resolution": "Found malware on endpoint. Removed. Network restored.",
+    "category": "Cloud",
+    "content": "Slow Network Performance Network is extremely slow. Downloads taking hours. Found malware on endpoint. Removed. Network restored. Cloud"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01245",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Authentication",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Authentication"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01246",
+    "title": "VPN Connection Timeout",
+    "description": "Unable to connect to corporate VPN. Connection times out after 30 seconds.",
+    "resolution": "Updated VPN client to latest version. Reset network settings. Connection restored.",
+    "category": "Network",
+    "content": "VPN Connection Timeout Unable to connect to corporate VPN. Connection times out after 30 seconds. Updated VPN client to latest version. Reset network settings. Connection restored. Network"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01247",
+    "title": "SSO Login Loop",
+    "description": "SSO authentication redirects in a loop. Cannot access any application.",
+    "resolution": "Cleared browser cache. Regenerated SSO token. Works now.",
+    "category": "Security",
+    "content": "SSO Login Loop SSO authentication redirects in a loop. Cannot access any application. Cleared browser cache. Regenerated SSO token. Works now. Security"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01248",
+    "title": "Password Expired",
+    "description": "Cannot log in. Password has expired and system won't let me change it.",
+    "resolution": "Reset password via self-service. Verified login works.",
+    "category": "Email",
+    "content": "Password Expired Cannot log in. Password has expired and system won't let me change it. Reset password via self-service. Verified login works. Email"
+  },
+  {
+    "source": "ticket",
+    "ticket_id": "TICKET-01249",
+    "title": "SSL Certificate Error",
+    "description": "Browser shows certificate error on internal site.",
+    "resolution": "Updated certificate. Added to trust store.",
+    "category": "Application",
+    "content": "SSL Certificate Error Browser shows certificate error on internal site. Updated certificate. Added to trust store. Application"
+  }
+]

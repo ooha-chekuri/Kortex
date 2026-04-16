@@ -1,0 +1,135 @@
+{
+  "sops_created": 26,
+  "sops": [
+    {
+      "title": "VPN Setup and Configuration",
+      "file": "vpn_setup_and_configuration.pdf",
+      "category": "Network"
+    },
+    {
+      "title": "Password Reset Procedure",
+      "file": "password_reset_procedure.pdf",
+      "category": "Security"
+    },
+    {
+      "title": "Email Configuration Guide",
+      "file": "email_configuration_guide.pdf",
+      "category": "Communication"
+    },
+    {
+      "title": "Database Backup and Recovery",
+      "file": "database_backup_and_recovery.pdf",
+      "category": "Database"
+    },
+    {
+      "title": "Kubernetes Cluster Management",
+      "file": "kubernetes_cluster_management.pdf",
+      "category": "Infrastructure"
+    },
+    {
+      "title": "Kafka Topic Management",
+      "file": "kafka_topic_management.pdf",
+      "category": "Data"
+    },
+    {
+      "title": "API Gateway Configuration",
+      "file": "api_gateway_configuration.pdf",
+      "category": "Integration"
+    },
+    {
+      "title": "Incident Response Procedure",
+      "file": "incident_response_procedure.pdf",
+      "category": "Operations"
+    },
+    {
+      "title": "Code Deployment Pipeline",
+      "file": "code_deployment_pipeline.pdf",
+      "category": "Development"
+    },
+    {
+      "title": "Security Patch Management",
+      "file": "security_patch_management.pdf",
+      "category": "Security"
+    },
+    {
+      "title": "User Account Provisioning",
+      "file": "user_account_provisioning.pdf",
+      "category": "Identity"
+    },
+    {
+      "title": "Monitoring and Alerting Setup",
+      "file": "monitoring_and_alerting_setup.pdf",
+      "category": "Operations"
+    },
+    {
+      "title": "Load Balancer Configuration",
+      "file": "load_balancer_configuration.pdf",
+      "category": "Network"
+    },
+    {
+      "title": "Docker Container Management",
+      "file": "docker_container_management.pdf",
+      "category": "Development"
+    },
+    {
+      "title": "SSL Certificate Management",
+      "file": "ssl_certificate_management.pdf",
+      "category": "Security"
+    },
+    {
+      "title": "Disaster Recovery Plan",
+      "file": "disaster_recovery_plan.pdf",
+      "category": "Operations"
+    },
+    {
+      "title": "Log Management and Analysis",
+      "file": "log_management_and_analysis.pdf",
+      "category": "Operations"
+    },
+    {
+      "title": "Network Firewall Rules",
+      "file": "network_firewall_rules.pdf",
+      "category": "Network"
+    },
+    {
+      "title": "Backup Verification Procedure",
+      "file": "backup_verification_procedure.pdf",
+      "category": "Storage"
+    },
+    {
+      "title": "Software License Management",
+      "file": "software_license_management.pdf",
+      "category": "Compliance"
+    },
+    {
+      "title": "Access Control Review",
+      "file": "access_control_review.pdf",
+      "category": "Security"
+    },
+    {
+      "title": "Change Management Process",
+      "file": "change_management_process.pdf",
+      "category": "Operations"
+    },
+    {
+      "title": "Performance Tuning Guide",
+      "file": "performance_tuning_guide.pdf",
+      "category": "Optimization"
+    },
+    {
+      "title": "Cloud Resource Management",
+      "file": "cloud_resource_management.pdf",
+      "category": "Cloud"
+    },
+    {
+      "title": "Data Retention Policy",
+      "file": "data_retention_policy.pdf",
+      "category": "Compliance"
+    },
+    {
+      "title": "Multi-Factor Authentication Setup",
+      "file": "multi-factor_authentication_setup.pdf",
+      "category": "Security"
+    }
+  ]
+}

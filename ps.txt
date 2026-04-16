@@ -1,0 +1,100 @@
+Enterprise Knowledge Copilot (RAG + Agentic Workflow)
+
+Problem Statement
+
+Large IT services companies struggle with:
+
+Scattered documentation (PDFs, wiki pages, SOPs)
+
+Duplicate support tickets
+
+Slow onboarding of new engineers
+
+Knowledge silos across teams
+
+Build:
+
+An Enterprise Knowledge Copilot that:
+
+Answers internal employee queries
+
+Retrieves relevant documents
+
+Summarizes content
+
+Cites sources
+
+Escalates when unsure
+
+Technical Requirements
+
+Participants must implement:
+
+Data Layer
+
+Clean and chunk documents
+
+Generate embeddings
+
+Store in vector DB (FAISS/Chroma/Qdrant)
+
+Retrieval Layer
+
+Top-k retrieval
+
+Reranking (optional bonus)
+
+Measure precision & recall
+
+Application Layer
+
+LLM response generation
+
+Source citation
+
+Guardrail against hallucination
+
+Agentic Enhancement (Bonus)
+
+Tool 1: Document search
+
+Tool 2: Ticket system lookup
+
+Tool 3: Summarizer
+
+Use ReAct or Plan-Execute pattern.
+
+Data Sources (Free & Realistic)
+
+Participants can use:
+
+Option A – Public IT Documentation
+
+Apache Kafka documentation
+
+Kubernetes docs
+
+Docker documentation
+
+Python official docs
+
+FastAPI documentation
+
+Option B – Wiki Dump Dataset
+
+Wikipedia dumps (small subset)
+
+StackOverflow public data (Kaggle)
+
+SQuAD dataset (for QA evaluation)
+
+Option C – Sample Corporate Dataset
+
+Provide participants with:
+
+20–30 mock internal SOP PDFs
+
+200–300 sample IT support tickets (CSV)
+
+You can generate synthetic enterprise tickets using LLM.
+

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - KORTEX_LLM_PROVIDER=${KORTEX_LLM_PROVIDER:-ollama}
+      - KORTEX_LLM_MODEL=${KORTEX_LLM_MODEL:-llama3.2:3b}
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: always

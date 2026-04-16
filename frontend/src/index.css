@@ -3,21 +3,79 @@
 @tailwind utilities;
 
 :root {
-  color: #111827;
-  background:
-    radial-gradient(circle at top left, rgba(189, 232, 214, 0.72), transparent 34%),
-    radial-gradient(circle at top right, rgba(254, 215, 170, 0.7), transparent 28%),
-    linear-gradient(180deg, #f4f7f1 0%, #eef2ea 100%);
+  --pixel-dark: #0d0d0d;
+  --pixel-green: #00ff41;
+  --pixel-cyan: #00d4ff;
+  --pixel-magenta: #ff00ff;
+  --pixel-yellow: #ffff00;
+  --pixel-orange: #ff6b00;
+  --pixel-purple: #9d00ff;
+  --pixel-bg: #0a0a0f;
+  --pixel-card: #12121a;
+  --pixel-border: #1e1e2e;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Departure Mono", "Space Mono", monospace;
+  background: var(--pixel-bg);
+  color: #e0e0e0;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Scanline effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 65, 0.03) 2px,
+    rgba(0, 255, 65, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* CRT flicker */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pixel-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pixel-green);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pixel-cyan);
 }
 
 .markdown-body p:first-child {
@@ -26,4 +84,32 @@ body {
 
 .markdown-body p:last-child {
   margin-bottom: 0;
+}
+
+.markdown-body {
+  color: #e0e0e0;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: var(--pixel-green);
+}
+
+.markdown-body code {
+  background: var(--pixel-card);
+  color: var(--pixel-cyan);
+  padding: 2px 6px;
+  border: 1px solid var(--pixel-border);
+}
+
+.markdown-body pre {
+  background: var(--pixel-card);
+  border: 1px solid var(--pixel-green);
+  padding: 12px;
+  overflow-x: auto;
+}
+
+/* Selection color */
+::selection {
+  background: var(--pixel-green);
+  color: var(--pixel-dark);
 }
