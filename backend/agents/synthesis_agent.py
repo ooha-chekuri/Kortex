@@ -8,7 +8,9 @@ from backend.core.llm_client import get_llm_client
 
 SYSTEM_RULE = (
     "Answer only based on the provided context. Do not hallucinate. "
-    "Answer concisely, cite sources by name, and say 'I don't know' if the context is insufficient."
+    "You MUST extract and list specific details from the context - do not say details are not provided. "
+    "If the context contains tickets, list each ticket ID with its summary. "
+    "If the context contains docs, quote the relevant information."
 )
 
 
@@ -20,20 +22,34 @@ class SynthesisAgent:
         # Format context with source info for citations
         formatted_contexts = []
         for ctx in contexts:
-            source_name = ctx.get(
-                "file", ctx.get("doc", ctx.get("ticket_id", "Unknown"))
-            )
-            formatted_contexts.append(
-                {"source": source_name, "content": ctx.get("content", "")}
-            )
+            ctx_type = ctx.get("source_type", "doc")
+            if ctx_type == "ticket":
+                formatted_contexts.append(
+                    {
+                        "ticket_id": ctx.get("ticket_id", "?"),
+                        "title": ctx.get("title", ""),
+                        "description": ctx.get("description", ""),
+                        "resolution": ctx.get("resolution", ""),
+                    }
+                )
+            else:
+                formatted_contexts.append(
+                    {
+                        "source": ctx.get("file", ctx.get("doc", "Unknown")),
+                        "content": ctx.get("content", ""),
+                    }
+                )
 
         serialized_context = json.dumps(formatted_contexts, indent=2)
         return (
             f"{SYSTEM_RULE}\n\n"
             f"User question: {query}\n\n"
-            "Context:\n"
+            "Context (from search results):\n"
             f"{serialized_context}\n\n"
-            "Return a concise answer in markdown. For each piece of information, cite the source name in brackets like [source.pdf] or [TICKET-001]."
+            "Your task: Answer the question using the EXACT details from context above. "
+            "For tickets: list each ticket_id with its title, description, and resolution. "
+            "For docs: extract the relevant information. "
+            "Do NOT say 'the details are not provided' - extract what IS there."
         )
 
     def generate(self, query: str, contexts: list[dict[str, Any]]) -> tuple[str, bool]:
@@ -45,6 +61,20 @@ class SynthesisAgent:
             # Check if we got a valid response or an error
             if "FAILED" in result or "Error:" in result:
                 raise Exception("LLM generation failed")
+            # Check for generic/hallucinated responses - use fallback
+            generic_phrases = [
+                "list of",
+                "not provided",
+                "not available",
+                "not included",
+                "not specified",
+            ]
+            result_lower = result.lower()
+            is_generic = result_lower.startswith("the") and any(
+                p in result_lower for p in generic_phrases
+            )
+            if is_generic:
+                raise Exception("Generic placeholder detected")
             return result, fallback_used
         except Exception as e:
             fallback_used = True

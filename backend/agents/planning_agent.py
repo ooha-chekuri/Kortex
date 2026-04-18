@@ -8,6 +8,11 @@ PLANNING_PROMPT = """
 You are the Kortex Planning Agent. Your goal is to solve a user query by deciding which tools to use and in what order.
 You operate in a loop: Thought -> Action -> Observation -> Thought...
 
+IMPORTANT - ALWAYS SEARCH FIRST:
+- You MUST call doc_search or ticket_search BEFORE attempting to synthesize or validate
+- NEVER call synthesize or validate until you have retrieved relevant contexts
+- The flow MUST be: doc_search (or ticket_search) -> synthesize -> validate
+
 Available Tools:
 1. doc_search(query): Searches internal SOPs and technical documentation. Use for "how-to" or configuration questions.
 2. ticket_search(query): Searches historical IT support tickets. Use for "errors", "incidents", or "past issues".
@@ -18,6 +23,8 @@ Available Tools:
 
 Rules:
 - If the query is complex, you can call multiple search tools.
+- ALWAYS call doc_search FIRST for technical/how-to questions
+- ALWAYS call ticket_search FIRST for error/incident questions
 - Every response must follow this format:
 Thought: [Your reasoning about what to do next]
 Action: [tool_name]
@@ -30,6 +37,7 @@ User Query: {query}
 {history}
 """
 
+
 class PlanningAgent:
     def __init__(self) -> None:
         self.client = get_llm_client()
@@ -37,25 +45,47 @@ class PlanningAgent:
     def plan_next_step(self, query: str, history: List[str]) -> Dict[str, Any]:
         formatted_history = "\n".join(history)
         prompt = PLANNING_PROMPT.format(query=query, history=formatted_history)
-        
+
         try:
             response = self.client.generate(prompt, temperature=0.1)
+            import logging
+
+            logging.getLogger("kortex.planner").info(f"Raw Planner Output:\n{response}")
             return self._parse_response(response)
         except Exception as e:
             return {"thought": f"Error in planning: {e}", "action": "error"}
 
     def _parse_response(self, response: str) -> Dict[str, Any]:
-        lines = response.strip().split('\n')
-        result = {"thought": "", "action": None, "action_input": None, "final_answer": None}
-        
+        lines = response.strip().split("\n")
+        result = {
+            "thought": "",
+            "action": None,
+            "action_input": None,
+            "final_answer": None,
+        }
+
+        # Capture first occurrence of each field (not last)
+        found_action = False
+        found_action_input = False
+
         for line in lines:
-            if line.startswith("Thought:"):
+            line = line.strip()
+            if line.startswith("Thought:") and not result["thought"]:
                 result["thought"] = line.replace("Thought:", "").strip()
-            elif line.startswith("Action:"):
-                result["action"] = line.replace("Action:", "").strip()
-            elif line.startswith("Action Input:"):
-                result["action_input"] = line.replace("Action Input:", "").strip()
+            elif line.startswith("Action:") and not found_action:
+                result["action"] = line.replace("Action:", "").strip().lower()
+                found_action = True
+            elif line.startswith("Action Input:") and not found_action_input:
+                result["action_input"] = (
+                    line.replace("Action Input:", "").strip().strip("'\"")
+                )
+                found_action_input = True
             elif line.startswith("Final Answer:"):
                 result["final_answer"] = line.replace("Final Answer:", "").strip()
-                
+
+        # If there's an action, ignore short "Final Answer" (likely misparsed)
+        if result["action"] and result["final_answer"]:
+            if len(result["final_answer"]) < 20:
+                result["final_answer"] = None
+
         return result

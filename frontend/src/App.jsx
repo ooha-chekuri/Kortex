@@ -4,9 +4,10 @@ import AgentActivityPanel from "./components/AgentActivityPanel";
 import QueryInput from "./components/QueryInput";
 import ResponsePanel from "./components/ResponsePanel";
 import Documentation from "./components/Documentation";
+import SystemLogs from "./components/SystemLogs";
 import { AgentPipeline, PixelDecoration } from "./components/PixelAgent";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 const demoQueries = [
   "How do I fix Kafka consumer lag after a deployment?",
@@ -65,6 +66,10 @@ export default function App() {
     setVisibleTrace([]);
     setActiveAgent(null);
 
+    // Create a 5-minute timeout controller
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 300000); 
+
     try {
       const response = await fetch(`${API_BASE}/query`, {
         method: "POST",
@@ -76,8 +81,10 @@ export default function App() {
           user_id: "demo",
           context_mode: "auto",
         }),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
       const payload = await response.json();
       if (!response.ok) {
         throw new Error(payload.detail || "Kortex request failed.");
@@ -87,15 +94,22 @@ export default function App() {
       setXaiExplanation(payload.xai_explanation || null);
       revealTrace(payload.agent_trace || []);
     } catch (error) {
+      const isTimeout = error.name === 'AbortError';
+      const errorMessage = isTimeout 
+        ? "Request timed out (Ollama is slow). Try a smaller model or Gemini." 
+        : error.message;
+
       setResult({
         status: "escalated",
-        reason: error.message,
-        suggestion: "Check the backend server, model provider, and index files.",
+        reason: errorMessage,
+        suggestion: isTimeout 
+            ? "Switch KORTEX_LLM_PROVIDER to 'gemini' or 'groq' in .env for faster responses."
+            : "Check the backend server, model provider, and index files.",
         confidence: 0,
         sources: [],
-        agent_trace: ["Frontend -> Request failed before completion"],
+        agent_trace: ["Frontend -> Request failed"],
       });
-      revealTrace(["Frontend -> Request failed before completion"]);
+      revealTrace(["Frontend -> Request failed"]);
     } finally {
       setLoading(false);
     }
@@ -180,6 +194,8 @@ export default function App() {
               <AgentActivityPanel trace={visibleTrace} loading={loading} xaiExplanation={xaiExplanation} />
               <ResponsePanel result={result} loading={loading} />
             </section>
+            
+            <SystemLogs />
           </>
         ) : (
           <Documentation />

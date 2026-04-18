@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import logging
+from collections import deque
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -12,6 +14,52 @@ from pydantic import BaseModel, Field
 from backend.core.orchestrator import Orchestrator
 from backend.data.ingest import run_ingestion
 
+# Global log buffer for frontend visibility
+log_buffer = deque(maxlen=100)
+
+class BufferHandler(logging.Handler):
+    def emit(self, record):
+        try:
+            msg = self.format(record)
+            log_buffer.append(msg)
+        except Exception:
+            self.handleError(record)
+
+# Filter out polling noise from terminal
+class LogFilter(logging.Filter):
+    def filter(self, record):
+        # Suppress Uvicorn access logs for polling endpoints
+        msg = record.getMessage()
+        if "GET /api/logs" in msg or "GET /health" in msg:
+            return False
+        return True
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+root_logger = logging.getLogger()
+
+# Clear existing handlers to avoid duplicates if reloaded
+for handler in root_logger.handlers[:]:
+    root_logger.removeHandler(handler)
+
+# 1. Terminal Console Handler
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(name)s: %(message)s'))
+console_handler.addFilter(LogFilter()) # Apply filter
+root_logger.addHandler(console_handler)
+
+# Also apply filter to uvicorn access logger
+logging.getLogger("uvicorn.access").addFilter(LogFilter())
+
+# 2. Frontend Buffer Handler
+buffer_handler = BufferHandler()
+buffer_handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(name)s: %(message)s'))
+root_logger.addHandler(buffer_handler)
+
+logger = logging.getLogger("kortex")
+logger.setLevel(logging.INFO)
+# Ensure kortex logs don't double-print if root also has a handler
+logger.propagate = True 
 
 app = FastAPI(
     title="Kortex API",
@@ -234,12 +282,22 @@ def ingest() -> dict:
     return {"status": "ok", "summary": summary}
 
 
+@app.get("/api/logs")
+def get_logs():
+    """Retrieve recent system logs."""
+    return list(log_buffer)
+
+
 @app.post("/query")
 def query(request: QueryRequest) -> dict:
     try:
-        return orchestrator.run(request.query, request.context_mode)
-    except Exception as exc:  # pragma: no cover
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        logger.info(f"Processing query: {request.query}")
+        result = orchestrator.run(request.query, request.context_mode)
+        logger.info(f"Query processed successfully. Status: {result.get('status')}")
+        return result
+    except Exception as exc:
+        logger.error(f"Error processing query: {str(exc)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Kortex Internal Error: {str(exc)}")
 
 
 # Serve static files from the React build
