@@ -5,7 +5,7 @@ Write-Host "Starting Kortex Ecosystem..." -ForegroundColor Cyan
 
 # Start Backend
 Write-Host "Launching Backend API on http://localhost:8000" -ForegroundColor Green
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "uvicorn backend.main:app --port 8000 --reload"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "./venv/Scripts/Activate", ";", "cd backend", ";", "uvicorn main:app --reload --host 0.0.0.0 --port 8000"
 
 # Start Frontend
 Write-Host "Launching Frontend on http://localhost:5173" -ForegroundColor Blue
