@@ -40,12 +40,12 @@ class LLMClient:
         from openai import OpenAI
 
         client = OpenAI(api_key=self.openai_api_key)
-        response = client.responses.create(
+        response = client.chat.completions.create(
             model=self.model,
-            input=prompt,
+            messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
         )
-        return response.output_text.strip()
+        return response.choices[0].message.content.strip()
 
     def _generate_gemini(self, prompt: str, temperature: float) -> str:
         if not self.gemini_api_key or self.gemini_api_key.startswith("your_"):
